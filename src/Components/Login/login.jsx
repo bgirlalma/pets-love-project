@@ -1,7 +1,13 @@
+
+import { LoginContainer, ImgContainer} from './login.styled';
 const LoginComponent = () => {
     return (
-        <div>Login Page</div>
-    )
+      <LoginContainer>
+            <ImgContainer>
+                
+        </ImgContainer>
+      </LoginContainer>
+    );
 }
 
 export default LoginComponent;
