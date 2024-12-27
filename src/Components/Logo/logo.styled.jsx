@@ -4,6 +4,7 @@ export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
+  margin-left: 10px;
 `;
 
 export const TitlePetlLogo = styled.h2`

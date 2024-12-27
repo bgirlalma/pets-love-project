@@ -1,17 +1,14 @@
 import Logo from "../Logo/logo";
-import menu from '../../Image/symbol-defs.svg'
 import { HeaderContainer } from "./headerComponent.styled";
+import { IconMenu } from "../../Image/menu";
+
 const HeaderComponent = () => {
-    return (
-      <HeaderContainer>
-        <Logo />
-     
-          <svg width="22" height="22">
-            <use href={`${menu}#icon-menu`}></use>
-          </svg>
-    
-      </HeaderContainer>
-    );
-}
+  return (
+    <HeaderContainer>
+      <Logo />
+      <IconMenu />
+    </HeaderContainer>
+  );
+};
 
 export default HeaderComponent;
