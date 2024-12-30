@@ -16,11 +16,16 @@ export const ProgressBar = styled.div`
 `;
 
 export const Percentage = styled.div`
-position: absolute;
+  position: absolute;
   font-family: Manrope;
   font-size: 50px;
   font-weight: 700;
   line-height: 50px;
   color: rgba(255, 255, 255, 1);
-  
+
+  @media screen and (min-width: 768px) {
+    font-size: 80px;
+    line-height: 80px;
+  }
+
 `;

@@ -1,6 +1,6 @@
 import {
   LoginContainer,
-  WrappContainer,
+  ColumnContainer,
   Dog,
   StyledForm,
   TitleLogin,
@@ -12,11 +12,11 @@ import {
   ButtonForm,
   RedirectContainer,
   RedirectTitle,
-  RedirectDesc
+  RedirectDesc,
 } from "./login.styled";
 import maindog from "../../Image/main-dog.svg";
 import { Formik } from "formik";
-import eysclose from "../../Image/symbol-defs.svg";
+import eyeclose from "../../Image/symbol-defs.svg";
 import eyeopen from "../../Image/symbol-defs.svg";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -30,7 +30,7 @@ const LoginComponent = () => {
 
   return (
     <LoginContainer>
-      <WrappContainer>
+      <ColumnContainer>
         <Dog src={maindog} alt="dog" />
 
         <Formik
@@ -93,7 +93,7 @@ const LoginComponent = () => {
                     </svg>
                   ) : (
                     <svg width="18" height="18">
-                      <use href={`${eysclose}#icon-eye-off`}></use>
+                      <use href={`${eyeclose}#icon-eye-off`}></use>
                     </svg>
                   )}
                 </IconEyeButton>
@@ -112,7 +112,7 @@ const LoginComponent = () => {
             </StyledForm>
           )}
         </Formik>
-      </WrappContainer>
+      </ColumnContainer>
     </LoginContainer>
   );
 };

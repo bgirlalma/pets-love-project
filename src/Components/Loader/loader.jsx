@@ -4,6 +4,23 @@ import { TailSpin } from "react-loader-spinner";
 
 const Loader = () => {
   const [progress, setProgress] = useState(0);
+  const [size, setSize] = useState({ width: 100, height: 100 });
+
+
+  useEffect(() => {
+    const updateSide = () => {
+      if (window.innerWidth > 768) {
+        setSize({ width: 200, height: 200 });
+      } else if(window.innerWidth > 1280) {
+setSize({ width: 300, height: 300})
+      }
+    }
+
+    updateSide()
+    window.addEventListener('resize', updateSide)
+
+    return () => window.removeEventListener('resize', updateSide)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,8 +41,8 @@ const Loader = () => {
       <ProgressBar>
         <TailSpin
           visible={true}
-          height="100"
-          width="100"
+          height={size.height}
+          width={size.width}
           color="fffff"
           ariaLabel="tail-spin-loading"
           radius="1"

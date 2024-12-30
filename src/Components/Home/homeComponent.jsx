@@ -1,7 +1,6 @@
-import HomePageImg from "../../Image/homepage.jpg";
+
 import {
   ImgContainer,
-  MainImg,
   MainLogoContainer,
   MainTitleLogo,
   MainLogo,
@@ -13,8 +12,22 @@ import { useNavigate } from "react-router-dom";
 
 const HomeComponent = () => {
   const [isLoader, setIsLoader] = useState(true);
+  const [sizeIcon , setSizeIcon] = useState({width: 44, height: 44})
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (window.innerWidth > 767) {
+         setSizeIcon({width: 82, height: 82})
+       }
+    }
+    
+    updateSize()
+    window.addEventListener('resize', updateSize)
+
+    return () => window.removeEventListener('resize', updateSize)
+  },[])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,11 +44,9 @@ const HomeComponent = () => {
   }, [navigate]);
 
 
-
   return (
 
       <ImgContainer>
-        <MainImg src={HomePageImg} alt="dog" />
 
         {isLoader ? (
           <Loader />
@@ -43,7 +54,7 @@ const HomeComponent = () => {
           <MainLogoContainer>
             <MainTitleLogo>
               petl
-              <MainLogo width="44" height="44">
+              <MainLogo width={sizeIcon.width} height={sizeIcon.height}>
                 <use href={`${logoImg}#icon-heart-circle`}></use>
               </MainLogo>
               <span>ve</span>

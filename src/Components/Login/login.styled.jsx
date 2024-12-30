@@ -9,6 +9,11 @@ width: 335px;
   margin-left: auto;
 `;
 
+export const ColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Dog = styled.img`
   display: block;
 
@@ -17,10 +22,6 @@ export const Dog = styled.img`
  
 `;
 
-export const WrappContainer = styled.div`
-display: flex;
-flex-direction: column;
-`;
 
 export const StyledForm = styled(Form)`
   display: flex;

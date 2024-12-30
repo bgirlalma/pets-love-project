@@ -10,8 +10,6 @@ const Logo = () => {
           </LogoSvg>
           <TitleLoveLogo>ve</TitleLoveLogo>
         </TitlePetlLogo>
-
-        
       </LogoContainer>
     );
 }
