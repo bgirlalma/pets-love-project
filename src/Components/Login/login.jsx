@@ -1,7 +1,16 @@
 import {
   LoginContainer,
   ColumnContainer,
+  DogContainer,
   Dog,
+  RichContainer,
+  Rich,
+  RichImageContainer,
+  RichTitleContainer,
+  NameTitle,
+  DataTitle,
+  DataSpan,
+  DescRich,
   StyledForm,
   TitleLogin,
   DescLogin,
@@ -14,24 +23,50 @@ import {
   RedirectTitle,
   RedirectDesc,
 } from "./login.styled";
-import maindog from "../../Image/main-dog.svg";
+import maindog from "../../Image/userimg/main-dog.svg";
 import { Formik } from "formik";
 import eyeclose from "../../Image/symbol-defs.svg";
 import eyeopen from "../../Image/symbol-defs.svg";
 import { useState } from "react";
+import DogRich from "../../Image/userimg/rich.png";
 import { NavLink } from "react-router-dom";
 
 const LoginComponent = () => {
   const [openPassword, setOpenPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
-  setOpenPassword((prev) => !prev)
-  }; 
+    setOpenPassword((prev) => !prev);
+  };
 
   return (
     <LoginContainer>
       <ColumnContainer>
-        <Dog src={maindog} alt="dog" />
+        <DogContainer>
+          <Dog src={maindog} alt="dog" />
+        </DogContainer>
+
+        <RichContainer>
+          <Rich>
+            <RichImageContainer>
+              <img src={DogRich} alt="" />
+            </RichImageContainer>
+
+            <div>
+              <RichTitleContainer>
+                <NameTitle>Rich</NameTitle>
+                <DataTitle>
+                  Birthday: <DataSpan>21.09.2020</DataSpan>
+                </DataTitle>
+              </RichTitleContainer>
+
+              <DescRich>
+                Rich would be the perfect addition to an active family that
+                loves to play and go on walks. I bet he would love having a
+                doggy playmate too!
+              </DescRich>
+            </div>
+          </Rich>
+        </RichContainer>
 
         <Formik
           initialValues={{ email: "", password: "" }}
@@ -106,7 +141,9 @@ const LoginComponent = () => {
               <RedirectContainer>
                 <RedirectTitle>Don’t have an account?</RedirectTitle>
                 <RedirectDesc>
-                  <NavLink to="/registration">Register</NavLink>
+                  <NavLink to="/registration">
+                   Register
+                  </NavLink>
                 </RedirectDesc>
               </RedirectContainer>
             </StyledForm>

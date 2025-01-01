@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import HomePageImg from "../../Image/homepage.jpg";
-import HomePageImgTablet from "../../Image/homepage-table.jpg";
-import HomePageImgDesktop from "../../Image/homapage-desktop.jpg";
+import HomePageImg from "../../Image/homeimg/homepage.jpg";
+import HomePageImgTablet from "../../Image/homeimg/homepage-table.jpg";
+import HomePageImgDesktop from "../../Image/homeimg/homapage-desktop.jpg";
 
 
 export const ImgContainer = styled.div`

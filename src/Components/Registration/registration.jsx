@@ -1,5 +1,5 @@
 import { useState } from "react";
-import catmain from "../../Image/main-cat.svg";
+import catmain from "../../Image/userimg/main-cat.svg";
 import eyeopen from "../../Image/symbol-defs.svg";
 import eyeclose from "../../Image/symbol-defs.svg";
 import { Formik } from "formik";

@@ -42,6 +42,9 @@ padding: 0;
 border: none;
 }
 
+a{
+text-decoration: none;}
+
 `;
 
 export default GlobalStyled;
