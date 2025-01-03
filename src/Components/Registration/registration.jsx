@@ -1,13 +1,17 @@
-import { useState } from "react";
-import catmain from "../../Image/userimg/main-cat.svg";
-import eyeopen from "../../Image/symbol-defs.svg";
-import eyeclose from "../../Image/symbol-defs.svg";
-import { Formik } from "formik";
-import { NavLink } from "react-router-dom";
+
 import {
   RegisterContainer,
   ColumnContainer,
+  CatContainer,
   Cat,
+  JackContainer,
+  Jack,
+  JackImageContainer,
+  JackTitleContainer,
+  NameTitle,
+  DataTitle,
+  DataSpan,
+  DescJack,
   StyledForm,
   TitleRegister,
   DescRegister,
@@ -24,10 +28,19 @@ import {
   EyeButton,
   ButtonForm,
 } from "./registration.styled";
+import { useEffect, useState } from "react";
+import catmain from "../../Image/userimg/main-cat.svg";
+import catmaindesktop from "../../Image/userimg/main-cat-desktop.svg";
+import eyeopen from "../../Image/symbol-defs.svg";
+import eyeclose from "../../Image/symbol-defs.svg";
+import CatJack from "../../Image/userimg/jack.png";
+import { Formik } from "formik";
+import { NavLink } from "react-router-dom";
 
 const RegistrationComponent = () => {
   const [openPassword, setOpenPassword] = useState(false);
   const [isOpenPassword, setIsOpenPassword] = useState(false);
+  const [currentCatImage, setCurrentCatImage] = useState(" ");
 
   const togglePasswordVisibility = () => {
     setOpenPassword((prev) => !prev);
@@ -37,10 +50,48 @@ const RegistrationComponent = () => {
     setIsOpenPassword((prev) => !prev);
   };
 
+    useEffect(() => {
+      const updateImage = () => {
+        if (window.innerWidth > 1280) {
+          setCurrentCatImage(catmaindesktop);
+        } else {
+          setCurrentCatImage(catmain);
+        }
+      };
+      updateImage()
+      window.addEventListener('resize', updateImage);
+  
+      return () => window.removeEventListener('resize', updateImage)
+    },[])
+
   return (
     <RegisterContainer>
       <ColumnContainer>
-        <Cat src={catmain} alt="cat" />
+        <CatContainer>
+          <Cat src={currentCatImage} alt="cat" />
+        </CatContainer>
+
+        <JackContainer>
+          <Jack>
+            <JackImageContainer>
+              <img src={CatJack} alt="" />
+            </JackImageContainer>
+
+            <div>
+              <JackTitleContainer>
+                <NameTitle>Jack</NameTitle>
+                <DataTitle>
+                  Birthday: <DataSpan>18.10.2021</DataSpan>
+                </DataTitle>
+              </JackTitleContainer>
+
+              <DescJack>
+                Jack is a gray Persian cat with green eyes. He loves to be
+                pampered and groomed, and enjoys playing with toys.
+              </DescJack>
+            </div>
+          </Jack>
+        </JackContainer>
 
         <Formik
           initialValues={{ email: "", password: "" }}

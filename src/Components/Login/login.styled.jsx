@@ -24,6 +24,12 @@ export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  @media screen and (min-width: 1280px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
 `;
 
 export const DogContainer = styled.div`
@@ -38,8 +44,8 @@ export const DogContainer = styled.div`
   }
 
   @media screen and (min-width: 1280px) {
-    width: 590px;
-    height: auto;
+    width: 100%;
+    height: 654px;
   }
 `;
 
@@ -49,6 +55,10 @@ export const Dog = styled.img`
     width: 100%;
     height: 100%;
     margin-left: 40px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin-left: 0;
   }
 `;
 
@@ -60,8 +70,14 @@ export const RichContainer = styled.div`
     top: 40%;
     transform: translateY(-40%);
     margin-left: 22px;
-   
+
     visibility: unset;
+  }
+
+  @media screen and (min-width: 1280px) {
+    top: 85%;
+    transform: translateY(-85%);
+    margin-left: 60px;
   }
 `;
 
@@ -135,6 +151,13 @@ export const StyledForm = styled(Form)`
 
    @media screen and (min-width: 768px) {
     padding: 70px 0;
+  }
+
+  
+  @media screen and (min-width: 1280px) {
+    margin-top: 0;
+    justify-content: center;
+    padding: 0 85px;
   }
 `;
 

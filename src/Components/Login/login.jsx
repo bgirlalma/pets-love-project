@@ -24,25 +24,42 @@ import {
   RedirectDesc,
 } from "./login.styled";
 import maindog from "../../Image/userimg/main-dog.svg";
-import { Formik } from "formik";
+import maindogdesktop from "../../Image/userimg/main-dog-desktop.svg";
 import eyeclose from "../../Image/symbol-defs.svg";
 import eyeopen from "../../Image/symbol-defs.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DogRich from "../../Image/userimg/rich.png";
 import { NavLink } from "react-router-dom";
+import { Formik } from "formik";
 
 const LoginComponent = () => {
   const [openPassword, setOpenPassword] = useState(false);
+  const [currentDogImage, setCurrentDogImage] = useState(" ");
+
+    useEffect(() => {
+      const updateImage = () => {
+        if (window.innerWidth > 1280) {
+          setCurrentDogImage(maindogdesktop);
+        } else {
+          setCurrentDogImage(maindog);
+        }
+      };
+      updateImage();
+      window.addEventListener("resize", updateImage);
+
+      return () => window.removeEventListener("resize", updateImage);
+    }, []);
 
   const togglePasswordVisibility = () => {
     setOpenPassword((prev) => !prev);
   };
 
+
   return (
     <LoginContainer>
       <ColumnContainer>
         <DogContainer>
-          <Dog src={maindog} alt="dog" />
+          <Dog src={currentDogImage} alt="dog" />
         </DogContainer>
 
         <RichContainer>
@@ -141,9 +158,7 @@ const LoginComponent = () => {
               <RedirectContainer>
                 <RedirectTitle>Don’t have an account?</RedirectTitle>
                 <RedirectDesc>
-                  <NavLink to="/registration">
-                   Register
-                  </NavLink>
+                  <NavLink to="/registration">Register</NavLink>
                 </RedirectDesc>
               </RedirectContainer>
             </StyledForm>
