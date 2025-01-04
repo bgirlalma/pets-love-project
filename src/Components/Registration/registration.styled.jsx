@@ -65,14 +65,14 @@ export const Cat = styled.img`
 
 // start Jack Section
 export const JackContainer = styled.div`
-  visibility: hidden;
+  display: none;
   @media screen and (min-width: 768px) {
     position: absolute;
     top: 40%;
     transform: translateY(-40%);
     margin-left: 22px;
 
-    visibility: unset;
+    display: unset;
   }
 
   @media screen and (min-width: 1280px) {

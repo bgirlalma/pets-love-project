@@ -1,15 +1,132 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 
 export const HeaderContainer = styled.div`
-display: flex;
-  width: 335px;
-  justify-content: space-between;
-  padding: 34px 0 25px 20px;
+  width: 320px;
+  padding: 30px 20px;
   margin-left: auto;
   margin-right: auto;
 `;
 
-export const IconContainer = styled.div`
+export const PositionContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 320px;
+`;
+
+// Header mobile and tablet start
+export const BurderMobileTabletContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 218px;
+  height: 100vh;
+  background-color: rgba(246, 184, 61, 1);
+  z-index: 999;
+  padding: 20px 20px 40px 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
+`;
+
+export const IconCloseContainer = styled.button`
+display: flex;
+margin-left: auto;
+border: none;
+background-color: inherit;
+`;
+
+export const ListMobileTabletContainer = styled.ul`
 
 `;
+
+export const ItemsMobileTablet = styled.li`
+  width: 119px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 30px;
+  padding: 15px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    border: 1px solid rgba(255, 255, 255, 0.98);
+  }
+`;
+
+export const Nav = styled(NavLink)`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+ color: rgba(255, 255, 255, 1);
+`;
+
+export const ButtonMobileTabletContainer = styled.div`
+
+width: 100%;
+
+display: flex;
+flex-direction: column;
+`;
+
+export const ButtonLogIn = styled.button`
+  width: 100%;
+  height: 42px;
+  margin-bottom: 10px;
+  background-color: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  color: rgba(255, 255, 255, 1);
+`;
+
+export const ButtonRegister = styled.button`
+  width: 100%;
+  height: 42px;
+  border: none;
+  background-color: rgba(255, 244, 223, 1);
+  border-radius: 30px;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  color: rgba(246, 184, 61, 1);
+`;
+
+// Header mobile and tablet end
+
+
+// Header desktop start
+export const BurgerDesktopContainer = styled.div`
+  display: none;
+
+  @media screen and (min-width: 1280px) {
+    display: flex;
+  }
+`;
+
+export const ButtonsDesktopContainer = styled.div`
+  display: none;
+
+  @media screen and (min-width: 1280px) {
+    display: flex;
+  }
+`;
+

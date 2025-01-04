@@ -1,5 +1,18 @@
-export const IconMenu = () => {
-    return (
+import React from "react";
+import styled from "styled-components";
+
+const BurgerButton = styled.button`
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+`;
+
+interface Props {
+  OpenMenu: () => void
+}
+export const IconMenu: React.FC<Props> = ({ OpenMenu }) => {
+  return (
+    <BurgerButton onClick={OpenMenu}>
       <svg
         width="22"
         height="22"
@@ -29,5 +42,6 @@ export const IconMenu = () => {
           strokeLinejoin="round"
         />
       </svg>
-    );
-}
+    </BurgerButton>
+  );
+};

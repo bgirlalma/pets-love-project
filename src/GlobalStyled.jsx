@@ -43,7 +43,19 @@ border: none;
 }
 
 a{
-text-decoration: none;}
+text-decoration: none;
+}
+
+ul{
+margin: 0;
+padding: 0
+}
+
+li{
+margin: 0;
+padding: 0;
+list-style: none;
+}
 
 `;
 

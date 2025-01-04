@@ -2,8 +2,8 @@ import RegistrationComponent from "../../Components/Registration/registration";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 375px;
-  padding: 0 20px 20px;
+  width: 320px;
+  padding: 0 20px;
   margin-right: auto;
   margin-left: auto;
 

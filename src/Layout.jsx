@@ -1,14 +1,20 @@
 import { Outlet } from "react-router-dom";
 import HeaderComponent from "./Components/Header/headerComponent";
 import GlobalStyled from "./GlobalStyled";
+import styled from "styled-components";
 
+
+const MainContainer = styled.div`
+  min-width: 320px;
+  max-width: 1280px;
+`;
 const Layout = () => {
     return (
-        <div>
+        <MainContainer>
             <HeaderComponent />
             <GlobalStyled/>
             <Outlet/>
-         </div>
+         </MainContainer>
     )
 }
 

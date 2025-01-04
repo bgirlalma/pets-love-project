@@ -1,4 +1,5 @@
 p{
     transform: translate(-50%, -50%);
     grid-template-columns: repeat(2, 1fr);
+    
 }

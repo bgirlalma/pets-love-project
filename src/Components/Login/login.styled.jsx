@@ -3,7 +3,7 @@ import backgrounddog from '../../Image/userimg/background.jpg'
 import styled from "styled-components";
 
 export const LoginContainer = styled.div`
-  width: 335px;
+  width: 320px;
   display: flex;
   justify-content: center;
   margin-right: auto;
@@ -33,7 +33,7 @@ export const ColumnContainer = styled.div`
 `;
 
 export const DogContainer = styled.div`
-  width: 335px;
+  width: 320px;
   background-image: url(${backgrounddog});
   border-radius: 30px;
 
@@ -64,14 +64,14 @@ export const Dog = styled.img`
 
 // start Rich Section
 export const RichContainer = styled.div`
-  visibility: hidden;
+  display: none;
   @media screen and (min-width: 768px) {
     position: absolute;
     top: 40%;
     transform: translateY(-40%);
     margin-left: 22px;
 
-    visibility: unset;
+    display: unset;
   }
 
   @media screen and (min-width: 1280px) {
