@@ -5,6 +5,12 @@ const BurgerButton = styled.button`
   background-color: inherit;
   border: none;
   cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    svg{
+    width: 32px;
+    height: 32px;}
+  }
 `;
 
 interface Props {

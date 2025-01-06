@@ -7,12 +7,21 @@ export const HeaderContainer = styled.div`
   padding: 30px 20px;
   margin-left: auto;
   margin-right: auto;
+
+  @media screen and (min-width: 768px){
+  position: relative;
+  width: 768px;
+  }
 `;
 
 export const PositionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 320px;
+
+  @media screen and (min-width: 768px) {
+    width: 768px;
+  }
 `;
 
 // Header mobile and tablet start
@@ -31,6 +40,10 @@ export const BurderMobileTabletContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (min-width: 768px) {
+    
+  }
 
   @media screen and (min-width: 1280px) {
     display: none;
@@ -81,6 +94,10 @@ width: 100%;
 
 display: flex;
 flex-direction: column;
+
+@media screen and (min-width: 768px){
+display: none;
+}
 `;
 
 export const ButtonLogIn = styled.button`
@@ -91,10 +108,17 @@ export const ButtonLogIn = styled.button`
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 30px;
 
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 18px;
-  color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    color: rgba(255, 255, 255, 1);
+
+
+  &:hover {
+    background-color: rgba(255, 244, 223, 1);
+    color: rgba(246, 184, 61, 1);
+  }
+
 `;
 
 export const ButtonRegister = styled.button`
@@ -104,10 +128,15 @@ export const ButtonRegister = styled.button`
   background-color: rgba(255, 244, 223, 1);
   border-radius: 30px;
 
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 18px;
-  color: rgba(246, 184, 61, 1);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    color: rgba(246, 184, 61, 1);
+
+  &:hover {
+    background-color: rgba(251, 231, 193, 1);
+  }
+  
 `;
 
 // Header mobile and tablet end
@@ -125,8 +154,48 @@ export const BurgerDesktopContainer = styled.div`
 export const ButtonsDesktopContainer = styled.div`
   display: none;
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 768px) {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin-right: 66px;
     display: flex;
+
   }
 `;
 
+export const ButtonLogInDesktop = styled.button`
+  width: 119px;
+  height: 50px;
+  border: none;
+  border-radius: 30px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  background-color: rgba(246, 184, 61, 1);
+  color: rgba(255, 255, 255, 1);
+
+  &:hover {
+    background-color: rgba(251, 231, 193, 1);
+    color: rgba(246, 184, 61, 1);
+  }
+`;
+
+export const ButtonRegisterDesktop = styled.button`
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 30px;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  background-color: rgba(255, 244, 223, 1);
+  color: rgba(246, 184, 61, 1);
+
+  &:hover {
+    background-color: rgba(251, 231, 193, 1);
+  }
+`;

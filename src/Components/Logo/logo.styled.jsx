@@ -13,6 +13,11 @@ export const TitlePetlLogo = styled.h2`
   font-weight: 700;
   line-height: 20px;
   color: rgba(38, 38, 38, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 28px;
+    line-height: 28px;
+  }
 `;
 
 export const LogoSvg = styled.svg`
@@ -26,4 +31,9 @@ export const TitleLoveLogo = styled.span`
   font-weight: 700;
   line-height: 20px;
   color: rgba(38, 38, 38, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 28px;
+    line-height: 28px;
+  }
 `;

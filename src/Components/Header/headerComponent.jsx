@@ -13,17 +13,37 @@ import {
   ButtonLogIn,
   ButtonRegister,
   ButtonsDesktopContainer,
+  ButtonLogInDesktop,
+  ButtonRegisterDesktop
 } from "./headerComponent.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import close from '../../Image/symbol-defs.svg'
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 const HeaderComponent = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    if (isOpenMenu) {
+      setIsOpenMenu(false)
+    }
+  },[location.pathname])
 
   const toggleButton = () => {
     setIsOpenMenu((prev) => !prev)
   }
+
+  const handleNavigate = (path) => {
+    if (location.pathname === path) {
+      Notify.info('Ви вже на цій сторінці!')
+    }
+    navigate(path)
+  }
+
+ 
 
   return (
     <HeaderContainer>
@@ -55,8 +75,12 @@ const HeaderComponent = () => {
             </div>
 
             <ButtonMobileTabletContainer>
-              <ButtonLogIn type="button">Log In</ButtonLogIn>
-              <ButtonRegister type="button">Registration</ButtonRegister>
+              <ButtonLogIn type="button" onClick={() => handleNavigate('/login')}>
+               Log In
+              </ButtonLogIn>
+              <ButtonRegister type="button" onClick={() => handleNavigate('/registration')}>
+              Registration
+              </ButtonRegister>
             </ButtonMobileTabletContainer>
           </BurderMobileTabletContainer>
         )}
@@ -77,10 +101,10 @@ const HeaderComponent = () => {
         </BurgerDesktopContainer>
 
         <ButtonsDesktopContainer>
-          <div>
-            <button type="button">Log In</button>
-            <button type="button">Registration</button>
-          </div>
+         
+            <ButtonLogInDesktop type="button" onClick={() => handleNavigate('/login')}>Log In</ButtonLogInDesktop>
+            <ButtonRegisterDesktop type="button" onClick={() => handleNavigate('/registration')}>Registration</ButtonRegisterDesktop>
+      
         </ButtonsDesktopContainer>
       </PositionContainer>
     </HeaderContainer>
