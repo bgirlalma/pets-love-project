@@ -11,6 +11,10 @@ const BurgerButton = styled.button`
     width: 32px;
     height: 32px;}
   }
+
+  @media screen and (min-width: 1280px){
+  display: none;
+  }
 `;
 
 interface Props {

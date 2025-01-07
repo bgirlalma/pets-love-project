@@ -5,16 +5,21 @@ import {
   PositionContainer,
   BurderMobileTabletContainer,
   IconCloseContainer,
-  BurgerDesktopContainer,
   ListMobileTabletContainer,
   ItemsMobileTablet,
   Nav,
   ButtonMobileTabletContainer,
   ButtonLogIn,
   ButtonRegister,
+  DesktopContainer,
+  DesktopList,
+  DesktopNews,
+  DesktopFindPets,
+  DesktopOurFriends,
+  DesktopNav,
   ButtonsDesktopContainer,
   ButtonLogInDesktop,
-  ButtonRegisterDesktop
+  ButtonRegisterDesktop,
 } from "./headerComponent.styled";
 import { useEffect, useState } from "react";
 import close from '../../Image/symbol-defs.svg'
@@ -23,6 +28,7 @@ import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 const HeaderComponent = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [sizeIcon, setSizeIcon] = useState({width: 22, height: 22})
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -30,7 +36,20 @@ const HeaderComponent = () => {
     if (isOpenMenu) {
       setIsOpenMenu(false)
     }
-  },[location.pathname])
+  }, [location.pathname])
+  
+
+  useEffect(() => {
+    const updateSize = () => {
+      if (window.innerWidth > 768) {
+        setSizeIcon({width: 36, height: 36})
+      }
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+
+    return () => window.removeEventListener('resize', updateSize)
+  },[])
 
   const toggleButton = () => {
     setIsOpenMenu((prev) => !prev)
@@ -56,7 +75,7 @@ const HeaderComponent = () => {
         {isOpenMenu && (
           <BurderMobileTabletContainer>
             <IconCloseContainer onClick={toggleButton}>
-              <svg width="22" height="22">
+              <svg width={sizeIcon.width } height={sizeIcon.height}>
                 <use href={`${close}#icon-close`}></use>
               </svg>
             </IconCloseContainer>
@@ -86,19 +105,19 @@ const HeaderComponent = () => {
         )}
 
         {/* Header of Desktop */}
-        <BurgerDesktopContainer>
-          <ul>
-            <li>
-              <Nav>News</Nav>
-            </li>
-            <li>
-              <Nav>Find pet</Nav>
-            </li>
-            <li>
-              <Nav>Our friends</Nav>
-            </li>
-          </ul>
-        </BurgerDesktopContainer>
+        <DesktopContainer>
+          <DesktopList>
+            <DesktopNews>
+              <DesktopNav>News</DesktopNav>
+            </DesktopNews>
+            <DesktopFindPets>
+              <DesktopNav>Find pet</DesktopNav>
+            </DesktopFindPets>
+            <DesktopOurFriends>
+              <DesktopNav>Our friends</DesktopNav>
+            </DesktopOurFriends>
+          </DesktopList>
+        </DesktopContainer>
 
         <ButtonsDesktopContainer>
          

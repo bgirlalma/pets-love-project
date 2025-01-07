@@ -4,7 +4,7 @@ export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
-
+  cursor: pointer;
 `;
 
 export const TitlePetlLogo = styled.h2`
@@ -14,6 +14,10 @@ export const TitlePetlLogo = styled.h2`
   line-height: 20px;
   color: rgba(38, 38, 38, 1);
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   @media screen and (min-width: 768px) {
     font-size: 28px;
     line-height: 28px;

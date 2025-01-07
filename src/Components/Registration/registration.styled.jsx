@@ -280,6 +280,7 @@ export const IconEyeButton = styled.button`
   border: none;
   padding: 0;
   margin-right: 12px;
+  cursor: pointer;
 
   color: orange;
   background-color: inherit;
@@ -326,6 +327,7 @@ export const EyeButton = styled.button`
   border: none;
   padding: 0;
   margin-right: 12px;
+  cursor: pointer;
 
   color: orange;
   background-color: inherit;
@@ -340,6 +342,7 @@ export const ButtonForm = styled.button`
   background-color: rgba(246, 184, 61, 1);
   border-radius: 30px;
   margin-top: 24px;
+  cursor: pointer;
 
   font-size: 14px;
   font-weight: 700;

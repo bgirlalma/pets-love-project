@@ -257,6 +257,7 @@ export const IconEyeButton = styled.button`
   border: none;
   padding: 0;
   margin-right: 12px;
+  cursor: pointer;
 
   color: orange;
   background-color: inherit;
@@ -276,6 +277,7 @@ export const ButtonForm = styled.button`
   font-weight: 700;
   line-height: 18px;
   color: rgba(255, 255, 255, 1);
+  cursor: pointer;
 
   &:hover {
     background-color: rgba(255, 244, 223, 1);

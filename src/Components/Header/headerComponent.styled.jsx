@@ -8,9 +8,13 @@ export const HeaderContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  @media screen and (min-width: 768px){
-  position: relative;
-  width: 768px;
+  @media screen and (min-width: 768px) {
+    position: relative;
+    width: 768px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 1280px;
   }
 `;
 
@@ -21,6 +25,10 @@ export const PositionContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     width: 768px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 1280px;
   }
 `;
 
@@ -42,7 +50,8 @@ export const BurderMobileTabletContainer = styled.div`
   align-items: center;
 
   @media screen and (min-width: 768px) {
-    
+    width: 375px;
+    justify-content: unset;
   }
 
   @media screen and (min-width: 1280px) {
@@ -58,11 +67,16 @@ background-color: inherit;
 `;
 
 export const ListMobileTabletContainer = styled.ul`
-
+@media screen and (min-width: 768px){
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
 `;
 
 export const ItemsMobileTablet = styled.li`
-  width: 119px;
+  width: 120px;
   margin-bottom: 10px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 30px;
@@ -85,7 +99,12 @@ export const Nav = styled(NavLink)`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
- color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 `;
 
 export const ButtonMobileTabletContainer = styled.div`
@@ -143,12 +162,78 @@ export const ButtonRegister = styled.button`
 
 
 // Header desktop start
-export const BurgerDesktopContainer = styled.div`
+export const DesktopContainer = styled.div`
   display: none;
 
   @media screen and (min-width: 1280px) {
     display: flex;
   }
+`;
+
+export const DesktopList = styled.ul`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DesktopNews = styled.li`
+  width: 80px;
+  height: 50px;
+  margin-right: 10px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 30px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+
+  &:hover {
+    border: 1px solid rgba(246, 184, 61, 1);
+  }
+`;
+
+export const DesktopFindPets = styled.li`
+  width: 100px;
+  height: 50px;
+  margin-right: 10px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 30px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+
+  &:hover {
+    border: 1px solid rgba(246, 184, 61, 1);
+  }
+`;
+
+export const DesktopOurFriends = styled.li`
+  width: 120px;
+  height: 50px;
+  border-radius: 30px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid rgba(38, 38, 38, 0.15);
+
+  &:hover {
+    border: 1px solid rgba(246, 184, 61, 1);
+  }
+`;
+
+export const DesktopNav = styled(NavLink)`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgba(38, 38, 38, 1);
 `;
 
 export const ButtonsDesktopContainer = styled.div`
@@ -163,13 +248,22 @@ export const ButtonsDesktopContainer = styled.div`
     display: flex;
 
   }
+
+  @media screen and (min-width: 1280px){
+  position: unset;
+  top: unset;
+  right: unset;
+  transform: unset;
+  margin-right: unset;
+  }
 `;
 
 export const ButtonLogInDesktop = styled.button`
-  width: 119px;
+  width: 120px;
   height: 50px;
   border: none;
   border-radius: 30px;
+  cursor: pointer;
 
   font-size: 16px;
   font-weight: 700;
@@ -188,6 +282,7 @@ export const ButtonRegisterDesktop = styled.button`
   height: 50px;
   border: none;
   border-radius: 30px;
+  cursor: pointer;
 
   font-size: 16px;
   font-weight: 700;
