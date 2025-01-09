@@ -33,13 +33,17 @@ export const ColumnContainer = styled.div`
 `;
 
 export const DogContainer = styled.div`
-  width: 320px;
+  width: 335px;
   background-image: url(${backgrounddog});
   border-radius: 30px;
 
   @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     width: 768px;
-    height: 300px;
+    height: 302px;
     border-radius: 60px;
   }
 
@@ -52,8 +56,6 @@ export const DogContainer = styled.div`
 export const Dog = styled.img`
   display: block;
   @media screen and (min-width: 768px) {
-    width: 100%;
-    height: 100%;
     margin-left: 40px;
   }
 

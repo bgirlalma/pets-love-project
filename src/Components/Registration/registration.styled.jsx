@@ -9,6 +9,7 @@ export const RegisterContainer = styled.div`
   justify-content: center;
   margin-right: auto;
   margin-left: auto;
+  box-sizing-border-box;
 
   @media screen and (min-width: 768px) {
     width: 768px;
@@ -33,11 +34,15 @@ export const ColumnContainer = styled.div`
 `;
 
 export const CatContainer = styled.div`
- width: 335px;
+  width: 335px;
   background-image: url(${backgroundcat});
   border-radius: 30px;
 
   @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     width: 768px;
     height: 300px;
     border-radius: 60px;
@@ -53,8 +58,6 @@ export const Cat = styled.img`
   display: block;
   background-color: inherit;
   @media screen and (min-width: 768px) {
-    width: 100%;
-    height: 100%;
     margin-left: 40px;
   }
 

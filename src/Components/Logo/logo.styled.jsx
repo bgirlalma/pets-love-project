@@ -5,6 +5,10 @@ export const LogoContainer = styled.div`
   align-items: center;
   text-align: center;
   cursor: pointer;
+
+  @media screen and (min-width: 1280px){
+  margin-left: 32px;
+  }
 `;
 
 export const TitlePetlLogo = styled.h2`

@@ -7,6 +7,7 @@ export const HeaderContainer = styled.div`
   padding: 30px 20px;
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
 
   @media screen and (min-width: 768px) {
     position: relative;
@@ -15,6 +16,7 @@ export const HeaderContainer = styled.div`
 
   @media screen and (min-width: 1280px) {
     width: 1280px;
+    padding: 30px 0 30px 64px;
   }
 `;
 
@@ -28,7 +30,7 @@ export const PositionContainer = styled.div`
   }
 
   @media screen and (min-width: 1280px) {
-    width: 1280px;
+    width: 1200px;
   }
 `;
 
@@ -51,6 +53,7 @@ export const BurderMobileTabletContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     width: 375px;
+    right: -40px;
     justify-content: unset;
   }
 
@@ -254,7 +257,7 @@ export const ButtonsDesktopContainer = styled.div`
   top: unset;
   right: unset;
   transform: unset;
-  margin-right: unset;
+ 
   }
 `;
 

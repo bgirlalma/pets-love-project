@@ -82,7 +82,7 @@ const HeaderComponent = () => {
             <div>
               <ListMobileTabletContainer>
                 <ItemsMobileTablet>
-                  <Nav>News</Nav>
+                  <Nav to="/news">News</Nav>
                 </ItemsMobileTablet>
                 <ItemsMobileTablet>
                   <Nav>Find pet</Nav>
@@ -108,7 +108,7 @@ const HeaderComponent = () => {
         <DesktopContainer>
           <DesktopList>
             <DesktopNews>
-              <DesktopNav>News</DesktopNav>
+              <DesktopNav to="/news">News</DesktopNav>
             </DesktopNews>
             <DesktopFindPets>
               <DesktopNav>Find pet</DesktopNav>

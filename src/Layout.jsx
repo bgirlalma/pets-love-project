@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 const MainContainer = styled.div`
   min-width: 320px;
-  max-width: 1280px;
 `;
 const Layout = () => {
     return (
