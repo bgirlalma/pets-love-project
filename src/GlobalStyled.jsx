@@ -6,17 +6,12 @@ const GlobalStyled = createGlobalStyle`
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: rgba(15, 14, 14, 0.87);
   background-color:rgb(250, 250, 250);
-
-
 }
 
 body {
   margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
   box-sizing: border-box;
 }
 
