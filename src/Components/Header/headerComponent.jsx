@@ -25,12 +25,16 @@ import { useEffect, useState } from "react";
 import close from '../../Image/symbol-defs.svg'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
+import { useHookAuth } from "../../Redux/hooks/authhook";
+import UserMenu from "../UserMenu/usermenu";
+import { Logout } from "../UserMenu/ButtonLogout/buttonLogout";
 
 const HeaderComponent = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [sizeIcon, setSizeIcon] = useState({width: 22, height: 22})
   const navigate = useNavigate()
   const location = useLocation()
+  const {userIsLogIn} = useHookAuth()
 
   useEffect(() => {
     if (isOpenMenu) {
@@ -69,13 +73,14 @@ const HeaderComponent = () => {
       <PositionContainer>
         <Logo />
 
+        {userIsLogIn && <UserMenu />}
         {/* Header of mobile and tablet */}
         <IconMenu OpenMenu={toggleButton} />
 
         {isOpenMenu && (
           <BurderMobileTabletContainer>
             <IconCloseContainer onClick={toggleButton}>
-              <svg width={sizeIcon.width } height={sizeIcon.height}>
+              <svg width={sizeIcon.width} height={sizeIcon.height}>
                 <use href={`${close}#icon-close`}></use>
               </svg>
             </IconCloseContainer>
@@ -93,14 +98,22 @@ const HeaderComponent = () => {
               </ListMobileTabletContainer>
             </div>
 
+            {userIsLogIn ? <Logout /> : 
             <ButtonMobileTabletContainer>
-              <ButtonLogIn type="button" onClick={() => handleNavigate('/login')}>
-               Log In
+              <ButtonLogIn
+                type="button"
+                onClick={() => handleNavigate("/login")}
+              >
+                Log In
               </ButtonLogIn>
-              <ButtonRegister type="button" onClick={() => handleNavigate('/registration')}>
-              Registration
+              <ButtonRegister
+                type="button"
+                onClick={() => handleNavigate("/registration")}
+              >
+                Registration
               </ButtonRegister>
             </ButtonMobileTabletContainer>
+            }
           </BurderMobileTabletContainer>
         )}
 
@@ -120,10 +133,18 @@ const HeaderComponent = () => {
         </DesktopContainer>
 
         <ButtonsDesktopContainer>
-         
-            <ButtonLogInDesktop type="button" onClick={() => handleNavigate('/login')}>Log In</ButtonLogInDesktop>
-            <ButtonRegisterDesktop type="button" onClick={() => handleNavigate('/registration')}>Registration</ButtonRegisterDesktop>
-      
+          <ButtonLogInDesktop
+            type="button"
+            onClick={() => handleNavigate("/login")}
+          >
+            Log In
+          </ButtonLogInDesktop>
+          <ButtonRegisterDesktop
+            type="button"
+            onClick={() => handleNavigate("/registration")}
+          >
+            Registration
+          </ButtonRegisterDesktop>
         </ButtonsDesktopContainer>
       </PositionContainer>
     </HeaderContainer>

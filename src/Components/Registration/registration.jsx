@@ -1,4 +1,3 @@
-
 import {
   RegisterContainer,
   ColumnContainer,
@@ -17,14 +16,14 @@ import {
   DescRegister,
   RedirectContainer,
   RedirectTitle,
-     RedirectDesc,
+  RedirectDesc,
   StyledInputName,
   StyledInput,
   PositionContainer,
   StyledInputPassword,
-     IconEyeButton,
-     ConfirmPasswordContainer,
-     ConfirmPassword,
+  IconEyeButton,
+  ConfirmPasswordContainer,
+  ConfirmPassword,
   EyeButton,
   ButtonForm,
 } from "./registration.styled";
@@ -36,11 +35,16 @@ import eyeclose from "../../Image/symbol-defs.svg";
 import CatJack from "../../Image/userimg/jack.png";
 import { Formik } from "formik";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../Redux/userAuth/userOptions";
+import { Notify } from "notiflix";
 
 const RegistrationComponent = () => {
   const [openPassword, setOpenPassword] = useState(false);
   const [isOpenPassword, setIsOpenPassword] = useState(false);
   const [currentCatImage, setCurrentCatImage] = useState(" ");
+
+  const dispatch = useDispatch();
 
   const togglePasswordVisibility = () => {
     setOpenPassword((prev) => !prev);
@@ -50,19 +54,19 @@ const RegistrationComponent = () => {
     setIsOpenPassword((prev) => !prev);
   };
 
-    useEffect(() => {
-      const updateImage = () => {
-        if (window.innerWidth > 1280) {
-          setCurrentCatImage(catmaindesktop);
-        } else {
-          setCurrentCatImage(catmain);
-        }
-      };
-      updateImage()
-      window.addEventListener('resize', updateImage);
-  
-      return () => window.removeEventListener('resize', updateImage)
-    },[])
+  useEffect(() => {
+    const updateImage = () => {
+      if (window.innerWidth > 1280) {
+        setCurrentCatImage(catmaindesktop);
+      } else {
+        setCurrentCatImage(catmain);
+      }
+    };
+    updateImage();
+    window.addEventListener("resize", updateImage);
+
+    return () => window.removeEventListener("resize", updateImage);
+  }, []);
 
   return (
     <RegisterContainer>
@@ -94,23 +98,22 @@ const RegistrationComponent = () => {
         </JackContainer>
 
         <Formik
-          initialValues={{ email: "", password: "" }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.email) {
-              errors.email = "Required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
-            }
-            return errors;
+          initialValues={{
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+         
+          onSubmit={async (values, { resetForm }) => {
+           
+            try {
+              await dispatch(registerUser(values));
+              resetForm();
+              Notify.success("Успішно!");
+            } catch (error) {
+              Notify.failure("Некоректно введені дані!");
+            } 
           }}
         >
           {({
@@ -129,7 +132,15 @@ const RegistrationComponent = () => {
                 Thank you for your interest in our platform.
               </DescRegister>
               {/* Name */}
-              <StyledInputName type="text" name="text" placeholder="Name" />
+              <StyledInputName
+                type="text"
+                name="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                placeholder="Name"
+              />
+              {errors.name && touched.name && errors.name} 
               {/* Email */}
               <StyledInput
                 type="email"
@@ -168,13 +179,13 @@ const RegistrationComponent = () => {
               <ConfirmPasswordContainer>
                 <ConfirmPassword
                   type={isOpenPassword ? "text" : "password"}
-                  name="password"
+                  name="confirmPassword"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.password}
+                  value={values.confirmPassword}
                   placeholder="Confirm password"
                 />
-                {errors.password && touched.password && errors.password}
+                {errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}
 
                 <EyeButton onClick={ToggleConfirmPasswordVisibility}>
                   {isOpenPassword ? (

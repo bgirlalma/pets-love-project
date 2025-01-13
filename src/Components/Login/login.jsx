@@ -29,12 +29,17 @@ import eyeclose from "../../Image/symbol-defs.svg";
 import eyeopen from "../../Image/symbol-defs.svg";
 import { useEffect, useState } from "react";
 import DogRich from "../../Image/userimg/rich.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../Redux/userAuth/userOptions";
+import { Notify } from "notiflix";
 
 const LoginComponent = () => {
   const [openPassword, setOpenPassword] = useState(false);
   const [currentDogImage, setCurrentDogImage] = useState(" ");
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
     useEffect(() => {
       const updateImage = () => {
@@ -87,22 +92,17 @@ const LoginComponent = () => {
 
         <Formik
           initialValues={{ email: "", password: "" }}
-          validate={(values) => {
-            const errors = {};
-            if (!values.email) {
-              errors.email = "Required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
-            }
-            return errors;
-          }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+          
+          onSubmit={ async(values, { resetForm }) => {
+           try {
+             await dispatch(loginUser(values)).unwrap()
+             resetForm()
+            
+             Notify.success("Успішно!")
+              navigate("/home");
+           } catch (error) {
+            Notify.failure("Email або Пароль введенно не вірно!")
+           }
           }}
         >
           {({

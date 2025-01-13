@@ -21,6 +21,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const PositionContainer = styled.div`
+position: relative;
   display: flex;
   justify-content: space-between;
   width: 320px;
