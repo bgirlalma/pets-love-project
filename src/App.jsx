@@ -22,7 +22,7 @@ function App() {
           <Route
             path="/home"
             element={
-              <PrivateRouter redirectTo="/login" component={<HomePage />} />
+              <PrivateRouter redirectTo="/login" component={HomePage} />
             }
           />
           {/* Private Router end */}

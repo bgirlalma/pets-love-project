@@ -3,14 +3,6 @@ import Logo from "../Logo/logo";
 import {
   HeaderContainer,
   PositionContainer,
-  BurderMobileTabletContainer,
-  IconCloseContainer,
-  ListMobileTabletContainer,
-  ItemsMobileTablet,
-  Nav,
-  ButtonMobileTabletContainer,
-  ButtonLogIn,
-  ButtonRegister,
   DesktopContainer,
   DesktopList,
   DesktopNews,
@@ -22,12 +14,11 @@ import {
   ButtonRegisterDesktop,
 } from "./headerComponent.styled";
 import { useEffect, useState } from "react";
-import close from '../../Image/symbol-defs.svg'
 import { useLocation, useNavigate } from "react-router-dom";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useHookAuth } from "../../Redux/hooks/authhook";
 import UserMenu from "../UserMenu/usermenu";
-import { Logout } from "../UserMenu/ButtonLogout/buttonLogout";
+import HeaderModal from "../Modal/HeaderModal/headerModal";
 
 const HeaderComponent = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -77,45 +68,12 @@ const HeaderComponent = () => {
         {/* Header of mobile and tablet */}
         <IconMenu OpenMenu={toggleButton} />
 
-        {isOpenMenu && (
-          <BurderMobileTabletContainer>
-            <IconCloseContainer onClick={toggleButton}>
-              <svg width={sizeIcon.width} height={sizeIcon.height}>
-                <use href={`${close}#icon-close`}></use>
-              </svg>
-            </IconCloseContainer>
-            <div>
-              <ListMobileTabletContainer>
-                <ItemsMobileTablet>
-                  <Nav to="/news">News</Nav>
-                </ItemsMobileTablet>
-                <ItemsMobileTablet>
-                  <Nav>Find pet</Nav>
-                </ItemsMobileTablet>
-                <ItemsMobileTablet>
-                  <Nav>Our friends</Nav>
-                </ItemsMobileTablet>
-              </ListMobileTabletContainer>
-            </div>
-
-            {userIsLogIn ? <Logout /> : 
-            <ButtonMobileTabletContainer>
-              <ButtonLogIn
-                type="button"
-                onClick={() => handleNavigate("/login")}
-              >
-                Log In
-              </ButtonLogIn>
-              <ButtonRegister
-                type="button"
-                onClick={() => handleNavigate("/registration")}
-              >
-                Registration
-              </ButtonRegister>
-            </ButtonMobileTabletContainer>
-            }
-          </BurderMobileTabletContainer>
-        )}
+        <HeaderModal
+          isOpenMenu={isOpenMenu}
+          sizeIcon={sizeIcon}
+          toggleButton={toggleButton}
+          handleNavigate={handleNavigate}
+        />
 
         {/* Header of Desktop */}
         <DesktopContainer>

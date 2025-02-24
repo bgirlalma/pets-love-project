@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import HomePageImg from "../../Image/homeimg/homepage.jpg";
-import HomePageImgTablet from "../../Image/homeimg/homepage-table.jpg";
-import HomePageImgDesktop from "../../Image/homeimg/homapage-desktop.jpg";
+import ScreenSarver from "../../Image/loaderpage/screensarver.jpg";
+import ScreenSarverTablet from "../../Image/loaderpage/screensarver-table.jpg";
+import ScreenSarverDesktop  from "../../Image/loaderpage/screensaver-desktop.jpg";
 
 
 export const ImgContainer = styled.div`
@@ -12,18 +12,18 @@ export const ImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url(${HomePageImg});
+  background-image: url(${ScreenSarver});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: rgba(0, 0, 0, 0.3);
 
   @media screen and (min-width: 768px) {
-    background-image: url(${HomePageImgTablet});
+    background-image: url(${ScreenSarverTablet});
   }
 
   @media screen and (min-width: 1280px) {
-    background-image: url(${HomePageImgDesktop});
+    background-image: url(${ScreenSarverDesktop});
   }
 `;
 
