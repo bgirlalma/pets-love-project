@@ -19,45 +19,44 @@ import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useHookAuth } from "../../Redux/hooks/authhook";
 import UserMenu from "../UserMenu/usermenu";
 import HeaderModal from "../Modal/HeaderModal/headerModal";
+import { MenuWhite } from "../../Image/userimg/menu-white";
 
 const HeaderComponent = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const [sizeIcon, setSizeIcon] = useState({width: 22, height: 22})
-  const navigate = useNavigate()
-  const location = useLocation()
-  const {userIsLogIn} = useHookAuth()
+  const [sizeIcon, setSizeIcon] = useState({ width: 22, height: 22 });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { userIsLogIn } = useHookAuth();
+  const isHome = location.pathname === "/home";
 
   useEffect(() => {
     if (isOpenMenu) {
-      setIsOpenMenu(false)
+      setIsOpenMenu(false);
     }
-  }, [location.pathname])
-  
+  }, [location.pathname]);
 
   useEffect(() => {
     const updateSize = () => {
       if (window.innerWidth > 768) {
-        setSizeIcon({width: 36, height: 36})
+        setSizeIcon({ width: 36, height: 36 });
       }
-    }
-    updateSize()
-    window.addEventListener('resize', updateSize)
+    };
+    updateSize();
+    window.addEventListener("resize", updateSize);
 
-    return () => window.removeEventListener('resize', updateSize)
-  },[])
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   const toggleButton = () => {
-    setIsOpenMenu((prev) => !prev)
-  }
+    setIsOpenMenu((prev) => !prev);
+  };
 
   const handleNavigate = (path) => {
     if (location.pathname === path) {
-      Notify.info('Ви вже на цій сторінці!')
+      Notify.info("Ви вже на цій сторінці!");
     }
-    navigate(path)
-  }
-
- 
+    navigate(path);
+  };
 
   return (
     <HeaderContainer>
@@ -66,7 +65,11 @@ const HeaderComponent = () => {
 
         {userIsLogIn && <UserMenu />}
         {/* Header of mobile and tablet */}
-        <IconMenu OpenMenu={toggleButton} />
+        {isHome ? (
+          <MenuWhite OpenMenu={toggleButton} />
+        ) : (
+          <IconMenu OpenMenu={toggleButton} />
+        )}
 
         <HeaderModal
           isOpenMenu={isOpenMenu}
@@ -90,20 +93,22 @@ const HeaderComponent = () => {
           </DesktopList>
         </DesktopContainer>
 
-        <ButtonsDesktopContainer>
-          <ButtonLogInDesktop
-            type="button"
-            onClick={() => handleNavigate("/login")}
-          >
-            Log In
-          </ButtonLogInDesktop>
-          <ButtonRegisterDesktop
-            type="button"
-            onClick={() => handleNavigate("/registration")}
-          >
-            Registration
-          </ButtonRegisterDesktop>
-        </ButtonsDesktopContainer>
+        {!userIsLogIn &&
+          <ButtonsDesktopContainer>
+            <ButtonLogInDesktop
+              type="button"
+              onClick={() => handleNavigate("/login")}
+            >
+              Log In
+            </ButtonLogInDesktop>
+            <ButtonRegisterDesktop
+              type="button"
+              onClick={() => handleNavigate("/registration")}
+            >
+              Registration
+            </ButtonRegisterDesktop>
+          </ButtonsDesktopContainer>
+        }
       </PositionContainer>
     </HeaderContainer>
   );

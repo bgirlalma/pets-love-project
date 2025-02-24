@@ -13,7 +13,7 @@ export const HeaderContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     position: relative;
-    width: 768px;
+    width: 700px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -23,13 +23,13 @@ export const HeaderContainer = styled.div`
 `;
 
 export const PositionContainer = styled.div`
-position: relative;
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 320px;
 
   @media screen and (min-width: 768px) {
-    width: 768px;
+    width: 700px;
   }
 
   @media screen and (min-width: 1280px) {

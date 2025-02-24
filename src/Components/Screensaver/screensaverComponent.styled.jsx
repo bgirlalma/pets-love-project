@@ -17,6 +17,7 @@ export const ImgContainer = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: rgba(0, 0, 0, 0.3);
+  z-index: 3;
 
   @media screen and (min-width: 768px) {
     background-image: url(${ScreenSarverTablet});

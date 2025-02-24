@@ -1,5 +1,10 @@
 import userIcon from '../../Image/symbol-defs.svg';
-import {UserMenuContainer, UserMenuMobileContainer, UserMenuTabletContainer } from './usermenu.styled'
+import {
+  UserMenuContainer,
+  UserMenuMobileContainer,
+  UserMenuTabletContainer,
+  UserName,
+} from "./usermenu.styled";
 
 const UserMenu = () => {
     return (
@@ -11,13 +16,13 @@ const UserMenu = () => {
           </svg>
         </UserMenuMobileContainer>
 
-            {/* tablet user menu */}
+        {/* tablet user menu */}
         <UserMenuTabletContainer>
           <svg width="20" height="20">
             <use href={`${userIcon}#icon-user`}></use>
-                </svg>
-                <h2></h2>
+          </svg>
         </UserMenuTabletContainer>
+        <UserName>Anna</UserName>
       </UserMenuContainer>
     );
 }

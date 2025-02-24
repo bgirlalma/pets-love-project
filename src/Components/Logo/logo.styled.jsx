@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
+
 export const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
   cursor: pointer;
+
+  @media screen and (min-width: 768px){
+  margin-left: 30px;
+  }
 
   @media screen and (min-width: 1280px){
   margin-left: 32px;
@@ -16,12 +21,12 @@ export const TitlePetlLogo = styled.h2`
   font-size: 20px;
   font-weight: 700;
   line-height: 20px;
-  color: rgba(38, 38, 38, 1);
+  color: ${({ $isHome }) => ($isHome ? "white" : "rgba(38, 38, 38, 1)")};
 
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   @media screen and (min-width: 768px) {
     font-size: 28px;
     line-height: 28px;
@@ -29,8 +34,8 @@ export const TitlePetlLogo = styled.h2`
 `;
 
 export const LogoSvg = styled.svg`
-margin-left: 2px;
-margin-right: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
 `;
 
 export const TitleLoveLogo = styled.span`
@@ -38,7 +43,7 @@ export const TitleLoveLogo = styled.span`
   font-size: 20px;
   font-weight: 700;
   line-height: 20px;
-  color: rgba(38, 38, 38, 1);
+  color: ${({ $isHome }) => ($isHome ? "white" : "rgba(38, 38, 38, 1)")};
 
   @media screen and (min-width: 768px) {
     font-size: 28px;
