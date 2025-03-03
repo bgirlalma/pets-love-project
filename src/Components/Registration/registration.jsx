@@ -111,7 +111,7 @@ const RegistrationComponent = () => {
               await dispatch(registerUser(values));
               resetForm();
               Notify.success("Успішно!");
-            } catch (error) {
+            } catch {
               Notify.failure("Некоректно введені дані!");
             } 
           }}

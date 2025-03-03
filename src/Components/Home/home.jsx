@@ -18,7 +18,7 @@ const HomeComponent = () => {
         const updateImg = () => {
             if (window.innerWidth < 767) {
               setSizeWindow(HomeMobile);
-            } else if (window.innerWidth < 1199) {
+            } else if (window.innerWidth < 1280) {
                 setSizeWindow(HomeTablet)
             } else {
                 setSizeWindow(HomeDesktop)

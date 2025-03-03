@@ -7,6 +7,10 @@ export const UserMenuContainer = styled.div`
   right: 0;
   margin-right: 32px;
   transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+
   @media screen and (min-width: 768px) {
     display: flex;
     justify-content: center;
@@ -21,6 +25,7 @@ export const UserMenuMobileContainer = styled.div`
   border-radius: 50%;
  width: 40px;
  height: 40px;
+ margin-right: 5px;
 
  display: flex;
  justify-content: center;
@@ -31,7 +36,7 @@ export const UserMenuMobileContainer = styled.div`
   }
 `;
 
-export const UserMenuTabletContainer = styled.div`
+export const UserMenuTablet = styled.div`
   display: none;
 
   @media screen and (min-width: 768px) {
@@ -41,16 +46,21 @@ export const UserMenuTabletContainer = styled.div`
 
     background-color: rgba(255, 244, 223, 1);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
   }
 `;
 
 export const UserName = styled.h2`
-  font-family: Manrope;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 20px;
-  color: rgba(255, 255, 255, 1);
-  margin-left: 15px;
+display: none;
+  @media screen and (min-width: 768px) {
+display: flex;
+    font-family: Manrope;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 20px;
+    color: rgba(255, 255, 255, 1);
+    margin-left: 15px;
+    margin-right: 10px;
+  }
 `;

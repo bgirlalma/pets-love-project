@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding: 0 20px;
-
+  height: 100vh;
 `;
 
 export const TitleHomeContainer = styled.div`
@@ -21,6 +23,14 @@ export const TitleHomeContainer = styled.div`
     width: 700px;
     padding: 180px 32px 50px 32px;
   }
+
+  @media screen and (min-width: 1280px) {
+    width: 1216px;
+    padding: 180px 65px 30px 65px;
+
+    display: flex;
+    align-items: end;
+  }
 `;
 
 
@@ -35,6 +45,13 @@ export const MainTitle = styled.h1`
   @media screen and (min-width: 768px) {
     font-size: 80px;
     line-height: 77px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 760px;
+
+    font-size: 90px;
+    line-height: 87px;
   }
 `;
 
@@ -51,6 +68,11 @@ export const TitleSpan = styled.span`
     font-size: 80px;
     line-height: 77px;
   }
+
+  @media screen and (min-width: 1280px) {
+    font-size: 90px;
+    line-height: 87px;
+  }
 `;
 
 export const MainDesc = styled.p`
@@ -65,14 +87,20 @@ export const MainDesc = styled.p`
     width: 255px;
     margin-left: auto;
     font-size: 18px;
+    line-height: 22px;
   }
 `;
 
 export const ImgContainer = styled.div`
-
   display: flex;
+  justify-content: center;
+  margin-top: 320px;
+  width: 100%;
 
   @media screen and (min-width: 768px) {
-    // bottom: -220px;
+    margin-top: 420px;
+  }
+  @media screen and (min-width: 1280px) {
+  margin-top: 360px;
   }
 `;

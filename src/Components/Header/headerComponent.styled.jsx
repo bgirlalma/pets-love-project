@@ -8,17 +8,19 @@ export const HeaderContainer = styled.div`
   padding: 30px 20px;
   margin-left: auto;
   margin-right: auto;
- 
+
   z-index: 2;
 
+  display: flex;
+  justify-content: center;
+
   @media screen and (min-width: 768px) {
-    position: relative;
     width: 700px;
   }
 
   @media screen and (min-width: 1280px) {
-    width: 1280px;
-    padding: 30px 0 30px 64px;
+    width: 1200px;
+    padding: 45px 64px 0 64px;
   }
 `;
 
@@ -34,6 +36,9 @@ export const PositionContainer = styled.div`
 
   @media screen and (min-width: 1280px) {
     width: 1200px;
+
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -44,6 +49,12 @@ export const DesktopContainer = styled.div`
 
   @media screen and (min-width: 1280px) {
     display: flex;
+    align-items: center;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate( -50%, -50%);
   }
 `;
 

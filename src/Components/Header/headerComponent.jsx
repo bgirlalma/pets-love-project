@@ -31,9 +31,16 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     if (isOpenMenu) {
-      setIsOpenMenu(false);
+      // прибираємо зміщення сторінки при відкриті модального вікна
+      const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.width = `calc(100% - ${scrollBarWidth}px)`;
+      
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.width = ''
     }
-  }, [location.pathname]);
+  }, [location.pathname, isOpenMenu]);
 
   useEffect(() => {
     const updateSize = () => {

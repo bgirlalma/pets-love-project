@@ -3,12 +3,13 @@ import {
   BurderMobileTabletContainer,
   IconCloseContainer,
   ListMobileTabletContainer,
+  ListMobileTablet,
   ItemsMobileTablet,
   NavList,
   ButtonMobileTabletContainer,
   ButtonLogIn,
   ButtonRegister,
-} from "./headerMOdal.styled";
+} from "./headerModal.styled";
 
 import close from "../../../Image/symbol-defs.svg";
 import { Logout } from '../../UserMenu/ButtonLogout/buttonLogout';
@@ -29,22 +30,7 @@ const HeaderModal = ({
 }) => {
   const { userIsLogIn } = useHookAuth();
 
-  useEffect(() => {
-    if (isOpenMenu) {
-      document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-            document.body.style.top = "0";
-            document.body.style.left = "0";
-        
-    } else {
-      document.body.style.overflow = "";
-         document.body.style.position = "";
-         document.body.style.top = "";
-         document.body.style.left = "";
-    }
 
-    return () => {document.body.style.overflow = "";}
-  },[isOpenMenu])
   return (
     <>
       {isOpenMenu && (
@@ -54,8 +40,8 @@ const HeaderModal = ({
               <use href={`${close}#icon-close`}></use>
             </svg>
           </IconCloseContainer>
-          <div>
-            <ListMobileTabletContainer>
+          <ListMobileTabletContainer>
+            <ListMobileTablet>
               <ItemsMobileTablet>
                 <NavList to="/news">News</NavList>
               </ItemsMobileTablet>
@@ -65,8 +51,8 @@ const HeaderModal = ({
               <ItemsMobileTablet>
                 <NavList to="">Our friends</NavList>
               </ItemsMobileTablet>
-            </ListMobileTabletContainer>
-          </div>
+            </ListMobileTablet>
+          </ListMobileTabletContainer>
 
           {userIsLogIn ? (
             <Logout />

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 // Header mobile and tablet start
 export const BurderMobileTabletContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: 218px;
@@ -21,7 +21,6 @@ export const BurderMobileTabletContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     width: 375px;
-    justify-content: unset;
   }
 
   @media screen and (min-width: 1280px) {
@@ -36,13 +35,12 @@ export const IconCloseContainer = styled.button`
   background-color: inherit;
 `;
 
-export const ListMobileTabletContainer = styled.ul`
-  @media screen and (min-width: 768px) {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+export const ListMobileTabletContainer = styled.div`
+
+`;
+
+export const ListMobileTablet = styled.ul`
+
 `;
 
 export const ItemsMobileTablet = styled.li`

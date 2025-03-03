@@ -1,7 +1,8 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 
-export const LogoContainer = styled.div`
+export const LogoNavContainer = styled(NavLink)`
   display: flex;
   align-items: center;
   text-align: center;
@@ -12,7 +13,7 @@ export const LogoContainer = styled.div`
   }
 
   @media screen and (min-width: 1280px){
-  margin-left: 32px;
+  margin-left: 40px;
   }
 `;
 

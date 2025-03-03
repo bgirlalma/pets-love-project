@@ -3,6 +3,11 @@ import styled from "styled-components";
 
 export const LogoutButtonContainer = styled.div`
 width: 100%;
+
+@media screen and (min-width: 768px){
+display: flex;
+justify-content: center;
+}
 `;
 
 export const LogoutButton = styled.button`
