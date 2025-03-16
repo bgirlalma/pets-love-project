@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { loginUser, logoutUser, registerUser } from "./userOptions"
 
+
 const initialState = {
-    user: { name: null, email: null, password: null },
-    isLogIn: false,
-    isLoader: false
-}
+  user: { name: null, email: null },
+  isLogIn: false,
+  isLoader: false,
+  error: null,
+};
+
+console.log("Initial state before persist:", initialState);
 
 const userSlice = createSlice({
     name: 'userAuth',
@@ -15,23 +19,30 @@ const userSlice = createSlice({
         builder.addCase(registerUser.pending, state => {
             state.isLoader = true
         }).addCase(registerUser.fulfilled, (state, action) => {
+             console.log("Register success:", action.payload);
             state.isLoader = false;
-            state.user.uid = action.payload.uid;
-            state.user.name = action.payload.displayName;
-            state.user.email = action.payload.email;
+            state.user = {
+              uid: action.payload.uid, // Записуємо тільки UID
+              name: action.payload.displayName, // Ім'я користувача
+              email: action.payload.email, // Email користувача
+            };
             state.isLogIn = true;
+             console.log("Register", action.payload);
         }).addCase(registerUser.rejected, (state, action) => {
             state.isLoader = false;
             state.error = action.payload
         }).addCase(loginUser.pending, state => {
             state.isLoader = true;
         }).addCase(loginUser.fulfilled, (state, action) => {
-          state.isLoader = false;
-          state.isLogIn = true;
-          state.user = action.payload; // Сохранение данных пользователя
-          state.user.uid = action.payload.uid;
-          state.user.name = action.payload.displayName;
-          state.user.email = action.payload.email;
+            state.isLoader = false;
+            state.isLogIn = true;
+              state.user = {
+                uid: action.payload.uid,
+                name: action.payload.displayName,
+                email: action.payload.email,
+            };
+            console.log("Login",action.payload)
+            
         }).addCase(loginUser.rejected, (state, action) => {
             state.isLoader = false;
             state.error = action.payload
@@ -39,8 +50,8 @@ const userSlice = createSlice({
              state.isLoader = true
         }).addCase(logoutUser.fulfilled, state => {
             state.isLoader = false;
-            state.isLogIn = false;
-            state.user = {name: null, email: null, password: null}
+           state.user = { uid: null, name: null, email: null }; 
+           state.isLogIn = false; 
         }).addCase(logoutUser.rejected, (state, action) => {
             state.isLoader = false;
             state.error = action.payload

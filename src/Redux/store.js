@@ -11,17 +11,21 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from "./userAuth/userSlice";
+import useSerealize from "./hooks/serealizeHook/serealizeHook";
 
 const persistConfig = {
-    key: 'root',
-    storage
-}
+  key: "root",
+  storage,
+  whitelist: ["userAuth"],
+  transforms: [useSerealize]
+};
 
 const rootReduce = combineReducers({
 userAuth: authReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReduce)
+
 
 export const store = configureStore({
   reducer: persistedReducer,

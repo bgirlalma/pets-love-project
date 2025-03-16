@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-
 export const HeaderContainer = styled.div`
   position: relative;
   width: 320px;
@@ -42,7 +41,6 @@ export const PositionContainer = styled.div`
   }
 `;
 
-
 // Header desktop start
 export const DesktopContainer = styled.div`
   display: none;
@@ -54,7 +52,7 @@ export const DesktopContainer = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate( -50%, -50%);
+    transform: translate(-50%, -50%);
   }
 `;
 
@@ -75,10 +73,16 @@ export const DesktopNews = styled.li`
   align-items: center;
 
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: ${({ $isHome }) =>
+    $isHome
+      ? "1px solid rgba(255, 255, 255, 0.4) "
+      : "1px solid rgba(38, 38, 38, 0.15) "};
 
   &:hover {
-    border: 1px solid rgba(246, 184, 61, 1);
+    border: ${({ $isHome }) =>
+      $isHome
+        ? "1px solid rgba(255, 255, 255, 1)"
+        : "1px solid rgba(246, 184, 61, 1)"};
   }
 `;
 
@@ -93,10 +97,16 @@ export const DesktopFindPets = styled.li`
   align-items: center;
 
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: ${({ $isHome }) =>
+    $isHome
+      ? "1px solid rgba(255, 255, 255, 0.4) "
+      : "1px solid rgba(38, 38, 38, 0.15) "};
 
   &:hover {
-    border: 1px solid rgba(246, 184, 61, 1);
+    border: ${({ $isHome }) =>
+      $isHome
+        ? "1px solid rgba(255, 255, 255, 1)"
+        : "1px solid rgba(246, 184, 61, 1)"};
   }
 `;
 
@@ -110,10 +120,16 @@ export const DesktopOurFriends = styled.li`
   justify-content: center;
   align-items: center;
 
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: ${({ $isHome }) =>
+    $isHome
+      ? "1px solid rgba(255, 255, 255, 0.4) "
+      : "1px solid rgba(38, 38, 38, 0.15) "};
 
   &:hover {
-    border: 1px solid rgba(246, 184, 61, 1);
+    border: ${({ $isHome }) =>
+      $isHome
+        ? "1px solid rgba(255, 255, 255, 1)"
+        : "1px solid rgba(246, 184, 61, 1)"};
   }
 `;
 
@@ -121,7 +137,8 @@ export const DesktopNav = styled(NavLink)`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  color: rgba(38, 38, 38, 1);
+  color: ${({ $isHome }) =>
+    $isHome ? "rgba(255, 255, 255, 1)" : "rgba(38, 38, 38, 1)"};
 `;
 
 export const ButtonsDesktopContainer = styled.div`
@@ -134,15 +151,13 @@ export const ButtonsDesktopContainer = styled.div`
     transform: translateY(-50%);
     margin-right: 66px;
     display: flex;
-
   }
 
-  @media screen and (min-width: 1280px){
-  position: unset;
-  top: unset;
-  right: unset;
-  transform: unset;
- 
+  @media screen and (min-width: 1280px) {
+    position: unset;
+    top: unset;
+    right: unset;
+    transform: unset;
   }
 `;
 

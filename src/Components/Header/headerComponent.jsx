@@ -13,7 +13,7 @@ import {
   ButtonLogInDesktop,
   ButtonRegisterDesktop,
 } from "./headerComponent.styled";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useHookAuth } from "../../Redux/hooks/authhook";
@@ -54,13 +54,13 @@ const HeaderComponent = () => {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  const toggleButton = () => {
+  const toggleButton = useCallback(() => {
     setIsOpenMenu((prev) => !prev);
-  };
+  }, []);
 
   const handleNavigate = (path) => {
     if (location.pathname === path) {
-      Notify.info("Ви вже на цій сторінці!");
+     return Notify.info("Ви вже на цій сторінці!");
     }
     navigate(path);
   };
@@ -70,8 +70,11 @@ const HeaderComponent = () => {
       <PositionContainer>
         <Logo />
 
-        {userIsLogIn && <UserMenu />}
         {/* Header of mobile and tablet */}
+
+        {userIsLogIn &&
+          <UserMenu />}
+        
         {isHome ? (
           <MenuWhite OpenMenu={toggleButton} />
         ) : (
@@ -88,19 +91,21 @@ const HeaderComponent = () => {
         {/* Header of Desktop */}
         <DesktopContainer>
           <DesktopList>
-            <DesktopNews>
-              <DesktopNav to="/news">News</DesktopNav>
+            <DesktopNews $isHome={isHome}>
+              <DesktopNav $isHome={isHome} to="/news">
+                News
+              </DesktopNav>
             </DesktopNews>
-            <DesktopFindPets>
-              <DesktopNav>Find pet</DesktopNav>
+            <DesktopFindPets $isHome={isHome}>
+              <DesktopNav $isHome={isHome}>Find pet</DesktopNav>
             </DesktopFindPets>
-            <DesktopOurFriends>
-              <DesktopNav>Our friends</DesktopNav>
+            <DesktopOurFriends $isHome={isHome}>
+              <DesktopNav $isHome={isHome}>Our friends</DesktopNav>
             </DesktopOurFriends>
           </DesktopList>
         </DesktopContainer>
 
-        {!userIsLogIn &&
+        {!userIsLogIn && (
           <ButtonsDesktopContainer>
             <ButtonLogInDesktop
               type="button"
@@ -115,7 +120,7 @@ const HeaderComponent = () => {
               Registration
             </ButtonRegisterDesktop>
           </ButtonsDesktopContainer>
-        }
+        )}
       </PositionContainer>
     </HeaderContainer>
   );

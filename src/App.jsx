@@ -5,11 +5,10 @@ import RegistrationPage from "./Pages/RegistrationPage/registration"
 import NewsPage from "./Pages/NewsPage/news"
 import ScreensaverPage from "./Pages/ScreensaverPage/screensaverPage"
 import HomePage from "./Pages/HomePage/homePage"
-import { PrivateRouter } from "./PrivateRouter"
-
+import  PrivateRouter from "./PrivateRouter"
+import ProfileModalMenu from "./Components/Modal/UserModal/userModalMenu"
 
 function App() {
-
 
   return (
     <>
@@ -25,6 +24,7 @@ function App() {
               <PrivateRouter redirectTo="/login" component={HomePage} />
             }
           />
+          <Route path="/profile" element={<PrivateRouter redirectTo="/login" component={ProfileModalMenu}/> } />
           {/* Private Router end */}
           
           <Route path="/news" element={<NewsPage />} />
