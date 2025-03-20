@@ -30,18 +30,26 @@ const ScreensaverComponent = () => {
   }, []);
 
   useEffect(() => {
+    const user = localStorage.getItem("userAuth");
+    
     const timer = setTimeout(() => {
       // Ховаємо лоадер після 100%
       setIsLoader(false);
     }, 1000);
     const navigateTimer = setTimeout(() => {
-      navigate("/login");
+      if (user) {
+        navigate("/home")
+      } else (
+        navigate("/login")
+      )
     }, 3000);
     return () => {
       clearTimeout(timer);
       clearTimeout(navigateTimer);
     };
   }, [navigate]);
+
+
 
   return (
     <ImgContainer>

@@ -10,19 +10,17 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { authReducer } from "./userAuth/userSlice";
-import useSerealize from "./hooks/serealizeHook/serealizeHook";
+import userSlice from './userAuth/userSlice'
 
 const persistConfig = {
   key: "root",
   storage,
   whitelist: ["userAuth"],
-  transforms: [useSerealize]
 };
 
 const rootReduce = combineReducers({
-userAuth: authReducer
-})
+  userAuth: userSlice,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReduce)
 
@@ -38,3 +36,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store)
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch

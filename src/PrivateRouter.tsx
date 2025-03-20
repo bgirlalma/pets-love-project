@@ -12,8 +12,8 @@ interface PrivateRouterProps {
 export const PrivateRouter: React.FC<PrivateRouterProps> = ({ component: Component, redirectTo = "/login" }) => {
   const { userIsLogIn } = useHookAuth();
 
-
-  return userIsLogIn ? <Component /> : <Navigate to={redirectTo} />;
+const redirectShould = !userIsLogIn
+  return redirectShould ? <Navigate to={redirectTo} /> : <Component />;
 }
 
 export default PrivateRouter

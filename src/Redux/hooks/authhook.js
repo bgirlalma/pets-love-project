@@ -1,16 +1,14 @@
-
 import {
-  selectedUserEmail,
   selectedUserLogIn,
-  selectedUserName,
+  selectedUser,
+  selectedUserToken,
 } from "../userAuth/userSelector";
 import { useSelector } from "react-redux";
 
 export const useHookAuth = () => {
-  const userName = useSelector(selectedUserName);
-  const userEmail = useSelector(selectedUserEmail);
+  const userToken = useSelector(selectedUserToken);
+  const user = useSelector(selectedUser);
   const userIsLogIn = useSelector(selectedUserLogIn);
-  console.log("State in component:", { userName, userEmail, userIsLogIn });
-  return { userName, userEmail, userIsLogIn };
-  
+
+ return { userToken, user, userIsLogIn };
 };

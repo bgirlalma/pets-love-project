@@ -7,7 +7,7 @@ const GlobalStyled = createGlobalStyle`
   font-weight: 400;
 
   color: rgba(15, 14, 14, 0.87);
-  background-color:rgb(250, 250, 250);
+  background-color:rgba(249, 249, 249, 1);
 }
 
 body {
@@ -35,6 +35,7 @@ button{
 margin: 0;
 padding: 0;
 border: none;
+cursor: pointer;
 }
 
 a{

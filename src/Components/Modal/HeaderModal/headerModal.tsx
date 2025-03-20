@@ -12,8 +12,8 @@ import {
 } from "./headerModal.styled";
 
 import close from "../../../Image/symbol-defs.svg";
-import { Logout } from '../../UserMenu/ButtonLogout/buttonLogout';
 import { useHookAuth } from '../../../Redux/hooks/authhook';
+import Logout from '../../UserMenu/ButtonLogout/buttonLogout';
 
 
 interface Props {
@@ -55,7 +55,7 @@ const HeaderModal = ({
           </ListMobileTabletContainer>
 
           {userIsLogIn ? (
-            <Logout />
+            <Logout/>
           ) : (
             <ButtonMobileTabletContainer>
               <ButtonLogIn

@@ -1,3 +1,4 @@
-export const selectedUserName = state => state.userAuth.user ? state.userAuth.user.name : null;
-export const selectedUserEmail = state => state.userAuth.user ? state.userAuth.user.email : null;
+export const selectedUser = state => state.userAuth.user
 export const selectedUserLogIn = state => state.userAuth.isLogIn;
+
+export const selectedUserToken = state => state.userAuth.token
