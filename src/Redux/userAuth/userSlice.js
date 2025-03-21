@@ -8,10 +8,12 @@ const loadUserFromLocalStorage = () => {
   return savedUser ? JSON.parse(savedUser) : null;
 };
 
+const savedUser = loadUserFromLocalStorage()
+
 const initialState = {
-  user: loadUserFromLocalStorage() || { uid: null, name: null, email: null },
+  user: savedUser || { uid: null, name: null, email: null },
   token: null,
-  isLogIn: loadUserFromLocalStorage()?.isLogIn || false,
+  isLogIn: savedUser?.isLogIn || false,
   isLoader: false,
   error: null,
 };
@@ -34,7 +36,6 @@ const userSlice = createSlice({
         state.user = action.payload;
         state.token = action.payload.token;
         state.isLogIn = true;
-        console.log("Register", action.payload);
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoader = false;
@@ -48,7 +49,7 @@ const userSlice = createSlice({
         state.isLoader = false;
         state.isLogIn = true;
         state.user = action.payload;
-        console.log("Login", action.payload);
+  
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoader = false;
@@ -62,6 +63,7 @@ const userSlice = createSlice({
         state.isLoader = false;
         state.user = { uid: null, name: null, email: null, photoURL: null };
         state.isLogIn = false;
+        localStorage.removeItem("userAuth");
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoader = false;

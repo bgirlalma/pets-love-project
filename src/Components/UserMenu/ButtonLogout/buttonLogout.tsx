@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { LogoutButtonContainer, LogoutButton } from './buttonlogout.styled';
 
 import React, { useState } from 'react';
-import { loginUser } from '../../../Redux/userAuth/userOptions';
+import { logoutUser } from '../../../Redux/userAuth/userOptions';
 import { AppDispatch } from '../../../Redux/store';
 
  const Logout = () => {
@@ -10,7 +10,7 @@ import { AppDispatch } from '../../../Redux/store';
      const [closeMenu, setCloseMenu ] = useState(false)
 
    const handleLogout = () => {
-      dispatch(loginUser());
+      dispatch(logoutUser());
        
    };
    return (

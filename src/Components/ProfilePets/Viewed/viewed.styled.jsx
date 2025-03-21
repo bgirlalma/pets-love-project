@@ -9,6 +9,7 @@ export const ViewedButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 10px;
 
   font-weight: 500;
   font-size: 14px;

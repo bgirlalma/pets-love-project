@@ -2,16 +2,19 @@ import { Form } from "formik";
 import styled from "styled-components";
 
 export const MenuContainer = styled.div`
-  position: fixed;
-  padding: 20px 20px 40px 20px;
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 1);
-  margin: 0 20px;
   //   margin-right: auto;
   //   margin-left: auto;
 `;
 
 // user block start
+
+export const MainUserContainer = styled.div`
+  padding: 20px 20px 40px 20px;
+  border-radius: 30px;
+  margin: 0 20px 40px 20px;
+  background-color: rgba(255, 255, 255, 1);
+`;
+
 export const UserBlockContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -169,6 +172,6 @@ export const LogOutUserButton = styled.button`
 
 export const ViewedFavoriteContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  margin: 0 20px 20px 20px;
 `;

@@ -16,25 +16,22 @@ import { useCallback, useState } from 'react';
 const UserMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [, setIsOpenEdit] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [previousPath, setPreviousPath] = useState(null); // Запоминаем откуда пришли
   const { userIsLogIn } = useHookAuth();
   const currentUser = useSelector(selectedUser);
 
   // предотвращаем повторное создание новой функции при каждом ренедере
-  const ToggleEditProfile = useCallback(() => {
-    setIsOpenEdit((prev) => {
-      if (!prev) {
-        // Если сейчас не в режиме редактирования, запоминаем текущий путь
-        setPreviousPath(location.pathname);
-        navigate("/profile");
-      } else {
-        // Если уже в режиме редактирования, возвращаемся обратно
-        navigate(previousPath || "/");
-      }
-      return !prev;
-    });
-  }, [location.pathname, navigate, previousPath]);
+const ToggleEditProfile = useCallback(() => {
+  setIsOpenEdit((prev) => !prev); // ✅ Оновлюємо стан без побічних ефектів
+
+  if (!isOpenEdit) {
+    setPreviousPath(location.pathname);
+    navigate("/profile");
+  } else {
+    navigate(previousPath || "/");
+  }
+}, [isOpenEdit, location.pathname, navigate, previousPath]);
   
 
   return (
