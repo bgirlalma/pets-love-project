@@ -95,7 +95,7 @@ export const FormInformation = styled(Form)`
     border: 1px solid rgba(38, 38, 38, 0.15);
     border-radius: 30px;
     margin-bottom: 12px;
-    outlina: none;
+     
 
 font-weight: 500;
 font-size: 14px;

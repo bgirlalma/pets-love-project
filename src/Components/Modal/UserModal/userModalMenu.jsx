@@ -34,11 +34,12 @@ const ProfileModalMenu = () => {
   const displatch = useDispatch()
   const currentUser = useSelector(selectedUser);
   const [isOpenEditProfile, setIsEditProfile] = useState(false);
-  
 
   const OpenProfile = () => {
     setIsEditProfile(true);
   };
+
+  const closeProfile = () => setIsEditProfile(false);
 
   const handleLogout = () => {
     displatch(logoutUser())
@@ -56,6 +57,7 @@ const ProfileModalMenu = () => {
           </UserBlock>
 
           {/* edit block */}
+
           <EditButton
             type="button"
             onClick={OpenProfile}
@@ -65,7 +67,9 @@ const ProfileModalMenu = () => {
           </EditButton>
         </UserBlockContainer>
 
-        {isOpenEditProfile && <EditInformation />}
+        {isOpenEditProfile && (
+          <EditInformation onClose={closeProfile} />
+        )}
         {/* edit block end */}
 
         {/* avatar */}
