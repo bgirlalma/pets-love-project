@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectedUser } from "../../../Redux/userAuth/userSelector";
-import { Formik } from "formik";
+import { Field, Formik } from "formik";
 import { useState } from "react";
 import EditInformation from "./EditInformation/editInformation";
 import editIcon from "../../../Image/userimg/edit-profile.svg";
@@ -29,6 +29,7 @@ import { PlusPetsIcon } from "../../../Image/userimg/plus";
 import FavoritePets from "../../ProfilePets/FavoritePets/favoritePets";
 import ViewedComponent from "../../ProfilePets/Viewed/viewed";
 import { logoutUser } from "../../../Redux/userAuth/userOptions";
+import { setUserProfile } from "../../../Redux/userAuth/userSlice";
 
 const ProfileModalMenu = () => {
   const displatch = useDispatch()
@@ -45,13 +46,17 @@ const ProfileModalMenu = () => {
     displatch(logoutUser())
   }
 
+  const handleUpdateProfile = (values) => {
+    displatch(setUserProfile(values))
+  }
+
   return (
     <MenuContainer>
       <MainUserContainer>
         <UserBlockContainer>
           {/* user block */}
           <UserBlock>
-            <UserBlockName>{currentUser.displayName}</UserBlockName>
+            <UserBlockName>{currentUser?.displayName}</UserBlockName>
 
             <UserWhiteIcon />
           </UserBlock>
@@ -67,9 +72,7 @@ const ProfileModalMenu = () => {
           </EditButton>
         </UserBlockContainer>
 
-        {isOpenEditProfile && (
-          <EditInformation onClose={closeProfile} />
-        )}
+        {isOpenEditProfile && <EditInformation onClose={closeProfile} />}
         {/* edit block end */}
 
         {/* avatar */}
@@ -93,27 +96,26 @@ const ProfileModalMenu = () => {
               phone: currentUser?.phone || "",
             }}
             enableReinitialize
+            onSubmit={handleUpdateProfile}
           >
             <FormInformation>
-              <input
-                type="name"
+              <Field
+                type="text"
                 name="name"
                 placeholder="name"
-                value={currentUser?.displayName || ""}
+              
                 readOnly
               />
-              <input
+              <Field
                 type="email"
                 name="email"
                 placeholder="email"
-                value={currentUser?.email || ""}
                 readOnly
               />
-              <input
+              <Field
                 type="number"
                 name="number"
                 placeholder="number"
-                value={currentUser?.phone || ""}
                 readOnly
               />
             </FormInformation>

@@ -3,8 +3,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-
-  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 
@@ -23,21 +21,11 @@ export const registerUser = createAsyncThunk(
 
       const user = userCredential.user;
 
-      // Обновляем профиль пользователя
-      await updateProfile(user, {
-        displayName: newuser.name,
-        photoURL: defaultAvatar,
-      }).catch((err) => console.error("Ошибка обновления профиля:", err));
-
-      // Запрашиваем токен пользователя
-      const token = await auth.currentUser.getIdToken();
-
     return {
       uid: user.uid,
-      displayName: user.displayName || newuser.name,
+      name: user.displayName || newuser.name,
       email: user.email,
       photoURL: user.photoURL || defaultAvatar,
-      token,
     };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

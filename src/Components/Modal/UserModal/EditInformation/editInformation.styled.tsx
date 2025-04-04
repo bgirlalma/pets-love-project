@@ -133,6 +133,7 @@ export const FormContainer = styled(Form)`
 export const ProfileGoToButton = styled.button`
   width: 100%;
   height: 42px;
+  margin-top: 20px;
 
   border-radius: 30px;
   background-color: rgba(246, 184, 61, 1);

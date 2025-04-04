@@ -22,7 +22,11 @@ const initialState = {
 const userSlice = createSlice({
   name: "userAuth",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setUserProfile(state, action) {
+      state.user = {...state.user, ...action.payload}
+    }
+  },
   extraReducers: (builder) => {
     // 📌 Регистрация пользователя
     builder
@@ -69,15 +73,8 @@ const userSlice = createSlice({
         state.isLoader = false;
         state.error = action.payload || "Ошибка при выходе";
       });
-    // 📌 Обновление профиля
-    // .addCase(updateCurrentUser.fulfilled, (state, action) => {
-
-    // }).addCase(updateCurrentUser.rejected, (state, action) => {
-    //   state.isLoader = false;
-    //   console.error("Error updating profile", action.payload); // Логирование ошибки
-    //   state.error = action.payload || "Ошибка при обновлении профиля";
-    // })
-  },
+  }
 });
 
+export const {setUserProfile} = userSlice.actions
 export default userSlice.reducer;
