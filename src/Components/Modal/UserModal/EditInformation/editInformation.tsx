@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Field, Formik } from "formik";
 import {
   EditInformationContainer,
@@ -23,7 +23,8 @@ import { UploadIcon } from "../../../../Image/userimg/upload-cloud";
 import { AppDispatch, RootState } from "../../../../Redux/store";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../../../firebase/firebase";
-import { updateUserDataInFirestore } from "../../../../Redux/UserUpdate/userUpdateOptions";
+import { updateUserDataInFirestore } from "../../../../Redux/userAuth/userOptions";
+import { setUserProfile } from "../../../../Redux/userAuth/userSlice";
 
 interface Props {
   onClose: () => void;
@@ -47,11 +48,16 @@ interface UpdateUserPayload {
 const EditInformation: React.FC<Props> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const currentUser = useSelector(selectedUser);
-  const updateCurrentUser = useSelector(
-    (state: RootState) => state.userUpdate.user
-  );
 
-  console.log("Updated User:", updateCurrentUser);
+// 
+  useEffect(() => {
+    const storedUser = localStorage.getItem('userAuth')
+
+    if (storedUser) {
+      const parseUser = JSON.parse(storedUser)
+      dispatch(setUserProfile(parseUser))
+    }
+  },[])
   
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadAvatar, setUploadAvatar] = useState(DefaulAvatar);
@@ -73,17 +79,21 @@ const EditInformation: React.FC<Props> = ({ onClose }) => {
        });
      }
 
-     // Обновляем данные в Firestore через Redux
-     await dispatch(
-       
-       updateUserDataInFirestore(
-         updatedUser
-       )
-     ).unwrap();
+     // 1. Обновляем данные в Firestore через Redux
+     await dispatch(updateUserDataInFirestore(updatedUser)).unwrap();
 
-     
+     // 2. Обновляем Redux user (UI сразу покажет новые данные)
+     dispatch(
+       setUserProfile({
+         uid: updatedUser.uid,
+         name: updatedUser.name,
+         email: updatedUser.email,
+         phone: updatedUser.phone,
+         avatar: updatedUser.avatar,
+       })
+     );
 
-     // Локальное сохранение после успешного обновления в Firebase
+     // 3. Локальное сохранение после успешного обновления в Firebase
      localStorage.setItem("userAuth", JSON.stringify(updatedUser));
 
      // Закрываем модалку
@@ -138,27 +148,45 @@ const EditInformation: React.FC<Props> = ({ onClose }) => {
         {/* information inputs */}
         <Formik
           initialValues={{
-            name: updateCurrentUser?.displayName || "",
-            email: updateCurrentUser?.email || "",
-            phone: updateCurrentUser?.phone || "",
+            name: currentUser?.name || "",
+            email: currentUser?.email || "",
+            phone: currentUser?.phone || "",
           }}
           enableReinitialize
           onSubmit={(values) => {
             const updateUser = {
-              uid: updateCurrentUser?.uid || "",
+              uid: currentUser?.uid || "",
               name: values.name,
               email: values.email,
               phone: values.phone,
-              avatar: uploadAvatar
-            }
-            handleSubmit(updateUser)
+              avatar: uploadAvatar,
+            };
+            handleSubmit(updateUser);
           }}
         >
-          {({values, handleSubmit, handleChange}) => (
+          {({ values, handleSubmit, handleChange }) => (
             <FormContainer onSubmit={handleSubmit}>
-              <Field type="text" name="name" placeholder="Name" value={values.name } onChange={handleChange}/>
-              <Field type="email" name="email" placeholder="Email" value={values.email} onChange={handleChange}/>
-              <Field type="text" name="phone" placeholder="Phone" value={values.phone} onChange={handleChange}/>
+              <Field
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={values.name}
+                onChange={handleChange}
+              />
+              <Field
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={values.email}
+                onChange={handleChange}
+              />
+              <Field
+                type="text"
+                name="phone"
+                placeholder="Phone"
+                value={values.phone}
+                onChange={handleChange}
+              />
               <ProfileGoToButton type="submit">Go to profile</ProfileGoToButton>
             </FormContainer>
           )}

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectedUser } from "../../../Redux/userAuth/userSelector";
+// import { selectedUser } from "../../../Redux/userAuth/userSelector";
 import { Field, Formik } from "formik";
 import { useState } from "react";
 import EditInformation from "./EditInformation/editInformation";
@@ -30,11 +30,13 @@ import FavoritePets from "../../ProfilePets/FavoritePets/favoritePets";
 import ViewedComponent from "../../ProfilePets/Viewed/viewed";
 import { logoutUser } from "../../../Redux/userAuth/userOptions";
 import { setUserProfile } from "../../../Redux/userAuth/userSlice";
+import { selectedUser } from "../../../Redux/userAuth/userSelector";
 
 const ProfileModalMenu = () => {
-  const displatch = useDispatch()
-  const currentUser = useSelector(selectedUser);
+  const displatch = useDispatch();
+  // const currentUser = useSelector(selectedUser);
   const [isOpenEditProfile, setIsEditProfile] = useState(false);
+  const currentUser = useSelector(selectedUser);
 
   const OpenProfile = () => {
     setIsEditProfile(true);
@@ -43,12 +45,12 @@ const ProfileModalMenu = () => {
   const closeProfile = () => setIsEditProfile(false);
 
   const handleLogout = () => {
-    displatch(logoutUser())
-  }
+    displatch(logoutUser());
+  };
 
   const handleUpdateProfile = (values) => {
-    displatch(setUserProfile(values))
-  }
+    displatch(setUserProfile(values));
+  };
 
   return (
     <MenuContainer>
@@ -56,7 +58,7 @@ const ProfileModalMenu = () => {
         <UserBlockContainer>
           {/* user block */}
           <UserBlock>
-            <UserBlockName>{currentUser?.displayName}</UserBlockName>
+            <UserBlockName>{currentUser.name}</UserBlockName>
 
             <UserWhiteIcon />
           </UserBlock>
@@ -91,7 +93,7 @@ const ProfileModalMenu = () => {
 
           <Formik
             initialValues={{
-              name: currentUser?.displayName || "",
+              name: currentUser?.name || "",
               email: currentUser?.email || "",
               phone: currentUser?.phone || "",
             }}
@@ -99,23 +101,12 @@ const ProfileModalMenu = () => {
             onSubmit={handleUpdateProfile}
           >
             <FormInformation>
+              <Field type="text" name="name" placeholder="name" readOnly />
+              <Field type="email" name="email" placeholder="email" readOnly />
               <Field
                 type="text"
-                name="name"
-                placeholder="name"
-              
-                readOnly
-              />
-              <Field
-                type="email"
-                name="email"
-                placeholder="email"
-                readOnly
-              />
-              <Field
-                type="number"
-                name="number"
-                placeholder="number"
+                name="phone"
+                placeholder="phone"
                 readOnly
               />
             </FormInformation>

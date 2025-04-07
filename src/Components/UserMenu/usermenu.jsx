@@ -59,7 +59,7 @@ const ToggleEditProfile = useCallback(() => {
               </NavLink>
             </button>
           </UserMenuTablet>
-          <UserName>{currentUser.displayName}</UserName>
+          <UserName>{currentUser?.name || "guess"}</UserName>
         </>
       )}
     </UserMenuContainer>
