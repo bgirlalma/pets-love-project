@@ -16,4 +16,11 @@ export const FavoriteButtonPets = styled.button`
   font-size: 14px;
   line-height: 18px;
   color: rgba(255, 255, 255, 1);
+
+  @media screen and (min-width: 768px) {
+    width: 142px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 26px;
+  }
 `;

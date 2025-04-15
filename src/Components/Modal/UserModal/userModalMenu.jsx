@@ -16,11 +16,14 @@ import {
   AvatarContainer,
   DefaultImgAvatar,
   InformationContainer,
+  WrappContainer,
   TitleInformation,
   FormInformation,
   PetsContainer,
+  PetsWrappContainer,
   PetsTitle,
   ButtonAddPets,
+  PetsListContainer,
   LogOutUserButton,
   ViewedFavoriteContainer,
 } from "./userModalMenu.styled";
@@ -89,51 +92,54 @@ const ProfileModalMenu = () => {
 
         {/* information form block */}
         <InformationContainer>
-          <TitleInformation>My information</TitleInformation>
+          <WrappContainer>
+            <TitleInformation>My information</TitleInformation>
 
-          <Formik
-            initialValues={{
-              name: currentUser?.name || "",
-              email: currentUser?.email || "",
-              phone: currentUser?.phone || "",
-            }}
-            enableReinitialize
-            onSubmit={handleUpdateProfile}
-          >
-            <FormInformation>
-              <Field type="text" name="name" placeholder="name" readOnly />
-              <Field type="email" name="email" placeholder="email" readOnly />
-              <Field
-                type="text"
-                name="phone"
-                placeholder="phone"
-                readOnly
-              />
-            </FormInformation>
-          </Formik>
+            <Formik
+              initialValues={{
+                name: currentUser?.name || "",
+                email: currentUser?.email || "",
+                phone: currentUser?.phone || "",
+              }}
+              enableReinitialize
+              onSubmit={handleUpdateProfile}
+            >
+              <FormInformation>
+                <Field type="text" name="name" placeholder="name" readOnly />
+                <Field type="email" name="email" placeholder="email" readOnly />
+                <Field type="text" name="phone" placeholder="phone" readOnly />
+              </FormInformation>
+            </Formik>
+          </WrappContainer>
         </InformationContainer>
 
         {/* pets block */}
         <PetsContainer>
-          <PetsTitle>My pets</PetsTitle>
+          <PetsWrappContainer>
+            <PetsTitle>My pets</PetsTitle>
 
-          <ButtonAddPets type="button">
-            Add pets
-            <PlusPetsIcon />
-          </ButtonAddPets>
+            <ButtonAddPets type="button">
+              Add pets
+              <PlusPetsIcon />
+            </ButtonAddPets>
+          </PetsWrappContainer>
         </PetsContainer>
 
         {/* List Pets Block */}
-        <div>
-          <ul>
-            <li></li>
-          </ul>
-        </div>
+        <PetsListContainer>
+         
+          <div>
+            <ul>
+              <li></li>
+            </ul>
+          </div>
 
-        {/* Button LogOut */}
-        <LogOutUserButton type="button" onClick={handleLogout}>
-          Log Out
-        </LogOutUserButton>
+          {/* Button LogOut */}
+          <LogOutUserButton type="button" onClick={handleLogout}>
+            Log Out
+            </LogOutUserButton>
+          
+        </PetsListContainer>
       </MainUserContainer>
 
       <ViewedFavoriteContainer>

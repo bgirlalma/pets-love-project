@@ -15,4 +15,11 @@ export const ViewedButton = styled.button`
   font-size: 14px;
   line-height: 18px;
   color: rgba(38, 38, 38, 1);
+
+  @media screen and (min-width: 768px) {
+    width: 142px;
+    height: 48px;
+    font-size: 16px;
+    line-height: 26px;
+  }
 `;

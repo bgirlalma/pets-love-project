@@ -1,14 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
+  updateEmail,
   updateProfile,
   UserCredential,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { firestore } from "../../firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { Notify } from "notiflix";
 
 interface RegisterUserPayload {
   name: string;
@@ -17,8 +20,8 @@ interface RegisterUserPayload {
 }
 
 interface LoginUserPayload {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 interface UserAuthData {
@@ -41,75 +44,74 @@ export const registerUser = createAsyncThunk<
   UserAuthData, // Тип данных, которые мы возвращаем
   RegisterUserPayload, // Тип данных, которые передаем в действие
   { rejectValue: string } // Тип для ошибки
->(
-  "pets-userAuth/registerUser",
-  async (newuser, thunkApi) => {
-    try {
-      const defaultAvatar = "/Image/userimg/default-avatar.jpg";
+>("pets-userAuth/registerUser", async (newuser, thunkApi) => {
+  try {
+    const defaultAvatar = "/Image/userimg/default-avatar.jpg";
 
-      // Создаем пользователя
-      const userCredential: UserCredential = await createUserWithEmailAndPassword(
-        auth,
-        newuser.email,
-        newuser.password
-      );
+    // Создаем пользователя
+    const userCredential: UserCredential = await createUserWithEmailAndPassword(
+      auth,
+      newuser.email,
+      newuser.password
+    );
 
-      const user = userCredential.user;
+    const user = userCredential.user;
 
-      return {
-        uid: user.uid,
-        name: user.displayName || newuser.name,
-        email: user.email || '',
-        isLogIn: true,
-      };
-    } catch (error: any) {
-      return thunkApi.rejectWithValue(error.message);
-    }
+    return {
+      uid: user.uid,
+      name: user.displayName || newuser.name,
+      email: user.email || "",
+      isLogIn: true,
+    };
+  } catch (error: any) {
+    return thunkApi.rejectWithValue(error.message);
   }
-);
+});
 
 // Логиним пользователя
 export const loginUser = createAsyncThunk<
   UserAuthData, // Тип данных, которые мы возвращаем
-  LoginUserPayload,// Тип данных, которые передаем в действие
+  LoginUserPayload, // Тип данных, которые передаем в действие
   { rejectValue: string } // Тип для ошибки
->(
-  "pets-userAuth/loginUser",
-  async (user, thunkApi) => {
-    try {
-      const userCredential: UserCredential = await signInWithEmailAndPassword(
-        auth,
-        user.email,
-        user.password
-      );
+>("pets-userAuth/loginUser", async (user, thunkApi) => {
+  try {
+    const userCredential: UserCredential = await signInWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password
+    );
 
-      const { uid, displayName, email } = userCredential.user;
+    const { uid, displayName, email } = userCredential.user;
 
-      // Сохраняем в localStorage
-      const userData: UserAuthData = { uid, name: displayName || '', email, isLogIn: true };
-      localStorage.setItem("userAuth", JSON.stringify(userData));
+    // Сохраняем в localStorage
+    const userData: UserAuthData = {
+      uid,
+      name: displayName || "",
+      email,
+      isLogIn: true,
+    };
+    localStorage.setItem("userAuth", JSON.stringify(userData));
 
-      // Получаем дополнительные данные из Firestore, включая телефон
-      const userRef = doc(firestore, "users", uid);
-      const docSnap = await getDoc(userRef);
+    // Получаем дополнительные данные из Firestore, включая телефон
+    const userRef = doc(firestore, "users", uid);
+    const docSnap = await getDoc(userRef);
 
-      if (docSnap.exists()) {
-        const firestoreData = docSnap.data();
-        return {
-          uid,
-          name: firestoreData.name,
-          email: firestoreData.email,
-          phone: firestoreData.phone,
-          avatar: firestoreData.avatar,
-        };
-      }
-
-      return userData;
-    } catch (error: any) {
-      return thunkApi.rejectWithValue(error.message);
+    if (docSnap.exists()) {
+      const firestoreData = docSnap.data();
+      return {
+        uid,
+        name: firestoreData.name,
+        email: firestoreData.email,
+        phone: firestoreData.phone,
+        avatar: firestoreData.avatar,
+      };
     }
+
+    return userData;
+  } catch (error: any) {
+    return thunkApi.rejectWithValue(error.message);
   }
-);
+});
 
 export const logoutUser = createAsyncThunk(
   "pets-userAuth/logoutUser",
@@ -153,6 +155,22 @@ export const updateUserDataInFirestore = createAsyncThunk<
       const user = auth.currentUser;
 
       if (user) {
+        // 1. Если email новый, но текущий еще не подтверждён
+        if (email && email !== user.email) {
+          if (!user.emailVerified) {
+            await sendEmailVerification(user, {
+              url: "https://pets-love-c6929.firebaseapp.com",
+            });
+            Notify.info(
+              "Мы отправили письмо для подтверждения email. Подтверди его прежде чем менять."
+            );
+            return thunkAPI.rejectWithValue("Email не подтверждён");
+          } else {
+            await updateEmail(user, email);
+          }
+        }
+
+        // 2. Обновляем имя и аватар
         await updateProfile(user, {
           displayName: name,
           photoURL: avatar || user.photoURL,

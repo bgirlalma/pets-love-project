@@ -2,8 +2,12 @@ import { Form } from "formik";
 import styled from "styled-components";
 
 export const MenuContainer = styled.div`
-  //   margin-right: auto;
-  //   margin-left: auto;
+  @media screen and (min-width: 1280px) {
+    // width: 1280px;
+    display: flex;
+    margin: 0 32px;
+    // justify-content: center;
+  }
 `;
 
 // user block start
@@ -13,6 +17,16 @@ export const MainUserContainer = styled.div`
   border-radius: 30px;
   margin: 0 20px 40px 20px;
   background-color: rgba(255, 255, 255, 1);
+
+  @media screen and (min-width: 768px) {
+    padding: 40px;
+    margin: 0 32px 32px 32px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 520px;
+    margin: 40px 0 92px 0;
+  }
 `;
 
 export const UserBlockContainer = styled.div`
@@ -51,6 +65,10 @@ export const EditButton = styled.button`
   height: 28px;
   border-radius: 30px;
   background-color: rgba(255, 244, 223, 1);
+
+  @media screen and (min-width: 768px) {
+    height: 38px;
+  }
 `;
 
 // user block end
@@ -60,6 +78,14 @@ export const AvatarContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+
+  @media screen and (min-width: 768px) {
+  width: 110px;
+  height: 110px;
+  margin-right: auto;
+  margin-left: auto;
+    margin-bottom: 20px;
+  }
 `;
 
 export const DefaultImgAvatar = styled.img`
@@ -76,6 +102,16 @@ export const InformationContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+`;
+
+export const WrappContainer = styled.div`
+width: 100%;
+  margin: 0 auto;
+
+  @media screen and (min-width: 1000px){
+  width: unset;
+  }
 `;
 
 export const TitleInformation = styled.h2`
@@ -85,32 +121,61 @@ export const TitleInformation = styled.h2`
   color: rgba(43, 43, 42, 1);
 
   margin-bottom: 20px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
 `;
 
 export const FormInformation = styled(Form)`
-  input {
-    width: 100%;
-    height: 40px;
-    padding: 0 12px;
-    border: 1px solid rgba(38, 38, 38, 0.15);
-    border-radius: 30px;
-    margin-bottom: 12px;
-     
 
-font-weight: 500;
-font-size: 14px;
-line-height: 18px;
-color: rgba(38, 38, 38, 1);
+  input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  margin-bottom: 12px;
+
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(38, 38, 38, 1);
   }
 
   input: last-of-type {
-    margin-bottom: 0;
+  margin-bottom: 0;
   }
 
   input: hover, 
   input: focus{
-   border: 1px solid rgba(246, 184, 61, 1);
-   outline: none;
+  border: 1px solid rgba(246, 184, 61, 1);
+  outline: none;
+  }
+
+  @media screen and ( min-width: 768px){
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+
+    input {
+      height: 52px;
+      margin-bottom: 0;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1000px){
+  width: 880px;
+  }
+
+  @media screen and (min-width: 1280px){
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   }
 `;
 
@@ -120,16 +185,29 @@ color: rgba(38, 38, 38, 1);
 
 export const PetsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
 `;
 
+export const PetsWrappContainer = styled.div`
+width: 880px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const PetsTitle = styled.h2`
+display: flex;
+justify-content: start;
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
   color: rgba(43, 43, 42, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
 `;
 
 export const ButtonAddPets = styled.button`
@@ -151,8 +229,20 @@ export const ButtonAddPets = styled.button`
   svg {
     margin-left: 5px;
   }
+
+  @media screen and (min-width: 768px) {
+  width: 120px;
+    font-size: 16px;
+    line-height: 20px;
+  }
 `;
 // block pets end
+
+// block pets list start
+export const PetsListContainer = styled.div`
+
+`;
+
 
 export const LogOutUserButton = styled.button`
   width: 115px;
@@ -168,10 +258,26 @@ export const LogOutUserButton = styled.button`
   font-size: 14px;
   line-height: 18px;
   color: rgba(246, 184, 61, 1);
+
+  @media screen and (min-width: 768px) {
+    width: 136px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media screen and (min-width: 1280px) {
+   
+  }
 `;
 
 export const ViewedFavoriteContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 0 20px 20px 20px;
+
+  @media screen and (min-width: 1280px) {
+    align-items: unset;
+    margin: 72px 0 32px 32px;
+  }
 `;

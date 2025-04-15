@@ -19,6 +19,7 @@ export const EditInformationContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-sizing: border-box;
 
   width: 320px;
   border-radius: 30px;
@@ -26,6 +27,11 @@ export const EditInformationContainer = styled.div`
 
   background-color: rgba(255, 255, 255, 1);
   z-index: 2000;
+
+  @media screen and (min-width: 768px) {
+    width: 480px;
+    padding: 50px;
+  }
 `;
 
 export const PositionIconContainer = styled.button`
@@ -42,6 +48,11 @@ export const TitleEditProfile = styled.h2`
   line-height: 20px;
   color: rgba(43, 43, 42, 1);
   margin-bottom: 20px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
 `;
 
 export const ImageProfileContainer = styled.div`
@@ -54,18 +65,28 @@ export const ImageProfileUser = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 50%;
+
+  @media screen and (min-width: 768px) {
+    width: 86px;
+    height: 86px;
+  }
 `;
 
 // block link and update img start
 export const LinkUpdateContainer = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr 126px;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  @media screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 146px;
+  }
 `;
 
 export const InputLink = styled.input`
-  width: 182px;
+  width: 100%;
   height: 42px;
   border-radius: 30px;
   outline: none;
@@ -76,14 +97,19 @@ export const InputLink = styled.input`
   font-size: 12px;
   line-height: 16px;
   color: rgba(38, 38, 38, 1);
+
+  @media screen and (min-width: 768px) {
+    height: 46px;
+    font-size: 14px;
+    line-height: 18px;
+  }
 `;
 
 export const ButtonUpdateImg = styled.button`
-  width: 128px;
+  width: 100%;
   height: 42px;
   background-color: rgba(255, 244, 223, 1);
   border-radius: 30px;
-  margin-left: 10px;
   padding: 0 12px;
 
   display: flex;
@@ -93,6 +119,12 @@ export const ButtonUpdateImg = styled.button`
   font-size: 12px;
   line-height: 16px;
   color: rgba(38, 38, 38, 1);
+
+  @media screen and (min-width: 768px) {
+   
+    font-size: 14px;
+    line-height: 18px;
+  }
 `;
 
 export const UploadImageIContainer = styled.div`
@@ -128,6 +160,14 @@ export const FormContainer = styled(Form)`
   input: focus{
    border: 1px solid rgba(246, 184, 61, 1);
   }
+
+    @media screen and (min-width: 768px) {
+   input{
+    font-size: 16px;
+    line-height: 20px;
+   }
+    
+  }
 `;
 
 export const ProfileGoToButton = styled.button`
@@ -143,4 +183,10 @@ export const ProfileGoToButton = styled.button`
   line-height: 18px;
 
   color: rgba(255, 255, 255, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 40px;
+  }
 `;
