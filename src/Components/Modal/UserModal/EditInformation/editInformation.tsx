@@ -9,8 +9,6 @@ import {
   ImageProfileUser,
   LinkUpdateContainer,
   InputLink,
-  UploadImageIContainer,
-  ButtonUpdateImg,
   FormContainer,
   ProfileGoToButton,
 } from "./editInformation.styled";
@@ -19,12 +17,12 @@ import { selectedUser } from "../../../../Redux/userAuth/userSelector";
 import DefaulAvatar from "../../../../Image/userimg/default-avatar.jpg";
 
 import { CloseSvg } from "../../../../Image/userimg/close";
-import { UploadIcon } from "../../../../Image/userimg/upload-cloud";
-import { AppDispatch, RootState } from "../../../../Redux/store";
+import { AppDispatch } from "../../../../Redux/store";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../../../firebase/firebase";
 import { updateUserDataInFirestore } from "../../../../Redux/userAuth/userOptions";
 import { setUserProfile } from "../../../../Redux/userAuth/userSlice";
+import ButtonUploadComponent from '../../../Buttons/UploadButton/uploadButton'
 
 interface Props {
   onClose: () => void;
@@ -49,60 +47,63 @@ const EditInformation: React.FC<Props> = ({ onClose }) => {
   const dispatch = useDispatch<AppDispatch>();
   const currentUser = useSelector(selectedUser);
 
-// 
+  //
   useEffect(() => {
-    const storedUser = localStorage.getItem('userAuth')
+    const storedUser = localStorage.getItem("userAuth");
 
     if (storedUser) {
-      const parseUser = JSON.parse(storedUser)
-      dispatch(setUserProfile(parseUser))
+      const parseUser = JSON.parse(storedUser);
+      dispatch(setUserProfile(parseUser));
     }
-  },[])
-  
+  }, []);
+
+  // User Default Avatar
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadAvatar, setUploadAvatar] = useState(DefaulAvatar);
 
+  // user Link
   const userProfileLink = `https://bgirlalma.github.io/pets-love-project/${
     currentUser?.name || "user"
   }`;
 
- const handleSubmit = async (updatedUser: UpdateUserPayload) => {
-   if (!currentUser?.uid) {
-     console.log("No user ID, stopping submit");
-     return;
-   }
-   try {
-     // Обновляем displayName в Firebase Authentication
-     if (auth.currentUser) {
-       await updateProfile(auth.currentUser, {
-         displayName: updatedUser.name,
-       });
-     }
+  const handleSubmit = async (updatedUser: UpdateUserPayload) => {
+    if (!currentUser?.uid) {
+      console.log("No user ID, stopping submit");
+      return;
+    }
+    try {
+      // Обновляем displayName в Firebase Authentication
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, {
+          displayName: updatedUser.name,
+        });
+      }
 
-     // 1. Обновляем данные в Firestore через Redux
-     await dispatch(updateUserDataInFirestore(updatedUser)).unwrap();
+      // 1. Обновляем данные в Firestore через Redux
+      await dispatch(updateUserDataInFirestore(updatedUser)).unwrap();
 
-     // 2. Обновляем Redux user (UI сразу покажет новые данные)
-     dispatch(
-       setUserProfile({
-         uid: updatedUser.uid,
-         name: updatedUser.name,
-         email: updatedUser.email,
-         phone: updatedUser.phone,
-         avatar: updatedUser.avatar,
-       })
-     );
+      // 2. Обновляем Redux user (UI сразу покажет новые данные)
+      dispatch(
+        setUserProfile({
+          uid: updatedUser.uid,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          phone: updatedUser.phone,
+          avatar: updatedUser.avatar,
+        })
+      );
 
-     // 3. Локальное сохранение после успешного обновления в Firebase
-     localStorage.setItem("userAuth", JSON.stringify(updatedUser));
+      // 3. Локальное сохранение после успешного обновления в Firebase
+      localStorage.setItem("userAuth", JSON.stringify(updatedUser));
 
-     // Закрываем модалку
-     onClose();
-   } catch (error) {
-     console.error("Error updating user data", error);
-   }
- };
+      // Закрываем модалку
+      onClose();
+    } catch (error) {
+      console.error("Error updating user data", error);
+    }
+  };
 
+  // User Upload Avatar
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
@@ -130,18 +131,10 @@ const EditInformation: React.FC<Props> = ({ onClose }) => {
         {/* block link and update img */}
         <LinkUpdateContainer>
           <InputLink type="text" value={userProfileLink} readOnly />
-          <ButtonUpdateImg onClick={handleButtonClick}>
-            Upload photo
-            <UploadImageIContainer>
-              <UploadIcon />
-            </UploadImageIContainer>
-          </ButtonUpdateImg>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleImageChange}
+          <ButtonUploadComponent
+            handleButtonClick={handleButtonClick}
+            fileInputRef={fileInputRef}
+            handleImageChange={handleImageChange}
           />
         </LinkUpdateContainer>
 

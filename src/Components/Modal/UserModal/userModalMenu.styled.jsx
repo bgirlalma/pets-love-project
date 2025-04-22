@@ -221,17 +221,19 @@ export const ButtonAddPets = styled.button`
   justify-content: center;
   align-items: center;
 
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  color: rgba(255, 255, 255, 1);
+  a {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(255, 255, 255, 1);
+  }
 
   svg {
     margin-left: 5px;
   }
 
   @media screen and (min-width: 768px) {
-  width: 120px;
+    width: 120px;
     font-size: 16px;
     line-height: 20px;
   }
@@ -242,6 +244,48 @@ export const ButtonAddPets = styled.button`
 export const PetsListContainer = styled.div`
 
 `;
+
+export const FavoritePetsContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 180px;
+  width: 335px;
+
+  @media screen and (min-width: 768px) {
+    width: 480px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    position: unset;
+    top: unset;
+    left: unset;
+    transform: unset;
+    width: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: unset;
+  }
+`;
+
+export const TitleFavoritePets = styled.h2`
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(38, 38, 38, 1);
+
+  span {
+    color: rgba(246, 184, 61, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+`;
+
 
 
 export const LogOutUserButton = styled.button`
@@ -272,11 +316,13 @@ export const LogOutUserButton = styled.button`
 `;
 
 export const ViewedFavoriteContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   margin: 0 20px 20px 20px;
 
   @media screen and (min-width: 1280px) {
+    position: unset;
     align-items: unset;
     margin: 72px 0 32px 32px;
   }

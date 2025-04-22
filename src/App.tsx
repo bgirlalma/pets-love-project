@@ -1,3 +1,4 @@
+import React from "react"
 import { Route, Routes } from "react-router-dom"
 import Layout from "./Layout"
 import LoginPage from "./Pages/LoginPage/login"
@@ -7,6 +8,7 @@ import ScreensaverPage from "./Pages/ScreensaverPage/screensaverPage"
 import HomePage from "./Pages/HomePage/homePage"
 import  PrivateRouter from "./PrivateRouter"
 import ProfileModalMenu from "./Components/Modal/UserModal/userModalMenu"
+import AddNewPetPage from "./Pages/AddNewPetPage/addNewPetPage"
 
 function App() {
 
@@ -24,7 +26,9 @@ function App() {
               <PrivateRouter redirectTo="/login" component={HomePage} />
             }
           />
-          <Route path="/profile" element={<PrivateRouter redirectTo="/login" component={ProfileModalMenu}/> } />
+          <Route path="/profile" element={<PrivateRouter redirectTo="/login" component={ProfileModalMenu} />} />
+          
+          <Route path="/add-pet" element={<PrivateRouter redirectTo="/login" component={AddNewPetPage}/> } />
           {/* Private Router end */}
           
           <Route path="/news" element={<NewsPage />} />

@@ -26,6 +26,8 @@ import {
   PetsListContainer,
   LogOutUserButton,
   ViewedFavoriteContainer,
+  FavoritePetsContainer,
+  TitleFavoritePets,
 } from "./userModalMenu.styled";
 import { UserWhiteIcon } from "../../../Image/userimg/user-white";
 import { PlusPetsIcon } from "../../../Image/userimg/plus";
@@ -34,11 +36,12 @@ import ViewedComponent from "../../ProfilePets/Viewed/viewed";
 import { logoutUser } from "../../../Redux/userAuth/userOptions";
 import { setUserProfile } from "../../../Redux/userAuth/userSlice";
 import { selectedUser } from "../../../Redux/userAuth/userSelector";
+import { NavLink } from "react-router-dom";
 
 const ProfileModalMenu = () => {
   const displatch = useDispatch();
-  // const currentUser = useSelector(selectedUser);
   const [isOpenEditProfile, setIsEditProfile] = useState(false);
+  const [showListFavoritePets, setShowListFavoritePets] = useState()
   const currentUser = useSelector(selectedUser);
 
   const OpenProfile = () => {
@@ -119,7 +122,7 @@ const ProfileModalMenu = () => {
             <PetsTitle>My pets</PetsTitle>
 
             <ButtonAddPets type="button">
-              Add pets
+              <NavLink to="/add-pet">Add Pet</NavLink>
               <PlusPetsIcon />
             </ButtonAddPets>
           </PetsWrappContainer>
@@ -127,7 +130,6 @@ const ProfileModalMenu = () => {
 
         {/* List Pets Block */}
         <PetsListContainer>
-         
           <div>
             <ul>
               <li></li>
@@ -137,14 +139,21 @@ const ProfileModalMenu = () => {
           {/* Button LogOut */}
           <LogOutUserButton type="button" onClick={handleLogout}>
             Log Out
-            </LogOutUserButton>
-          
+          </LogOutUserButton>
         </PetsListContainer>
       </MainUserContainer>
 
       <ViewedFavoriteContainer>
         <FavoritePets />
         <ViewedComponent />
+
+        <FavoritePetsContainer>
+          <TitleFavoritePets>
+            Oops, <span>looks like there are not any furries</span> on our
+            adorable page yet. Do not worry! View your pets on the find your
+            favorite pet page and add them to your favorites.
+          </TitleFavoritePets>
+        </FavoritePetsContainer>
       </ViewedFavoriteContainer>
     </MenuContainer>
   );

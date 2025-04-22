@@ -1,5 +1,5 @@
 
-import {FavoriteButtonPets} from './favoritePets.styled'
+import { FavoriteButtonPets } from "./favoritePets.styled";
 const FavoritePets = () => {
     return (
       <div>

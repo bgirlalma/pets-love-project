@@ -105,33 +105,7 @@ export const InputLink = styled.input`
   }
 `;
 
-export const ButtonUpdateImg = styled.button`
-  width: 100%;
-  height: 42px;
-  background-color: rgba(255, 244, 223, 1);
-  border-radius: 30px;
-  padding: 0 12px;
 
-  display: flex;
-  align-items: center;
-
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  color: rgba(38, 38, 38, 1);
-
-  @media screen and (min-width: 768px) {
-   
-    font-size: 14px;
-    line-height: 18px;
-  }
-`;
-
-export const UploadImageIContainer = styled.div`
-  width: 18px;
-  height: 18px;
-  margin-left: 8px;
-`;
 
 export const FormContainer = styled(Form)`
   margin-bottom: 20px;
