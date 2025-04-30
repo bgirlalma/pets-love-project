@@ -1,3 +1,4 @@
+import { Field, Form } from "formik";
 import styled from "styled-components";
 
 export const AddPetContainer = styled.div`
@@ -108,3 +109,84 @@ border-radius: 50%;
 
 // Avatar, Link block end
 
+
+// Form block start
+
+export const FormInfo = styled(Form)`
+  display: flex;
+  flex-direction: column;
+
+  input[name="title"] {
+    width: 100%;
+    height: 42px;
+    border: 1px solid rgba(38, 38, 38, 0.15);
+    border-radius: 30px;
+    margin-bottom: 10px;
+    outline: none;
+    cursor: pointer;
+    padding: 0 12px;
+    color: rgba(38, 38, 38, 0.5);
+  }
+
+  input[name="name"] {
+    width: 100%;
+    height: 42px;
+    border: 1px solid rgba(38, 38, 38, 0.15);
+    border-radius: 30px;
+    margin-bottom: 10px;
+    outline: none;
+    cursor: pointer;
+    padding: 0 12px;
+    color: rgba(38, 38, 38, 0.5);
+  }
+
+  input:hover,
+  input: focus {
+    border: 1px solid rgba(246, 184, 61, 1);
+  }
+`;
+
+export const PositionContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+`;
+
+
+export const SelectPositionContainer = styled.div`
+  position: relative;
+  width: 100%;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: auto;
+  }
+`;
+
+export const TypeField = styled(Field)`
+  appearance: none; /* Убираем дефолтную стрелку */
+  width: 100%;
+  height: 42px;
+  outline: none;
+  cursor: pointer;
+  padding: 0 12px;
+  color: rgba(38, 38, 38, 0.5);
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+`;
+
+export const DataContainer = styled.label`
+position: relative;
+
+svg{
+position: absolute;
+top: 50%;
+right: 24px;
+transform: translateY(-50%);
+pointer-events: auto;
+}
+`;
