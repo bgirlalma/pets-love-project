@@ -41,7 +41,7 @@ import { NavLink } from "react-router-dom";
 const ProfileModalMenu = () => {
   const displatch = useDispatch();
   const [isOpenEditProfile, setIsEditProfile] = useState(false);
-  const [showListFavoritePets, setShowListFavoritePets] = useState()
+  // const [showListFavoritePets, setShowListFavoritePets] = useState()
   const currentUser = useSelector(selectedUser);
 
   const OpenProfile = () => {

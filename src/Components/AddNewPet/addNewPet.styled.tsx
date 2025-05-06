@@ -2,22 +2,62 @@ import { Field, Form } from "formik";
 import styled from "styled-components";
 
 export const AddPetContainer = styled.div`
-padding: 0 20px 20px 20px;
+  padding: 0 20px 20px 20px;
 
+  @media screen and (min-width: 768px) {
+    padding: 0 32px;
+  }
+
+  @media screen and (min-width: 1280px){
+  width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  margin-top: 32px;
+  }
 `;
 
+// Main Img Dog
 export const DogImageContainer = styled.div`
   border-radius: 30px;
   background-color: rgba(246, 184, 61, 1);
- 
+
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 16px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 100%;
+    margin-bottom: 0;
+    margin-right: 32px;
+  }
 `;
 
 export const DogImage = styled.img`
   display: block;
-  
+
+  @media screen and (min-width: 1280px) {
+    min-width: 512px;
+  }
+`;
+
+// Main Form Container(Avatar, Link, Upload, FormPet, Buttons)
+export const FormContainer = styled.div`
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 28px 20px 20px 20px;
+
+  @media screen and (min-width: 768px) {
+    padding: 40px 0;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 100%;
+  }
 `;
 
 export const MainTitle = styled.h1`
@@ -26,6 +66,12 @@ export const MainTitle = styled.h1`
   line-height: 28px;
   color: rgba(38, 38, 38, 1);
   margin-bottom: 24px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 40px;
+  }
 `;
 
 // Female block start
@@ -33,7 +79,10 @@ export const MainTitle = styled.h1`
 export const FemaleBlockContainer = styled.div`
   display: flex;
   margin-bottom: 20px;
-  
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+  }
 `;
 
 export const ButtonFemale = styled.button`
@@ -50,17 +99,39 @@ export const ButtonFemale = styled.button`
   &:last-child {
     margin-right: 0;
   }
+
+  @media screen and (min-width: 768px) {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
 `;
 
 // female block end
 
 
 // Avatar, Link block start
+export const PositionFormContainer = styled.div`
+width: 300px;
+margin-left: auto;
+margin-right: auto;
+
+@media screen and (min-width: 768px){
+width: 432px;
+}
+`;
 export const AvatarLinkContainer = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  @media screen and (min-width: 768px) {
+
+  }
 `;
 
 export const LinkUpdateContainer = styled.div`
@@ -89,6 +160,7 @@ export const InputLink = styled.input`
   color: rgba(38, 38, 38, 1);
 
   @media screen and (min-width: 768px) {
+    width: 100%;
     height: 46px;
     font-size: 14px;
     line-height: 18px;
@@ -96,15 +168,22 @@ export const InputLink = styled.input`
 `;
 
 export const ImageAvatarContainer = styled.div`
-width: 68px;
-height: 68px;
-border-radius: 50%;
+  width: 68px;
+  height: 68px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 50%;
   background-color: rgba(255, 244, 223, 1);
 
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 16px;
+
+  @media screen and (min-width: 768px) {
+    width: 86px;
+    height: 86px;
+  }
 `;
 
 // Avatar, Link block end
@@ -125,7 +204,12 @@ export const FormInfo = styled(Form)`
     outline: none;
     cursor: pointer;
     padding: 0 12px;
-    color: rgba(38, 38, 38, 0.5);
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+
+    color: rgba(38, 38, 38, 1);
   }
 
   input[name="name"] {
@@ -137,12 +221,37 @@ export const FormInfo = styled(Form)`
     outline: none;
     cursor: pointer;
     padding: 0 12px;
-    color: rgba(38, 38, 38, 0.5);
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+
+    color: rgba(38, 38, 38, 1);
   }
 
   input:hover,
   input: focus {
     border: 1px solid rgba(246, 184, 61, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    input[name="title"] {
+      height: 52px;
+      padding: 0 16px;
+      margin-bottom: 18px;
+
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    input[name="name"] {
+      height: 52px;
+      padding: 0 16px;
+      margin-bottom: 18px;
+
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
 `;
 
@@ -151,9 +260,34 @@ export const PositionContainer = styled.div`
   justify-content: center;
   align-items: center;
 
+  @media screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+`;
+// Data Field
+export const DataContainer = styled.label`
+  position: relative;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    pointer-events: auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    svg {
+      width: 20px;
+      height: 20px;
+      right: 16px;
+    }
+  }
 `;
 
-
+// Select Field
 export const SelectPositionContainer = styled.div`
   position: relative;
   width: 100%;
@@ -165,6 +299,14 @@ export const SelectPositionContainer = styled.div`
     transform: translateY(-50%);
     pointer-events: auto;
   }
+
+  @media screen and (min-width: 768px){
+  svg{
+  width: 20px;
+  height: 20px;
+  right: 16px;
+  }
+  }
 `;
 
 export const TypeField = styled(Field)`
@@ -174,19 +316,21 @@ export const TypeField = styled(Field)`
   outline: none;
   cursor: pointer;
   padding: 0 12px;
-  color: rgba(38, 38, 38, 0.5);
+
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(38, 38, 38, 1);
+
   border: 1px solid rgba(38, 38, 38, 0.15);
   border-radius: 30px;
+
+  @media screen and (min-width: 768px) {
+    height: 52px;
+    padding: 0 16px;
+
+    font-size: 16px;
+    line-height: 20px;
+  }
 `;
 
-export const DataContainer = styled.label`
-position: relative;
-
-svg{
-position: absolute;
-top: 50%;
-right: 24px;
-transform: translateY(-50%);
-pointer-events: auto;
-}
-`;

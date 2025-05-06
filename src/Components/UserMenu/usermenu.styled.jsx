@@ -51,6 +51,10 @@ export const UserMenuTablet = styled.div`
   }
 `;
 
+export const UserButton = styled.button`
+background-color: inherit;
+`;
+
 export const UserName = styled.h2`
 display: none;
   @media screen and (min-width: 768px) {

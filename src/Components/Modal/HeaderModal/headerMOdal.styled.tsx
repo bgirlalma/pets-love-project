@@ -33,6 +33,7 @@ export const IconCloseContainer = styled.button`
   margin-left: auto;
   border: none;
   background-color: inherit;
+  
 `;
 
 export const ListMobileTabletContainer = styled.div`

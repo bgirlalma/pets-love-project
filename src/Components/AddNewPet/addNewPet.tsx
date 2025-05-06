@@ -9,9 +9,11 @@ import {
   AddPetContainer,
   DogImageContainer,
   DogImage,
+  FormContainer,
   MainTitle,
   FemaleBlockContainer,
   ButtonFemale,
+  PositionFormContainer,
   AvatarLinkContainer,
   LinkUpdateContainer,
   InputLink,
@@ -27,6 +29,7 @@ import ButtonUploadComponent from "../Buttons/UploadButton/uploadButton";
 import { CalendarIcon } from "../../Image/add-pet/calendarIcon";
 import { ChevronDownIcon } from "../../Image/add-pet/chevron-down";
 import DataCustomInput from "./customInputData/customInputData";
+import AddPetButton from "./addPetButtons/addPetButtons";
 
 const AddNewPetComponent = () => {
   const [imgSize, setImgSize] = useState("");
@@ -83,84 +86,96 @@ const AddNewPetComponent = () => {
         <DogImage src={imgSize} alt="Dog" />
       </DogImageContainer>
 
-      <div>
-        <MainTitle>Add my pet</MainTitle>
+      <FormContainer>
+        <PositionFormContainer>
+          <div>
+            <MainTitle>Add my pet</MainTitle>
 
-        <FemaleBlockContainer>
-          <ButtonFemale type="button">
-            <svg width="20" height="20">
-              <use href={Healthicons + "#icon-female"}></use>
-            </svg>
-          </ButtonFemale>
-          <ButtonFemale type="button">
-            <svg width="20" height="20">
-              <use href={Healthicons + "#icon-male"}></use>
-            </svg>
-          </ButtonFemale>
-          <ButtonFemale type="button">
-            <svg width="20" height="20">
-              <use href={Healthicons + "#icon-healthicons"}></use>
-            </svg>
-          </ButtonFemale>
-        </FemaleBlockContainer>
-      </div>
+            <FemaleBlockContainer>
+              <ButtonFemale type="button">
+                <svg width="20" height="20">
+                  <use href={Healthicons + "#icon-female"}></use>
+                </svg>
+              </ButtonFemale>
+              <ButtonFemale type="button">
+                <svg width="20" height="20">
+                  <use href={Healthicons + "#icon-male"}></use>
+                </svg>
+              </ButtonFemale>
+              <ButtonFemale type="button">
+                <svg width="20" height="20">
+                  <use href={Healthicons + "#icon-healthicons"}></use>
+                </svg>
+              </ButtonFemale>
+            </FemaleBlockContainer>
+          </div>
 
-      <AvatarLinkContainer>
-        <ImageAvatarContainer>
-          {uploadAvatar ? (
-            <img src={uploadAvatar} alt="avatar" />
-          ) : (
-            <PetDefaultAvatar />
-          )}
-        </ImageAvatarContainer>
+          <AvatarLinkContainer>
+            <ImageAvatarContainer>
+              {uploadAvatar ? (
+                <img src={uploadAvatar} alt="avatar" />
+              ) : (
+                <PetDefaultAvatar />
+              )}
+            </ImageAvatarContainer>
 
-        <LinkUpdateContainer>
-          <InputLink type="text" readOnly />
-          <ButtonUploadComponent
-            fileInputRef={fileInputRef}
-            handleButtonClick={handleButtonClick}
-            handleImageChange={handleImageChange}
-          />
-        </LinkUpdateContainer>
-      </AvatarLinkContainer>
-
-      <Formik
-        initialValues={{
-          title: "",
-          name: "",
-          birthday: "",
-          petType: "",
-        }}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-      >
-        <FormInfo>
-          <Field type="text" name="title" placeholder="Title" />
-          <Field type="text" name="name" placeholder="Pet’s Name" />
-          <PositionContainer>
-            <DataContainer>
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                ref={datePickerRef}
-                customInput={<DataCustomInput onClick={handleOpenCalendar} />}
-                dateFormat="yyyy-MM-dd"
-                popperPlacement="bottom-start"
-                portal
+            <LinkUpdateContainer>
+              <InputLink type="text" readOnly />
+              <ButtonUploadComponent
+                fileInputRef={fileInputRef}
+                handleButtonClick={handleButtonClick}
+                handleImageChange={handleImageChange}
               />
-              <CalendarIcon />
-            </DataContainer>
-            <SelectPositionContainer>
-              <TypeField as="select" name="petType" placeholder="Type of pet">
-                <option value="">Type of pet</option>
-                <option value="cat">cat</option>
-              </TypeField>
-              <ChevronDownIcon />
-            </SelectPositionContainer>
-          </PositionContainer>
-        </FormInfo>
-      </Formik>
+            </LinkUpdateContainer>
+          </AvatarLinkContainer>
+
+          <Formik
+            initialValues={{
+              title: "",
+              name: "",
+              birthday: "",
+              petType: "",
+            }}
+            onSubmit={(values) => {
+              console.log(values);
+            }}
+          >
+            <FormInfo>
+              <Field type="text" name="title" placeholder="Title" />
+              <Field type="text" name="name" placeholder="Pet’s Name" />
+              <PositionContainer>
+                <DataContainer>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    ref={datePickerRef}
+                    customInput={
+                      <DataCustomInput onClick={handleOpenCalendar} />
+                    }
+                    dateFormat="yyyy-MM-dd"
+                    popperPlacement="bottom-start"
+                    portal
+                  />
+                  <CalendarIcon />
+                </DataContainer>
+                <SelectPositionContainer>
+                  <TypeField
+                    as="select"
+                    name="petType"
+                    placeholder="Type of pet"
+                  >
+                    <option value="">Type of pet</option>
+                    <option value="cat">cat</option>
+                  </TypeField>
+                  <ChevronDownIcon />
+                </SelectPositionContainer>
+              </PositionContainer>
+
+              <AddPetButton />
+            </FormInfo>
+          </Formik>
+        </PositionFormContainer>
+      </FormContainer>
     </AddPetContainer>
   );
 };

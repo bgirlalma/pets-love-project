@@ -6,6 +6,7 @@ import {
   UserMenuContainer,
   UserMenuMobileContainer,
   UserMenuTablet,
+  UserButton,
   UserName,
 } from "./usermenu.styled";
 import { selectedUser } from '../../Redux/userAuth/userSelector';
@@ -39,11 +40,11 @@ const ToggleEditProfile = useCallback(() => {
       {/* mobile user menu */}
       {userIsLogIn && (
         <UserMenuMobileContainer>
-          <button type="button" onClick={ToggleEditProfile}>
+          <UserButton type="button" onClick={ToggleEditProfile}>
             <svg width="20" height="20">
               <use href={`${userIcon}#icon-user`}></use>
             </svg>
-          </button>
+          </UserButton>
         </UserMenuMobileContainer>
       )}
 
