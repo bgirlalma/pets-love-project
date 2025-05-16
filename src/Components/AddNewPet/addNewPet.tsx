@@ -40,7 +40,7 @@ const AddNewPetComponent = () => {
   const datePickerRef = useRef(null);
 
   // Pet Link
-  // const petLink = `https://bgirlalma.github.io/pets-love-project/${petId}`;
+  const petLink = `https://bgirlalma.github.io/pets-love-project/${uid}`;
 
   useEffect(() => {
     const updateImg = () => {
