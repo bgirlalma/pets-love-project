@@ -1,6 +1,27 @@
 import { Field, Form } from "formik";
 import styled from "styled-components";
 
+const getBackground = (
+  genderType: ButtonFemaleProps["genderType"],
+  isHover = false
+) => {
+  switch (genderType) {
+    case "female":
+      return isHover ? "rgba(244, 63, 94, 1)" : "rgba(244, 63, 94, 0.1)";
+    case "male":
+      return isHover ? "rgba(84, 173, 255, 1)" : "rgba(84, 173, 255, 0.1)";
+    case "unknown":
+    default:
+      return isHover ? "rgba(246, 184, 61, 1)" : "rgba(255, 244, 223, 1)";
+  }
+};
+
+
+interface ButtonFemaleProps {
+  isActive: boolean;
+  genderType: "female" | "male" | "unknown";
+}
+
 export const AddPetContainer = styled.div`
   padding: 0 20px 20px 20px;
 
@@ -85,7 +106,8 @@ export const FemaleBlockContainer = styled.div`
   }
 `;
 
-export const ButtonFemale = styled.button`
+// shouldForwardProp -функ, которая не добавляет пропсы в DOM. Они используються только в стилях
+export const ButtonFemale = styled.button.withConfig({shouldForwardProp: (prop) => !["isActive", "genderType"].includes(prop)})<ButtonFemaleProps>`
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -95,6 +117,8 @@ export const ButtonFemale = styled.button`
   align-items: center;
 
   margin-right: 10px;
+
+  background-color: ${({ genderType, isActive}) => isActive? getBackground(genderType, true) : getBackground(genderType)};
 
   &:last-child {
     margin-right: 0;

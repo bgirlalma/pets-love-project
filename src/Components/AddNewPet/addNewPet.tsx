@@ -4,6 +4,7 @@ import DogTablet from "../../Image/add-pet/dog-addpet-tablet.png";
 import DogDesktop from "../../Image/add-pet/dog-addpet-desktop.png";
 import { PetDefaultAvatar } from "../../Image/add-pet/pet-default-avatar";
 import Healthicons from "../../Image/add-pet/symbol-defs.svg";
+import WhiteGender from '../../Image/add-pet/symbol-white-defs.svg'
 import DatePicker, { ReactDatePickerCustomHeaderProps } from "react-datepicker";
 import {
   AddPetContainer,
@@ -30,18 +31,32 @@ import { CalendarIcon } from "../../Image/add-pet/calendarIcon";
 import { ChevronDownIcon } from "../../Image/add-pet/chevron-down";
 import DataCustomInput from "./customInputData/customInputData";
 import AddPetButton from "./addPetButtons/addPetButtons";
+import { useDispatch} from 'react-redux'
+import { AddPet } from "../../Redux/pets/myPets/myPetsOptional";
+import { AppDispatch } from "../../Redux/store";
 
 const AddNewPetComponent = () => {
+  // Resize Img
   const [imgSize, setImgSize] = useState("");
   // Pet upload Avatar
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  // Avatar
+  const [uploadAvatarFile, setUploadAvatarFile] = useState<File | null>(null);
   const [uploadAvatar, setUploadAvatar] = useState(null);
+  // Calendar
   const [startDate, setStartDate] = useState(new Date());
   const datePickerRef = useRef(null);
 
-  // Pet Link
-  const petLink = `https://bgirlalma.github.io/pets-love-project/${uid}`;
+  // Add Pet
+  const dispatch = useDispatch<AppDispatch>()
+  const [sex, setSex] = useState<"male" | "female" | "unknown">("unknown");
+ 
 
+  // Pet Link
+  // const petLink = `https://bgirlalma.github.io/pets-love-project/${id}`;
+
+
+  // Resize Image
   useEffect(() => {
     const updateImg = () => {
       if (window.innerWidth > 768) {
@@ -68,6 +83,7 @@ const AddNewPetComponent = () => {
     const file = e.target.files?.[0];
 
     if (file) {
+      setUploadAvatarFile(file)
       const imageURL = URL.createObjectURL(file);
       setUploadAvatar(imageURL);
     }
@@ -79,6 +95,8 @@ const AddNewPetComponent = () => {
       datePickerRef.current.setOpen(true); // Открываем календарь
     }
   };
+
+
 
   return (
     <AddPetContainer>
@@ -92,19 +110,58 @@ const AddNewPetComponent = () => {
             <MainTitle>Add my pet</MainTitle>
 
             <FemaleBlockContainer>
-              <ButtonFemale type="button">
-                <svg width="20" height="20">
-                  <use href={Healthicons + "#icon-female"}></use>
+              <ButtonFemale
+                genderType="female"
+                isActive={sex === "female"}
+                type="button"
+                onClick={() =>
+                  setSex((prev) => (prev === "female" ? "unknown" : "female"))
+                }
+              >
+                <svg width="20" height="20" key={sex}>
+                  <use
+                    href={
+                      sex === "female"
+                        ? WhiteGender + "#icon-female"
+                        : Healthicons + "#icon-female"
+                    }
+                  ></use>
                 </svg>
               </ButtonFemale>
-              <ButtonFemale type="button">
+              <ButtonFemale
+                genderType="male"
+                isActive={sex === "male"}
+                type="button"
+                onClick={() =>
+                  setSex((prev) => (prev === "male" ? "unknown" : "male"))
+                }
+              >
                 <svg width="20" height="20">
-                  <use href={Healthicons + "#icon-male"}></use>
+                  <use
+                    href={
+                      sex === "male"
+                        ? WhiteGender + "#icon-male"
+                        : Healthicons + "#icon-male"
+                    }
+                  ></use>
                 </svg>
               </ButtonFemale>
-              <ButtonFemale type="button">
+              <ButtonFemale
+                genderType="unknown"
+                isActive={sex === "unknown"}
+                type="button"
+                onClick={() =>
+                  setSex((prev) => (prev === "unknown" ? "unknown" : "unknown"))
+                }
+              >
                 <svg width="20" height="20">
-                  <use href={Healthicons + "#icon-healthicons"}></use>
+                  <use
+                    href={
+                      sex === "unknown"
+                        ? WhiteGender + "#icon-healthicons"
+                        : Healthicons + "#icon-healthicons"
+                    }
+                  ></use>
                 </svg>
               </ButtonFemale>
             </FemaleBlockContainer>
@@ -136,8 +193,20 @@ const AddNewPetComponent = () => {
               birthday: "",
               petType: "",
             }}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={(values, { resetForm }) => {
+              const payload = {
+                values: {
+                  ...values,
+                  birthday: startDate.toISOString().split("T")[0],
+                },
+                sex,
+                file: uploadAvatarFile,
+              };
+              dispatch(AddPet(payload));
+              resetForm();
+              setUploadAvatar(null);
+              setUploadAvatarFile(null);
+              setSex("unknown");
             }}
           >
             <FormInfo>

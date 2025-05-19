@@ -22,7 +22,7 @@ interface AddPetPayload {
     birthday: string;
     petType: string;
   };
-  sex: Pet["sex"];
+  sex: "male" | "female" | "unknown";
   file: File | null;
 }
 
