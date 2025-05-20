@@ -31,9 +31,12 @@ import { CalendarIcon } from "../../Image/add-pet/calendarIcon";
 import { ChevronDownIcon } from "../../Image/add-pet/chevron-down";
 import DataCustomInput from "./customInputData/customInputData";
 import AddPetButton from "./addPetButtons/addPetButtons";
-import { useDispatch} from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import { AddPet } from "../../Redux/pets/myPets/myPetsOptional";
 import { AppDispatch } from "../../Redux/store";
+import { useNavigate } from "react-router-dom";
+import { Notify } from "notiflix";
+import ListPetsType from "./ListTypePets/listTypePets";
 
 const AddNewPetComponent = () => {
   // Resize Img
@@ -41,7 +44,6 @@ const AddNewPetComponent = () => {
   // Pet upload Avatar
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   // Avatar
-  const [uploadAvatarFile, setUploadAvatarFile] = useState<File | null>(null);
   const [uploadAvatar, setUploadAvatar] = useState(null);
   // Calendar
   const [startDate, setStartDate] = useState(new Date());
@@ -50,7 +52,7 @@ const AddNewPetComponent = () => {
   // Add Pet
   const dispatch = useDispatch<AppDispatch>()
   const [sex, setSex] = useState<"male" | "female" | "unknown">("unknown");
- 
+  const navigate = useNavigate()
 
   // Pet Link
   // const petLink = `https://bgirlalma.github.io/pets-love-project/${id}`;
@@ -82,11 +84,10 @@ const AddNewPetComponent = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    if (file) {
-      setUploadAvatarFile(file)
-      const imageURL = URL.createObjectURL(file);
-      setUploadAvatar(imageURL);
-    }
+    // if (file) {
+    //   const imageURL = URL.createObjectURL(file);
+    //   setUploadAvatar(imageURL);
+    // }
   };
 
   // Функция для открытия календаря
@@ -95,6 +96,7 @@ const AddNewPetComponent = () => {
       datePickerRef.current.setOpen(true); // Открываем календарь
     }
   };
+
 
 
 
@@ -193,20 +195,27 @@ const AddNewPetComponent = () => {
               birthday: "",
               petType: "",
             }}
-            onSubmit={(values, { resetForm }) => {
+            onSubmit={ async(values, { resetForm, setSubmitting}) => {
+             try {
               const payload = {
                 values: {
                   ...values,
                   birthday: startDate.toISOString().split("T")[0],
                 },
                 sex,
-                file: uploadAvatarFile,
+                file: null,
               };
-              dispatch(AddPet(payload));
+              await dispatch(AddPet(payload)).unwrap();
               resetForm();
-              setUploadAvatar(null);
-              setUploadAvatarFile(null);
-              setSex("unknown");
+               setSex("unknown");
+               setUploadAvatar(null);
+              navigate("/profile");
+             } catch (error: any) {
+              console.error("Ошибка при добавлении питомца:", error);
+              Notify.failure("Дані введено не вірно або не всі дані були отриманні!")
+             } finally {
+               setSubmitting(false)
+             }
             }}
           >
             <FormInfo>
@@ -234,7 +243,7 @@ const AddNewPetComponent = () => {
                     placeholder="Type of pet"
                   >
                     <option value="">Type of pet</option>
-                    <option value="cat">cat</option>
+                    <ListPetsType/>
                   </TypeField>
                   <ChevronDownIcon />
                 </SelectPositionContainer>

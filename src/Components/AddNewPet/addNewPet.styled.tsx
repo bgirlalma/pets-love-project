@@ -204,6 +204,12 @@ export const ImageAvatarContainer = styled.div`
   align-items: center;
   margin-bottom: 16px;
 
+  img {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+  }
+
   @media screen and (min-width: 768px) {
     width: 86px;
     height: 86px;

@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import userSlice from './userAuth/userSlice';
 import myPetSlice from './pets/myPets/myPetsSlice'
+import typePetSlice from "./pets/myPets/typePetsSlice";
 
 const persistConfig = {
   key: "root",
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReduce = combineReducers({
   userAuth: userSlice,
   PetSlice: myPetSlice,
+  TypePets: typePetSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReduce)

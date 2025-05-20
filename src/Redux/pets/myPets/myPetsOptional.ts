@@ -1,8 +1,10 @@
 import React from "react";
-import { configureStore, createAsyncThunk } from "@reduxjs/toolkit";
-import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { ref } from "firebase/database";
 import { auth, database, firestore } from "../../../firebase/firebase";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { PetDefaultAvatar } from "../../../Image/add-pet/pet-default-avatar";
+import { get } from "firebase/database";
 
 interface Pet {
   uid: string;
@@ -11,7 +13,6 @@ interface Pet {
   birthday: string;
   petType: string;
   sex: "male" | "female" | "unknown";
-  image: string;
   createdAt: string;
 }
 
@@ -23,7 +24,6 @@ interface AddPetPayload {
     petType: string;
   };
   sex: "male" | "female" | "unknown";
-  file: File | null;
 }
 
 interface UpdatePetPayload {
@@ -34,7 +34,6 @@ interface UpdatePetPayload {
     birthday: string;
     petType: string;
     sex: Pet["sex"];
-    file?: File | null;
   };
 }
 
@@ -43,6 +42,10 @@ interface PetState {
   loading: boolean;
   error: string | null;
 }
+
+// interface TypePetsProp {
+
+// }
 
 const initialState: PetState = {
   pets: [],
@@ -63,7 +66,7 @@ export const fetchPets = createAsyncThunk<Pet[]>(
       }
 
       const snapshot = await getDocs(
-        collection(database, `users/${user.uid}/mypets`)
+        collection(firestore, `users/${user.uid}/mypets`)
       );
         const pets: Pet[] = [];
 
@@ -85,22 +88,17 @@ export const fetchPets = createAsyncThunk<Pet[]>(
 // add new my pet
 export const AddPet = createAsyncThunk<Pet, AddPetPayload>(
   "pets/AddPet",
-  async ({ values, sex, file }, thunkAPI) => {
+  async ({ values, sex }, thunkAPI) => {
     try {
+      console.log("AddPet payload:", { values, sex });
       const user = auth.currentUser;
 
       if (!user) {
         return thunkAPI.rejectWithValue("User not authenticated");
       }
 
-      let imgURL = "";
-
-      if (file) {
-        const storageRef = ref(firestore, `avatar/${file.name}`);
-        await uploadBytes(storageRef, file);
-        imgURL = await getDownloadURL(storageRef);
-      }
-
+      const imgURL = PetDefaultAvatar;
+     
       const newPet: Pet = {
         uid: crypto.randomUUID(),
         name: values.name,
@@ -108,15 +106,15 @@ export const AddPet = createAsyncThunk<Pet, AddPetPayload>(
         birthday: values.birthday,
         petType: values.petType,
         sex,
-        image: imgURL,
         createdAt: new Date().toISOString(),
       };
 
       // добавляем в подколлекцию пользователя
-      const userPetsRef = collection(database, `users/${user.uid}/mypets`);
+      const userPetsRef = collection(firestore, `users/${user.uid}/mypets`);
       await addDoc(userPetsRef, newPet);
       return newPet;
     } catch (error: any) {
+      console.error("AddPet thunk error:", error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -137,15 +135,9 @@ export const updateProfileMyPets = createAsyncThunk<Pet, UpdatePetPayload>(
       }
 
       // update IMG
-      let imgURL = "";
+      let imgURL = PetDefaultAvatar;
 
-      if (values.file) {
-        const storageRef = ref(firestore, `avatar/${values.file.name}`);
-        await uploadBytes(storageRef, values.file);
-        const imgURL = getDownloadURL(storageRef);
-      }
-
-      const petRef = doc(database, `users/${user.uid}/mypets${uid}`);
+      const petRef = doc(firestore, `users/${user.uid}/mypets${uid}`);
 
       const updatedData: Partial<Pet> = {
         name: values.name,
@@ -153,7 +145,6 @@ export const updateProfileMyPets = createAsyncThunk<Pet, UpdatePetPayload>(
         birthday: values.birthday,
         petType: values.petType,
         sex: values.sex,
-        ...( imgURL , {image: imgURL}),
       };
 
       await updateDoc(petRef, updatedData)
@@ -161,7 +152,6 @@ export const updateProfileMyPets = createAsyncThunk<Pet, UpdatePetPayload>(
       return {
         uid,
         ...updatedData,
-        image: imgURL || await((await getDoc(petRef)).data()?.image),
         createdAt: new Date().toISOString()
       } as Pet;
     } catch (error: any) {
@@ -181,9 +171,29 @@ export const deletedPet = createAsyncThunk<string, string>(
         return thunkAPI.rejectWithValue("User not authenticated");
       }
 
-      const petRef = doc(database, `users/${user.uid}/mypets${petId}`)
+      const petRef = doc(firestore, `users/${user.uid}/mypets${petId}`)
       await deleteDoc(petRef)
       return petId
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+
+export const ListTypePets = createAsyncThunk(
+  "pets/ListTypePets",
+  async (_, thunkAPI) => {
+    try {
+     
+      const snapshot = await get(ref(database, "typepets")); // <-- Убедись, что путь верный
+      const data = snapshot.val();
+      if (!data) {
+       
+        return thunkAPI.rejectWithValue("No data found");
+      }
+      return data;
+
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
