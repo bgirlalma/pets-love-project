@@ -5,7 +5,7 @@ import DogDesktop from "../../Image/add-pet/dog-addpet-desktop.png";
 import { PetDefaultAvatar } from "../../Image/add-pet/pet-default-avatar";
 import Healthicons from "../../Image/add-pet/symbol-defs.svg";
 import WhiteGender from '../../Image/add-pet/symbol-white-defs.svg'
-import DatePicker, { ReactDatePickerCustomHeaderProps } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import {
   AddPetContainer,
   DogImageContainer,
@@ -24,8 +24,9 @@ import {
   DataContainer,
   SelectPositionContainer,
   TypeField,
+  ItemsContainer,
 } from "./addNewPet.styled";
-import { Field, Form, Formik } from "formik";
+import { Field, Formik, useFormikContext } from "formik";
 import ButtonUploadComponent from "../Buttons/UploadButton/uploadButton";
 import { CalendarIcon } from "../../Image/add-pet/calendarIcon";
 import { ChevronDownIcon } from "../../Image/add-pet/chevron-down";
@@ -53,6 +54,9 @@ const AddNewPetComponent = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [sex, setSex] = useState<"male" | "female" | "unknown">("unknown");
   const navigate = useNavigate()
+
+  // Open Menu
+  const [istoggleMenu, setIsToggleMenu] = useState(false)
 
   // Pet Link
   // const petLink = `https://bgirlalma.github.io/pets-love-project/${id}`;
@@ -97,6 +101,10 @@ const AddNewPetComponent = () => {
     }
   };
 
+  // Toogle List Pets
+  const ToggleMenu = () => {
+  setIsToggleMenu(prev => !prev)
+  }
 
 
 
@@ -195,62 +203,76 @@ const AddNewPetComponent = () => {
               birthday: "",
               petType: "",
             }}
-            onSubmit={ async(values, { resetForm, setSubmitting}) => {
-             try {
-              const payload = {
-                values: {
-                  ...values,
-                  birthday: startDate.toISOString().split("T")[0],
-                },
-                sex,
-                file: null,
-              };
-              await dispatch(AddPet(payload)).unwrap();
-              resetForm();
-               setSex("unknown");
-               setUploadAvatar(null);
-              navigate("/profile");
-             } catch (error: any) {
-              console.error("Ошибка при добавлении питомца:", error);
-              Notify.failure("Дані введено не вірно або не всі дані були отриманні!")
-             } finally {
-               setSubmitting(false)
-             }
+            onSubmit={async (values, { resetForm, setSubmitting }) => {
+              try {
+                const payload = {
+                  values: {
+                    ...values,
+                    birthday: startDate.toISOString().split("T")[0],
+                  },
+                  sex,
+                  file: null,
+                };
+                await dispatch(AddPet(payload)).unwrap();
+                resetForm();
+                setSex("unknown");
+                setUploadAvatar(null);
+                navigate("/profile");
+              } catch (error: any) {
+                console.error("Ошибка при добавлении питомца:", error);
+                Notify.failure(
+                  "Дані введено не вірно або не всі дані були отриманні!"
+                );
+              } finally {
+                setSubmitting(false);
+              }
             }}
           >
-            <FormInfo>
-              <Field type="text" name="title" placeholder="Title" />
-              <Field type="text" name="name" placeholder="Pet’s Name" />
-              <PositionContainer>
-                <DataContainer>
-                  <DatePicker
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    ref={datePickerRef}
-                    customInput={
-                      <DataCustomInput onClick={handleOpenCalendar} />
-                    }
-                    dateFormat="yyyy-MM-dd"
-                    popperPlacement="bottom-start"
-                    portal
-                  />
-                  <CalendarIcon />
-                </DataContainer>
-                <SelectPositionContainer>
-                  <TypeField
-                    as="select"
-                    name="petType"
-                    placeholder="Type of pet"
-                  >
-                    <option value="">Type of pet</option>
-                    <ListPetsType/>
-                  </TypeField>
-                  <ChevronDownIcon />
-                </SelectPositionContainer>
-              </PositionContainer>
+            {({ values, setFieldValue }) => (
+              <FormInfo>
+                <Field type="text" name="title" placeholder="Title" />
+                <Field type="text" name="name" placeholder="Pet’s Name" />
+                <PositionContainer>
+                  <DataContainer>
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      ref={datePickerRef}
+                      customInput={
+                        <DataCustomInput onClick={handleOpenCalendar} />
+                      }
+                      dateFormat="yyyy-MM-dd"
+                      popperPlacement="bottom-start"
+                      portal
+                    />
+                    <CalendarIcon />
+                  </DataContainer>
+                  <SelectPositionContainer>
+                    <TypeField>
+                      <ItemsContainer onClick={() => setIsToggleMenu((prev) => !prev)}>
+                        <span>
+                          {values.petType ? values.petType : "Type of pet"}
+                        </span>
+                        <ChevronDownIcon
+                          ToggleMenu={() => setIsToggleMenu((prev) => !prev)}
+                        />
+                      </ItemsContainer>
 
-              <AddPetButton />
-            </FormInfo>
+                      {istoggleMenu && (
+                        <ListPetsType
+                          onSelect={(values) => {
+                            setFieldValue("petType", values),
+                              setIsToggleMenu(false);
+                          }}
+                        />
+                      )}
+                    </TypeField>
+                  </SelectPositionContainer>
+                </PositionContainer>
+
+                <AddPetButton />
+              </FormInfo>
+            )}
           </Formik>
         </PositionFormContainer>
       </FormContainer>

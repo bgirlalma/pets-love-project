@@ -35,6 +35,7 @@ export const AddPetContainer = styled.div`
   margin-right: auto;
   display: flex;
   margin-top: 32px;
+  margin-bottom: 32px;
   }
 `;
 
@@ -78,6 +79,7 @@ export const FormContainer = styled.div`
 
   @media screen and (min-width: 1280px) {
     width: 100%;
+    padding: 60px 0;
   }
 `;
 
@@ -339,9 +341,9 @@ export const SelectPositionContainer = styled.div`
   }
 `;
 
-export const TypeField = styled(Field)`
-  appearance: none; /* Убираем дефолтную стрелку */
-  width: 100%;
+export const TypeField = styled.div`
+  // appearance: none; /* Убираем дефолтную стрелку */
+ position: relative;
   height: 42px;
   outline: none;
   cursor: pointer;
@@ -361,6 +363,21 @@ export const TypeField = styled(Field)`
 
     font-size: 16px;
     line-height: 20px;
+  }
+`;
+
+export const ItemsContainer = styled.div`
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ 
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+
+    color: rgba(38, 38, 38, 1);
   }
 `;
 

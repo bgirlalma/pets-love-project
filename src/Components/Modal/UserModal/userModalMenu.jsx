@@ -37,6 +37,7 @@ import { logoutUser } from "../../../Redux/userAuth/userOptions";
 import { setUserProfile } from "../../../Redux/userAuth/userSlice";
 import { selectedUser } from "../../../Redux/userAuth/userSelector";
 import { NavLink } from "react-router-dom";
+import ShowListMyPetsComponent from "../../AddNewPet/ShowListMyPets/showListMyPets";
 
 const ProfileModalMenu = () => {
   const displatch = useDispatch();
@@ -131,9 +132,7 @@ const ProfileModalMenu = () => {
         {/* List Pets Block */}
         <PetsListContainer>
           <div>
-            <ul>
-              <li></li>
-            </ul>
+            <ShowListMyPetsComponent/>
           </div>
 
           {/* Button LogOut */}

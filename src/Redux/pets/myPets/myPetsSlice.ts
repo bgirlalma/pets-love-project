@@ -1,7 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AddPet, deletedPet, fetchPets, updateProfileMyPets } from "./myPetsOptional";
 
-const initialState = {
+interface Pet {
+  uid: string;
+  name: string;
+  title: string;
+  birthday: string;
+  petType: string;
+  sex: "male" | "female" | "unknown";
+  createdAt: string;
+}
+interface PetState {
+  pets: Pet[];
+  loading: boolean;
+  error: string | null;
+}
+
+const initialState: PetState = {
   pets: [],
   loading: false,
   error: null,

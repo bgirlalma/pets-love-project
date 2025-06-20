@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../../../Redux/store"
 import { useEffect } from "react"
 import { ListTypePets } from "../../../Redux/pets/myPets/myPetsOptional"
+import { ListStyled, ItemsStyled } from "./listTYpePets.styled";
 
-const ListPetsType = () => {
+const ListPetsType = ({ onSelect }: { onSelect: (value: string) => void }) => {
     const dispatch = useDispatch<AppDispatch>()
     const data = useSelector((state: RootState) => state.TypePets.data)
 
@@ -12,18 +13,17 @@ const ListPetsType = () => {
     }, [dispatch]);
 
     useEffect(() => {
-      console.log("Get Data", data);
     }, [data]);
 
     return (
-      <>
+      <ListStyled>
         {data &&
           Object.entries(data).map(([key, value]: any) => (
-            <option key={key} value={value}>
-              {value}
-            </option>
+              <ItemsStyled key={key} onClick={() => onSelect(value)}>
+                {value}
+              </ItemsStyled>
           ))}
-      </>
+      </ListStyled>
     );
 }
 

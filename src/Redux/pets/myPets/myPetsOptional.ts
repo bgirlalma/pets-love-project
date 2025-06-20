@@ -43,16 +43,6 @@ interface PetState {
   error: string | null;
 }
 
-// interface TypePetsProp {
-
-// }
-
-const initialState: PetState = {
-  pets: [],
-  loading: false,
-  error: null,
-};
-
 
 // get collection my pets
 export const fetchPets = createAsyncThunk<Pet[]>(
@@ -65,19 +55,21 @@ export const fetchPets = createAsyncThunk<Pet[]>(
         return thunkAPI.rejectWithValue("User not authenticated");
       }
 
-      const snapshot = await getDocs(
-        collection(firestore, `users/${user.uid}/mypets`)
-      );
-        const pets: Pet[] = [];
+      const ref = collection(firestore, `users/${user.uid}/mypets`);
+      const snapshot = await getDocs(ref);
+  
 
+        const pets: Pet[] = [];
+       
       snapshot.forEach((doc) => {
+       
         const data = doc.data() as Omit<Pet, 'uid'>
         pets.push({
           uid: doc.id,
           ...data
         });
       });
-
+console.log(" Finnaly Pets",pets)
       return pets;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message || "Failed to fetch pets");
