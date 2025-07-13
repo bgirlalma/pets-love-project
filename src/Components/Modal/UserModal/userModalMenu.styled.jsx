@@ -251,10 +251,12 @@ export const FavoritePetsContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: 180px;
+ 
   width: 335px;
 
   @media screen and (min-width: 768px) {
     width: 480px;
+   
   }
 
   @media screen and (min-width: 1280px) {
@@ -275,6 +277,7 @@ export const TitleFavoritePets = styled.h2`
   font-size: 14px;
   line-height: 18px;
   color: rgba(38, 38, 38, 1);
+  padding: 0 20px 100px 20px;
 
   span {
     color: rgba(246, 184, 61, 1);
@@ -283,6 +286,9 @@ export const TitleFavoritePets = styled.h2`
   @media screen and (min-width: 768px) {
     font-size: 16px;
     line-height: 20px;
+  
+      padding: 0 0 100px 0;
+    
   }
 `;
 
@@ -320,6 +326,7 @@ export const ViewedFavoriteContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 0 20px 20px 20px;
+  padding: 0 20px;
 
   @media screen and (min-width: 1280px) {
     position: unset;

@@ -4,6 +4,7 @@ import { fetchPets } from "../../../Redux/pets/myPets/myPetsOptional";
 import { AppDispatch, RootState } from "../../../Redux/store";
 import { PetDefaultAvatar } from "../../../Image/add-pet/pet-default-avatar";
 import {
+  PetContainer,
   PetCardContainer,
   PetCard,
   MainTitleandButtonContainer,
@@ -22,6 +23,7 @@ import {
   SpecialPet,
   DescSpecialPet,
 } from "./showListMyPets.styled";
+import { TrashSvg } from "../../../Image/trash";
 
 const ShowListMyPetsComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,7 +34,7 @@ const ShowListMyPetsComponent = () => {
 
   useEffect(() => {}, [pets]);
   return (
-    <>
+    <PetContainer>
       <PetCardContainer>
         {pets &&
           pets.map((pet) => (
@@ -47,7 +49,9 @@ const ShowListMyPetsComponent = () => {
 
                   {/* Button Delete */}
                   <ButtonDeletePetContainer>
-                    <ButtonDeletePet type="button">Delete</ButtonDeletePet>
+                  <ButtonDeletePet type="button">
+                    <TrashSvg/>
+                    </ButtonDeletePet>
                   </ButtonDeletePetContainer>
                 </MainTitleandButtonContainer>
 
@@ -85,7 +89,7 @@ const ShowListMyPetsComponent = () => {
             </PetCard>
           ))}
       </PetCardContainer>
-    </>
+    </PetContainer>
   );
 };
 

@@ -1,22 +1,60 @@
 import styled from "styled-components";
 
+export const PetContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
+  @media screen and (min-width: 768px) {
+    display: unset;
+
+  }
+`;
+
 export const PetCardContainer = styled.ul`
-display: grid;
-grid-template-column: 1fr;
-gap: 14px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+
+  @media screen and (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 `;
 
 export const PetCard = styled.li`
-position: relative;
+  position: relative;
   width: 100%;
+  max-width: 295px;
   border-radius: 20px;
   border: 1px solid rgba(38, 38, 38, 0.1);
   background-color: rgba(255, 255, 255, 1);
   padding: 16px;
   box-sizing: border-box;
 
-  &:last-child{
-  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 305px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
   }
 `;
 
@@ -71,23 +109,43 @@ export const AvatarContainer = styled.div`
   background-color: rgba(255, 244, 223, 1);
   border-radius: 50%;
   margin-right: 14px;
+
+  @media screen and (min-width: 1280px) {
+    width: 90px;
+    height: 90px;
+    margin-right: 25px;
+  }
 `;
 
 
 // Block Information start
 export const PetInformationBlock = styled.div`
-width: 170px;
-display: flex;
-flex-wrap: wrap;
-margin-top: 10px;
+  width: 170px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
 
-div{
-margin-right: 10px;
-}
+  div {
+    margin-right: 10px;
+  }
 
-div:last-child{
-margin-top: 10px;
-}
+  div:last-child {
+    margin-top: 10px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: center;
+
+    div {
+      margin-right: 27px;
+    }
+
+    div:last-child {
+      margin-top: 0;
+    }
+  }
 `;
 
 // Name
