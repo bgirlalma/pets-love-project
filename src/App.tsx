@@ -9,6 +9,8 @@ import HomePage from "./Pages/HomePage/homePage"
 import  PrivateRouter from "./PrivateRouter"
 import ProfileModalMenu from "./Components/Modal/UserModal/userModalMenu"
 import AddNewPetPage from "./Pages/AddNewPetPage/addNewPetPage"
+import NoticesPage from "./Pages/NoticesPage/noticesPage"
+import FriendsPage from "./Pages/FriendsPage/friendsPage"
 
 function App() {
 
@@ -32,8 +34,8 @@ function App() {
           {/* Private Router end */}
           
           <Route path="/news" element={<NewsPage />} />
-          <Route path="/notices" />
-          <Route path="friends" />
+          <Route path="/notices" element={<NoticesPage/> } />
+          <Route path="friends" element={<FriendsPage />} />
         </Route>
       </Routes>
     </>

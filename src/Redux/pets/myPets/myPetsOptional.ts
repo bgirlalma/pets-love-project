@@ -5,6 +5,7 @@ import { auth, database, firestore } from "../../../firebase/firebase";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
 import { PetDefaultAvatar } from "../../../Image/add-pet/pet-default-avatar";
 import { get } from "firebase/database";
+import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 
 interface Pet {
   uid: string;
@@ -43,13 +44,23 @@ interface PetState {
   error: string | null;
 }
 
+function getCurrentUser(): Promise<FirebaseUser | null> {
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe(); // отписываемся сразу после первого вызова
+      resolve(user); // возвращаем пользователя или null, если нет
+    });
+  });
+}
+
 
 // get collection my pets
 export const fetchPets = createAsyncThunk<Pet[]>(
   "pets/fetchPets",
   async (_, thunkAPI) => {
     try {
-      const user = auth.currentUser;
+      const user = await getCurrentUser()
+      console.log("👤 Current user:", auth.currentUser);
 
       if (!user) {
         return thunkAPI.rejectWithValue("User not authenticated");
@@ -69,7 +80,7 @@ export const fetchPets = createAsyncThunk<Pet[]>(
           ...data
         });
       });
-console.log(" Finnaly Pets",pets)
+       console.log("Fetched pets:", pets);
       return pets;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message || "Failed to fetch pets");

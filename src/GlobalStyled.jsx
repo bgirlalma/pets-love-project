@@ -37,6 +37,7 @@ margin: 0;
 padding: 0;
 border: none;
 cursor: pointer;
+  background-color: inherit;
 }
 
 a{

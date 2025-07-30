@@ -16,13 +16,17 @@ export const PetCardContainer = styled.ul`
   gap: 14px;
 
   @media screen and (min-width: 768px) {
+    width: 600px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
     margin-bottom: 20px;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   @media screen and (min-width: 1280px) {
+    width: 440px;
     display: grid;
     grid-template-columns: 1fr;
     gap: 14px;
@@ -114,6 +118,11 @@ export const AvatarContainer = styled.div`
     width: 90px;
     height: 90px;
     margin-right: 25px;
+
+    svg{
+    width: 50px;
+    height: 50px;
+    }
   }
 `;
 
