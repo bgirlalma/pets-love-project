@@ -1,5 +1,5 @@
-import News from "../../Components/News/news"
 import styled from "styled-components";
+import News from "../../Components/News/news";
 
 const Container = styled.div`
   width: 320px;

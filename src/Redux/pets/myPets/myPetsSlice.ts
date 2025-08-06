@@ -38,7 +38,7 @@ const petSlice = createSlice({
       })
       .addCase(AddPet.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Something went wrong";
+        state.error = action.payload as string || "Something went wrong";
       })
       // fetchPets
       .addCase(fetchPets.pending, (state) => {

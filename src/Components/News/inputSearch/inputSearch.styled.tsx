@@ -1,21 +1,12 @@
 import styled from "styled-components";
 
-export const MainTitleNews = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 28px;
-  color: rgba(38, 38, 38, 1);
-
-  margin-bottom: 20px;
-`;
-
 export const InputSearchContainer = styled.div`
   position: relative;
   width: 335px;
   margin-bottom: 24px;
 `;
 
-export const SearchInput = styled.input`
+export const SearchInput = styled.input.attrs({type: "text"})`
   width: 335px;
   height: 42px;
   padding: 0 12px 0 12px;
@@ -31,14 +22,13 @@ export const SearchInput = styled.input`
   &:focus {
     border: 1px solid rgba(246, 184, 61, 1);
     outline: none;
-  
   }
 `;
 
 export const IconContainer = styled.div`
-position: absolute;
-top: 55%;
-right: 0;
-transform: translateY(-45%);
-margin-right: 12px;
+  position: absolute;
+  top: 55%;
+  right: 0;
+  transform: translateY(-45%);
+  margin-right: 12px;
 `;
