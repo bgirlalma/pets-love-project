@@ -7,6 +7,7 @@ export const HeaderContainer = styled.div`
   padding: 30px 20px;
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
 
   z-index: 2;
 
@@ -18,8 +19,9 @@ export const HeaderContainer = styled.div`
   }
 
   @media screen and (min-width: 1280px) {
-    width: 1200px;
-    padding: 45px 64px 0 64px;
+    width: 1280px;
+    justify-content: unset;
+    padding: 32px 64px 22px 64px;
   }
 `;
 

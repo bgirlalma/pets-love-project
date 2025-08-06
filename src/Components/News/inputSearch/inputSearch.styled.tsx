@@ -4,9 +4,14 @@ export const InputSearchContainer = styled.div`
   position: relative;
   width: 335px;
   margin-bottom: 24px;
+
+  @media screen and (min-width: 768px) {
+    width: 230px;
+    height: 48px;
+  }
 `;
 
-export const SearchInput = styled.input.attrs({type: "text"})`
+export const SearchInput = styled.input.attrs({ type: "text" })`
   width: 335px;
   height: 42px;
   padding: 0 12px 0 12px;
@@ -22,6 +27,15 @@ export const SearchInput = styled.input.attrs({type: "text"})`
   &:focus {
     border: 1px solid rgba(246, 184, 61, 1);
     outline: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 230px;
+    height: 48px;
+
+    font-size: 16px;
+    line-height: 20px;
+    padding: 0 14px 0 14px;
   }
 `;
 

@@ -1,5 +1,5 @@
 import { IconMenu } from "../../Image/userimg/menu";
-import Logo from "../Logo/logo";
+import Logo from "../Logo/logo.tsx";
 import {
   HeaderContainer,
   PositionContainer,
@@ -17,7 +17,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import { useHookAuth } from "../../Redux/hooks/authhook";
-import UserMenu from "../UserMenu/usermenu";
+import UserMenu from "../UserMenu/usermenu.tsx";
 import HeaderModal from "../Modal/HeaderModal/headerModal";
 import { MenuWhite } from "../../Image/userimg/menu-white";
 

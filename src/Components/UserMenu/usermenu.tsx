@@ -1,7 +1,6 @@
-
-import { useSelector } from 'react-redux';
-import userIcon from '../../Image/symbol-defs.svg';
-import { useHookAuth } from '../../Redux/hooks/authhook';
+import { useSelector } from "react-redux";
+import userIcon from "../../Image/symbol-defs.svg";
+import { useHookAuth } from "../../Redux/hooks/authhook";
 import {
   UserMenuContainer,
   UserMenuMobileContainer,
@@ -9,34 +8,34 @@ import {
   UserButton,
   UserName,
 } from "./usermenu.styled";
-import { selectedUser } from '../../Redux/userAuth/userSelector';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useCallback, useState } from 'react';
-
+import { selectedUser } from "../../Redux/userAuth/userSelector";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useCallback, useState } from "react";
 
 const UserMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
-  const [previousPath, setPreviousPath] = useState(null); // Запоминаем откуда пришли
+  const [previousPath, setPreviousPath] = useState<string | null>(null); // Запоминаем откуда пришли
   const { userIsLogIn } = useHookAuth();
   const currentUser = useSelector(selectedUser);
+  const isHome = location.pathname === "/home";
+
 
   // предотвращаем повторное создание новой функции при каждом ренедере
-const ToggleEditProfile = useCallback(() => {
-  setIsOpenEdit((prev) => !prev); // ✅ Оновлюємо стан без побічних ефектів
+  const ToggleEditProfile = useCallback(() => {
+    setIsOpenEdit((prev) => !prev); // ✅ Оновлюємо стан без побічних ефектів
 
-  if (!isOpenEdit) {
-    setPreviousPath(location.pathname);
-    navigate("/profile");
-  } else {
-    navigate(previousPath || "/");
-  }
-}, [isOpenEdit, location.pathname, navigate, previousPath]);
-  
+    if (!isOpenEdit) {
+      setPreviousPath(location.pathname);
+      navigate("/profile");
+    } else {
+      navigate(previousPath || "/");
+    }
+  }, [isOpenEdit, location.pathname, navigate, previousPath]);
 
   return (
-    <UserMenuContainer>
+    <UserMenuContainer $isHome={isHome}>
       {/* mobile user menu */}
       {userIsLogIn && (
         <UserMenuMobileContainer>
@@ -60,11 +59,11 @@ const ToggleEditProfile = useCallback(() => {
               </NavLink>
             </button>
           </UserMenuTablet>
-          <UserName>{currentUser?.name || "guess"}</UserName>
+          <UserName $isHome={isHome}>{currentUser?.name || "guess"}</UserName>
         </>
       )}
     </UserMenuContainer>
   );
-}
+};
 
 export default UserMenu;

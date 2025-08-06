@@ -1,15 +1,16 @@
 import SearchInputcomponent from "./inputSearch/inputSearch";
-import { MainTitleNews } from "./news.styled";
+import { MainNewsContainer, NewsContainer, MainTitleNews } from "./news.styled";
 import NewsList from "./NewsList/newsList";
 const News = () => {
   return (
-    <div>
-      <div>
+    <MainNewsContainer>
+      <NewsContainer>
         <MainTitleNews>News</MainTitleNews>
         <SearchInputcomponent />
-        <NewsList/>
-      </div>
-    </div>
+      </NewsContainer>
+      
+      <NewsList />
+    </MainNewsContainer>
   );
 };
 
