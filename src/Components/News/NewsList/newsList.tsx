@@ -17,6 +17,7 @@ import {
 const NewsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const news = useSelector((state: RootState) => state.NewsPets.news);
+  const filterValue = useSelector((state: RootState) => state.NewsFilterPets)
 
   useEffect(() => {
     dispatch(fetchInformation()).then((res) => {
@@ -27,11 +28,13 @@ const NewsList = () => {
   useEffect(() => {
     console.log("News updated:", news);
   }, [news]);
+
+  const filteredNews = news.filter((item) => item.title.toLowerCase().includes(filterValue.toLowerCase()))
   return (
     <>
       <NewsListContainer>
-        {news &&
-          news.map((item) => (
+        {filteredNews.length > 0 ? (
+          filteredNews.map((item) => (
             <NewsItems key={item.uid}>
               <NewsImage src={item.img} alt="News Photo" />
               <NewsTitle>{item.title}</NewsTitle>
@@ -41,7 +44,10 @@ const NewsList = () => {
                 <NewsLink href={item.link}>Read more</NewsLink>
               </FlexContainer>
             </NewsItems>
-          ))}
+          ))
+        ) : (
+          <h2>Нічого не знайдено</h2>
+        )}
       </NewsListContainer>
     </>
   );

@@ -46,3 +46,4 @@ export const IconContainer = styled.div`
   transform: translateY(-45%);
   margin-right: 12px;
 `;
+

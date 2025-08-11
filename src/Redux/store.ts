@@ -14,6 +14,7 @@ import userSlice from './userAuth/userSlice';
 import myPetSlice from './pets/myPets/myPetsSlice'
 import typePetSlice from "./pets/myPets/typePetsSlice";
 import newsSlice from './news/newsSlice.tsx'
+import newsFilter from './news/filterNewsSlice.tsx'
 
 const persistConfig = {
   key: "root",
@@ -25,7 +26,8 @@ const rootReduce = combineReducers({
   userAuth: userSlice,
   PetSlice: myPetSlice,
   TypePets: typePetSlice,
-  NewsPets: newsSlice
+  NewsPets: newsSlice,
+  NewsFilterPets: newsFilter
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReduce)

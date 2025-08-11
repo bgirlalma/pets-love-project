@@ -38,6 +38,7 @@ padding: 0;
 border: none;
 cursor: pointer;
   background-color: inherit;
+  border: none;
 }
 
 a{
