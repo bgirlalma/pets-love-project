@@ -25,8 +25,8 @@ export const fetchInformation = createAsyncThunk<News[], void>(
       // если да, то
       snapshot.forEach((doc) => {
           const data = doc.data() as Omit<News, "uid">
-          console.log("🔥 doc.id:", doc.id);
-          console.log("🔥 doc.data():", data);
+          // console.log("🔥 doc.id:", doc.id);
+          // console.log("🔥 doc.data():", data);
         newsPets.push({
           uid: doc.id,
           ...data

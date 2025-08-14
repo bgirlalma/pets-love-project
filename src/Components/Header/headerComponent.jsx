@@ -100,7 +100,7 @@ const HeaderComponent = () => {
               <DesktopNav $isHome={isHome}>Find pet</DesktopNav>
             </DesktopFindPets>
             <DesktopOurFriends $isHome={isHome}>
-              <DesktopNav $isHome={isHome}>Our friends</DesktopNav>
+              <DesktopNav $isHome={isHome} to="/friends">Our friends</DesktopNav>
             </DesktopOurFriends>
           </DesktopList>
         </DesktopContainer>

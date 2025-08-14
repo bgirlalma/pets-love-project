@@ -1,8 +1,13 @@
-const FriendsComponent = () => {
-    return (
-        <div><h1>Our Friends</h1>
-        </div>
-    )
-}
+import OurFriendsList from "./FriendsList/friendsList";
+import { FriendsContainer, Title } from "./friends.styled";
 
-export default FriendsComponent
+const FriendsComponent = () => {
+  return (
+    <FriendsContainer>
+          <Title>Our Friends</Title>
+          <OurFriendsList/>
+    </FriendsContainer>
+  );
+};
+
+export default FriendsComponent;
