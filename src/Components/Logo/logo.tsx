@@ -5,7 +5,7 @@ import { HeartHeaderWhite } from "../../Image/userimg/heart-circle";
 const Logo = () => {
   const [sizeWindow, setSizeWindow] = useState({ width: 13, height: 13 });
   const isHome = location.pathname === "/pets/home";
-    const isNews = location.pathname === "/pets/news";
+    const isNews = location.pathname === "/pets/news" || "/pets/friends" || "";
 
   useEffect(() => {
     const updateSize = () => {

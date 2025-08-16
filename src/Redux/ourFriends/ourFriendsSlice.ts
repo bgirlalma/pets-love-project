@@ -9,6 +9,7 @@ interface OurFriends {
   email: string;
   address: string;
   phone: string;
+  img: string
 }
 
 interface OurFriendsState {

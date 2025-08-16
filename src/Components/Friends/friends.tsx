@@ -1,11 +1,13 @@
 import OurFriendsList from "./FriendsList/friendsList";
-import { FriendsContainer, Title } from "./friends.styled";
+import { FriendsContainer,PositionContainer, Title } from "./friends.styled";
 
 const FriendsComponent = () => {
   return (
     <FriendsContainer>
-          <Title>Our Friends</Title>
-          <OurFriendsList/>
+      <PositionContainer>
+        <Title>Our Friends</Title>
+        <OurFriendsList />
+      </PositionContainer>
     </FriendsContainer>
   );
 };

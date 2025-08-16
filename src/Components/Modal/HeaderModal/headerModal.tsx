@@ -49,7 +49,7 @@ const HeaderModal = ({
                 <NavList to="">Find pet</NavList>
               </ItemsMobileTablet>
               <ItemsMobileTablet>
-                <NavList to="">Our friends</NavList>
+                <NavList to="/friends">Our friends</NavList>
               </ItemsMobileTablet>
             </ListMobileTablet>
           </ListMobileTabletContainer>

@@ -36,6 +36,7 @@ export const UserMenuMobileContainer = styled.div`
 
   @media screen and (min-width: 768px) {
     display: none;
+    margin-right: 0;
   }
 `;
 
@@ -73,6 +74,6 @@ export const UserName = styled.h2<{ $isHome?: boolean }>`
   }
 
   @media screen and (min-width: 1280px) {
-    margin-right: 0;
+    margin-right: 8px;
   }
 `;

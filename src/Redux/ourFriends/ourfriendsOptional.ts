@@ -9,6 +9,7 @@ interface OurFriends {
   email: string;
   address: string;
   phone: string;
+  img: string
 }
 
 export const fetchOurFriends = createAsyncThunk<OurFriends[], void>(
