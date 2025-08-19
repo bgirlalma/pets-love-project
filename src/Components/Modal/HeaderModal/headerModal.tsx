@@ -46,7 +46,7 @@ const HeaderModal = ({
                 <NavList to="/news">News</NavList>
               </ItemsMobileTablet>
               <ItemsMobileTablet>
-                <NavList to="">Find pet</NavList>
+                <NavList to="/notices">Find pet</NavList>
               </ItemsMobileTablet>
               <ItemsMobileTablet>
                 <NavList to="/friends">Our friends</NavList>
@@ -55,7 +55,7 @@ const HeaderModal = ({
           </ListMobileTabletContainer>
 
           {userIsLogIn ? (
-            <Logout/>
+            <Logout />
           ) : (
             <ButtonMobileTabletContainer>
               <ButtonLogIn

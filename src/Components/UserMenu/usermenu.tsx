@@ -20,7 +20,6 @@ const UserMenu = () => {
   const { userIsLogIn } = useHookAuth();
   const currentUser = useSelector(selectedUser);
   const isHome = location.pathname === "/home";
-  const isFriends = location.pathname === "/friends";
 
 
   // предотвращаем повторное создание новой функции при каждом ренедере

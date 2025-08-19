@@ -72,9 +72,8 @@ const HeaderComponent = () => {
 
         {/* Header of mobile and tablet */}
 
-        {userIsLogIn &&
-          <UserMenu />}
-        
+        {userIsLogIn && <UserMenu />}
+
         {isHome ? (
           <MenuWhite OpenMenu={toggleButton} />
         ) : (
@@ -97,10 +96,14 @@ const HeaderComponent = () => {
               </DesktopNav>
             </DesktopNews>
             <DesktopFindPets $isHome={isHome}>
-              <DesktopNav $isHome={isHome}>Find pet</DesktopNav>
+              <DesktopNav $isHome={isHome} to="/notices">
+                Find pet
+              </DesktopNav>
             </DesktopFindPets>
             <DesktopOurFriends $isHome={isHome}>
-              <DesktopNav $isHome={isHome} to="/friends">Our friends</DesktopNav>
+              <DesktopNav $isHome={isHome} to="/friends">
+                Our friends
+              </DesktopNav>
             </DesktopOurFriends>
           </DesktopList>
         </DesktopContainer>
