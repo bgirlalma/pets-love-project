@@ -24,18 +24,18 @@ const SearchInputcomponent = () => {
     dispatch(setFilter(""));
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setInputValue(e.target.value);
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: any) => {
     if (e.key === "Escape" || e.key === "Enter") {
       dispatch(setFilter(inputValue.trim()));
     }
   };
 
   return (
-    <div>
+    <>
       <InputSearchContainer>
         <SearchInput
           type="text"
@@ -60,7 +60,7 @@ const SearchInputcomponent = () => {
           )}
         </IconContainer>
       </InputSearchContainer>
-    </div>
+    </>
   );
 };
 

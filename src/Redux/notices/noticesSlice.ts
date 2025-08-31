@@ -12,7 +12,7 @@ interface TypeOfPets {
   category?: string;
   desc?: string;
   price?: number;
-  img?: string
+  image?: string;
 }
 
 interface PropsState {

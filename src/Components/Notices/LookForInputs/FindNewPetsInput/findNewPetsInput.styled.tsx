@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const InputSearchContainer = styled.div`
+export const LookForPetsContainer = styled.div`
   position: relative;
-  width: 335px;
+  width: 100%;
   margin-bottom: 24px;
 
   @media screen and (min-width: 768px) {
@@ -11,21 +11,20 @@ export const InputSearchContainer = styled.div`
   }
 `;
 
-export const SearchInput = styled.input.attrs({ type: "text" })`
+export const LookForPetsInput = styled.input.attrs({ type: "text" })`
   width: 100%;
   height: 42px;
   padding: 0 12px 0 12px;
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
-  background-color: inherit;
-
+  border: none;
+  background-color: rgba(255, 255, 255, 1);
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: rgba(38, 38, 38, 0.5);
+  color: rgba(38, 38, 38, 1);
 
   &::placeholder {
-    color: rgba(38, 38, 38, 0.5);
+    color: rgba(38, 38, 38, 1);
     font-size: 14px;
   }
 
@@ -44,7 +43,7 @@ export const SearchInput = styled.input.attrs({ type: "text" })`
   }
 `;
 
-export const IconContainer = styled.div`
+export const IconPetsContainer = styled.div`
   position: absolute;
   top: 55%;
   right: 0;

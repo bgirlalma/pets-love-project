@@ -6,6 +6,7 @@ import { FaDollarSign } from "react-icons/fa6";
 import {
   NoticesCardContainer,
   NoticesCard,
+  Img,
   TitleConteiner,
   PositionRatingContainer,
   Title,
@@ -16,7 +17,13 @@ import {
 } from "./noticesList.styled";
 import { StarIcon } from "../../../Image/notices/star";
 
-const NoticesList = () => {
+const NoticesList = ({
+  selectedCategory,
+  selectedGender,
+}: {
+  selectedCategory: string;
+  selectedGender: string;
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const data = useSelector((state: RootState) => state.noticesPets.pets);
   const filteredDiferedPets = useSelector(
@@ -29,17 +36,34 @@ const NoticesList = () => {
     });
   }, [dispatch]);
 
-  const filteredPets = data.filter((items) =>
-    items.title?.toLowerCase().includes(filteredDiferedPets.toLowerCase())
-  );
+  const filteredPets = data.filter((items) => {
+    // Фільтруція по title
+    const matchesTitle = items.title
+      ?.toLowerCase()
+      .includes(filteredDiferedPets.toLowerCase());
+
+    // фильтрація по категорії. Приведення до нижнього регистру. !selectedCategory для відображення наших каточок при початковому стані Category(placeholder)
+    const matchesCategory =
+      !selectedCategory ||
+      selectedCategory.toLocaleLowerCase() === "Show All".toLocaleLowerCase() ||
+      items.category?.toLocaleLowerCase() ===
+      selectedCategory.toLocaleLowerCase();
+    
+    // Фільтрація по гендеру
+    const matchesGender = !selectedGender || selectedGender.toLocaleLowerCase() === "Show All".toLocaleLowerCase() || items.sex?.toLocaleLowerCase() === selectedGender.toLocaleLowerCase()
+
+    return matchesTitle && matchesCategory && matchesGender;
+  });
 
   return (
-    <div>
+    <>
       <NoticesCardContainer>
         {filteredPets.length > 0 ? (
           filteredPets.map((item) => (
             <NoticesCard key={item.uid}>
-              <img src={item.img} alt="photo of pet" />
+              <Img>
+                <img src={item.image} alt="photo of pet" />
+              </Img>
               <TitleConteiner>
                 <Title>{item.title}</Title>
                 {/* block rating */}
@@ -71,10 +95,10 @@ const NoticesList = () => {
                   <h3>{item.category}</h3>
                 </div>
               </InformationContainer>
-                  <Desc>{item.desc}</Desc>
-                  {/*block price  */}
-                  <PriceContainer>
-                      <FaDollarSign/>
+              <Desc>{item.desc}</Desc>
+              {/*block price  */}
+              <PriceContainer>
+                <FaDollarSign />
                 <Price>{item.price}</Price>
               </PriceContainer>
             </NoticesCard>
@@ -83,7 +107,7 @@ const NoticesList = () => {
           <h2>Нічого не знайдено</h2>
         )}
       </NoticesCardContainer>
-    </div>
+    </>
   );
 };
 

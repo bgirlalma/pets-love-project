@@ -20,7 +20,7 @@ export const NoticesCard = styled.li`
   width: 335px;
   height: auto;
   border-radius: 16px;
-  padding: 32px;
+  padding: 24px;
   margin-bottom: 20px;
   box-sizing: border-box;
 
@@ -32,6 +32,7 @@ export const NoticesCard = styled.li`
 
   @media screen and (min-width: 768px) {
     width: 100%;
+    padding: 32px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -39,10 +40,19 @@ export const NoticesCard = styled.li`
   }
 `;
 
+export const Img = styled.div`
+margin-bottom: 24px;
+img{
+display: block;
+width: 100%;
+}
+`;
+
 export const TitleConteiner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
 
   p {
     font-weight: 500;
@@ -86,6 +96,9 @@ export const InformationContainer = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
   margin-bottom: 16px;
+  box-sizing: border-box;
+
+  max-width: 280px;
 
   span {
     font-weight: 500;
