@@ -11,7 +11,7 @@ import {
   PositionRatingContainer,
   Title,
   InformationContainer,
-    Desc,
+  Desc,
   PriceContainer,
   Price,
 } from "./noticesList.styled";
@@ -20,15 +20,23 @@ import { StarIcon } from "../../../Image/notices/star";
 const NoticesList = ({
   selectedCategory,
   selectedGender,
+  selectedTypeOfPets,
 }: {
   selectedCategory: string;
   selectedGender: string;
+  selectedTypeOfPets: string;
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const data = useSelector((state: RootState) => state.noticesPets.pets);
   const filteredDiferedPets = useSelector(
     (state: RootState) => state.noticesFilter
   ) as string;
+
+  const filterLocationPets = useSelector(
+    (state: RootState) => state.noticesPetsFilterLocation
+  ) as string;
+
+  const sortPetsselect = useSelector((state: RootState) => state.sortPets.value )as string
 
   useEffect(() => {
     dispatch(fetchDifferentPets()).then((res) => {
@@ -47,12 +55,44 @@ const NoticesList = ({
       !selectedCategory ||
       selectedCategory.toLocaleLowerCase() === "Show All".toLocaleLowerCase() ||
       items.category?.toLocaleLowerCase() ===
-      selectedCategory.toLocaleLowerCase();
-    
-    // Фільтрація по гендеру
-    const matchesGender = !selectedGender || selectedGender.toLocaleLowerCase() === "Show All".toLocaleLowerCase() || items.sex?.toLocaleLowerCase() === selectedGender.toLocaleLowerCase()
+        selectedCategory.toLocaleLowerCase();
 
-    return matchesTitle && matchesCategory && matchesGender;
+    // Фільтрація по гендеру
+    const matchesGender =
+      !selectedGender ||
+      selectedGender.toLocaleLowerCase() === "Show All".toLocaleLowerCase() ||
+      items.sex?.toLocaleLowerCase() === selectedGender.toLocaleLowerCase();
+
+    const matchedTypeOfPets =
+      !selectedTypeOfPets ||
+      selectedTypeOfPets.toLocaleLowerCase() ===
+        "Show All".toLocaleLowerCase() ||
+      items.species?.toLocaleLowerCase() ===
+        selectedTypeOfPets.toLocaleLowerCase();
+
+    const matchesFilterLocation = items.city
+      ?.toLowerCase()
+      .includes(filterLocationPets.toLowerCase());
+    
+    let matchedSortPets = true;
+
+    if (sortPetsselect === "expensive") {
+      matchedSortPets = items.price !== undefined && items.price >= 250;
+    } else if (sortPetsselect === "cheap") {
+      matchedSortPets = items.price !== undefined && items.price < 250;
+    } else if (sortPetsselect === "popular") {
+      matchedSortPets = items.rating !== undefined && items.rating >= 1;
+    } else if (sortPetsselect === "unpopular") {
+      matchedSortPets = items.rating !== undefined && items.rating < 1;
+    }
+
+    return (
+      matchesTitle &&
+      matchesCategory &&
+      matchesGender &&
+      matchedTypeOfPets &&
+      matchesFilterLocation && matchedSortPets
+    );
   });
 
   return (

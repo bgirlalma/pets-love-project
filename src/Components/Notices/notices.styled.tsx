@@ -17,6 +17,7 @@ export const NoticesContainer = styled.div`
   @media screen and (min-width: 1280px) {
     width: 1280px;
     padding: 80px 64px 80px 64px;
+    
   }
 `;
 
@@ -35,14 +36,71 @@ export const NoticesTitle = styled.h1`
 `;
 
 export const SearchContainer = styled.div`
-border-radius: 30px;
-background-color: rgba(255, 244, 223, 1);
-padding: 20px;
-margin-bottom: 40px;
+  position: relative;
+  border-radius: 30px;
+  background-color: rgba(255, 244, 223, 1);
+  padding: 20px;
+  margin-bottom: 40px;
 
+  @media screen and (min-width: 768px) {
+    padding: 40px 32px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    padding: 40px;
+  }
+`;
+
+export const DekstopPositionContainer = styled.div`
+  @media screen and (min-width: 1280px) {
+    display: flex;
+    margin-bottom: 20px;
+  }
 `;
 
 export const PositionCategoryAndGenderContainer = styled.div`
-display: flex;
-width: 100%;
+  display: flex;
+  width: 100%;
+  margin-bottom: 12px;
+
+  @media screen and (min-width: 768px) {
+    width: 370px;
+    position: absolute;
+    top: 40px;
+    right: 32px;
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 100%;
+    position: inherit;
+    margin-left: 8px;
+  }
+`;
+
+export const TabletPositionContainer = styled.div`
+  @media screen and (min-width: 768px) {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin-left: 16px;
+      margin-bottom: 0;
+  }
+`;
+
+export const CustomLineContainer = styled.div`
+  width: 100%;
+  height: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "";
+    width: 100%;
+    background-color: #2626261a;
+    border: 1px solid #2626261a;
+  }
 `;

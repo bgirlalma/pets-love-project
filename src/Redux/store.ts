@@ -18,6 +18,8 @@ import newsFilter from './news/filterNewsSlice.tsx'
 import ourFriendsSlice from './ourFriends/ourFriendsSlice'
 import noticesPetsSlice from "./notices/noticesSlice";
 import noticesFilterPets from './notices/filterNoticesSlice'
+import noticesPetsLocation from './notices/filterNoticesLocation'
+import sortPetsSlice from "./notices/sortSlice"
 
 const persistConfig = {
   key: "root",
@@ -34,6 +36,8 @@ const rootReduce = combineReducers({
   ourFriendsCollection: ourFriendsSlice,
   noticesPets: noticesPetsSlice,
   noticesFilter: noticesFilterPets,
+  noticesPetsFilterLocation: noticesPetsLocation,
+  sortPets: sortPetsSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReduce)

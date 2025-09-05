@@ -1,22 +1,18 @@
 import styled from "styled-components";
 
-export const LookForPetsContainer = styled.div`
+export const LocationContainer = styled.div`
   position: relative;
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 
   @media screen and (min-width: 768px) {
-    width: 260px;
+    width: 230px;
     height: 48px;
-    margin-bottom: 16px;
-  }
-
-  @media screen and (min-width: 1280px) {
     margin-bottom: 0;
   }
 `;
 
-export const LookForPetsInput = styled.input.attrs({ type: "text" })`
+export const LocalInput = styled.input.attrs({ type: "text" })`
   width: 100%;
   height: 42px;
   padding: 0 12px 0 12px;
@@ -39,7 +35,7 @@ export const LookForPetsInput = styled.input.attrs({ type: "text" })`
   }
 
   @media screen and (min-width: 768px) {
-    width: 260px;
+    width: 230px;
     height: 48px;
 
     font-size: 16px;
@@ -53,16 +49,16 @@ export const LookForPetsInput = styled.input.attrs({ type: "text" })`
   }
 `;
 
-export const IconPetsContainer = styled.div`
+export const IconLocationContainer = styled.div`
   position: absolute;
   top: 55%;
   right: 0;
   transform: translateY(-45%);
   margin-right: 12px;
+  z-index: 1000;
 
   @media screen and (min-width: 768px) {
     right: 14px;
     margin-right: 0;
   }
 `;
-

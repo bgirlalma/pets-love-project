@@ -14,6 +14,11 @@ export const GenderSelector = styled.div`
   background-color: rgba(255, 255, 255, 1);
   box-sizing: border-box;
   padding: 12px;
+
+  @media screen and (min-width: 768px) {
+  padding: 14px;
+    height: 48px;
+  }
 `;
 
 export const TitleSelector = styled.h2`
@@ -22,6 +27,11 @@ export const TitleSelector = styled.h2`
   line-height: 18px;
 
   color: rgba(38, 38, 38, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 `;
 
 export const IconSelectorContainer = styled.button<{ $showMenuGender: boolean }>`
@@ -37,10 +47,16 @@ export const IconSelectorContainer = styled.button<{ $showMenuGender: boolean }>
     );
     transition: transform 0.5s ease;
   }
+
+  @media screen and (min-width: 768px) {
+    top: 14px;
+    right: 14px;
+  }
 `;
 
 export const ShowMenuGenderContainer = styled.div`
   position: relative;
+  z-index: 9999;
 `;
 
 export const ShowListGender = styled.ul`
@@ -72,5 +88,13 @@ export const ShowListGender = styled.ul`
   li:focus,
   li:active {
     color: rgba(246, 184, 61, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 14px;
+    li {
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
 `;

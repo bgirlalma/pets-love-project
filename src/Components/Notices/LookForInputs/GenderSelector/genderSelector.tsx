@@ -14,44 +14,57 @@ const GenderCustomSelector = ({
   setSelectedGender,
 }: {
   selectedGender: string;
-  setSelectedGender: (gender: string) => void
-}) => {
-  const [showMenuGender, setShowMenuGender] = useState(false);
-  const toggleGender = () => {
-    setShowMenuGender((prev) => !prev);
-  };
+  setSelectedGender: (gender: string) => void;
+  }) => {
+    // state for button chevron
+    const [showMenuGender, setShowMenuGender] = useState(false);
 
-  const genders = ["Show All", "Unknown", "Female", "Male", "Multiple"];
+    // state for button chevron
+    const toggleGender = () => {
+      setShowMenuGender((prev) => !prev);
+    };
+// list of gender
+    const genders = ["Show All", "Unknown", "Female", "Male", "Multiple"];
 
+  // filter list gender
     const selectGender = (gender: string) => {
-      setSelectedGender(gender)
-    setShowMenuGender(false);
-  };
-  return (
-    <>
-      <GenderContainer>
-        <GenderSelector>
-          <TitleSelector>{selectedGender || "By gender"}</TitleSelector>
-          <IconSelectorContainer
-            type="button"
-            onClick={toggleGender}
-            $showMenuGender={showMenuGender}
-          >
-            <ChevronDownIcon />
-          </IconSelectorContainer>
+      setSelectedGender(gender);
+      setShowMenuGender(false);
+    };
+    return (
+      <>
+        <GenderContainer>
+          {/* Selector */}
+          <GenderSelector>
+            {/* Placeholder */}
+            <TitleSelector>{selectedGender || "By gender"}</TitleSelector>
+            {/* ChevronDown button + Animation */}
+            <IconSelectorContainer
+              type="button"
+              onClick={toggleGender}
+              $showMenuGender={showMenuGender}
+            >
+              <ChevronDownIcon />
+            </IconSelectorContainer>
 
-          {showMenuGender && (
-            <ShowMenuGenderContainer>
-              <ShowListGender>
-                {genders &&
-                  genders.map((gender) => <li key={gender} onClick={() => selectGender(gender)}>{gender}</li>)}
-              </ShowListGender>
-            </ShowMenuGenderContainer>
-          )}
-        </GenderSelector>
-      </GenderContainer>
-    </>
-  );
-};
+            {/* List of gender Pets start */}
+            {showMenuGender && (
+              <ShowMenuGenderContainer>
+                <ShowListGender>
+                  {genders &&
+                    genders.map((gender) => (
+                      <li key={gender} onClick={() => selectGender(gender)}>
+                        {gender}
+                      </li>
+                    ))}
+                </ShowListGender>
+              </ShowMenuGenderContainer>
+            )}
+            {/* List of gender Pets end */}
+          </GenderSelector>
+        </GenderContainer>
+      </>
+    );
+  };
 
 export default GenderCustomSelector;

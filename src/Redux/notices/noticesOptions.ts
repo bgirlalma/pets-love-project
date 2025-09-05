@@ -14,6 +14,7 @@ interface TypeOfPets {
   desc?: string;
   price?: number;
   image?: string;
+  city?: string
 }
 export const fetchDifferentPets = createAsyncThunk<TypeOfPets[], void>(
   "listofdifferentpets/fetchDifferentPets",

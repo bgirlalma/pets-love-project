@@ -1,16 +1,19 @@
 import styled from "styled-components";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 
-export const CategoryContainer = styled.div`
+export const TypeOfPetsContainer = styled.div`
   width: 100%;
-  margin-right: 8px;
+  margin-bottom: 12px;
 
   @media screen and (min-width: 768px) {
+    width: 190px;
+    margin-bottom: 0;
     margin-right: 16px;
-    margin-left: 8px;
   }
 `;
 
-export const CategorySelector = styled.div`
+export const TypeOfSelector = styled.div`
   position: relative;
   width: 100%;
   height: 42px;
@@ -20,13 +23,15 @@ export const CategorySelector = styled.div`
   padding: 12px;
 
   @media screen and (min-width: 768px) {
+    width: 190px;
     height: 48px;
     padding: 14px;
+    font-size: 16px;
+    line-height: 20px;
   }
 `;
 
-
-export const TitleSelector = styled.h2`
+export const TypeTitle = styled.h2`
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
@@ -39,41 +44,50 @@ export const TitleSelector = styled.h2`
   }
 `;
 
-export const IconSelectorContainer = styled.button<{ $showMenu: boolean }>`
+export const TypeOfPetsButton = styled.button<{ $showMenuType: boolean }>`
   position: absolute;
   top: 12px;
   right: 12px;
   background-color: inherit;
+
   transition: transform 0.5s ease;
-
   svg {
-    transform: rotate(${(props) => (props.$showMenu ? "180deg" : "0deg")});
+    transform: rotate(${(props) => (props.$showMenuType ? "180deg" : "0deg")});
     transition: transform 0.5s ease;
-  }
-
-  @media screen and (min-width: 768px) {
-    top: 14px;
-    right: 14px;
   }
 `;
 
-
-export const ShowMenuCategoryContainer = styled.div`
+export const ShowListTypeOfPetsContainer = styled.div`
   position: relative;
+  padding-right: 12px;
   z-index: 9999;
 `;
 
-export const ShowListCategory = styled.ul`
+export const ScrollBar = styled(SimpleBar)`
+  max-height: 150px;
+  border-radius: 13px;
+
+  /* серый скролл */
+  .simplebar-scrollbar:before {
+    background-color: #26262614; /* серый цвет */
+    border-radius: 13px; /* радиус ползунка */
+    opacity: 1 !important;
+  }
+
+`;
+
+
+export const ShowListTypeOfPets = styled.ul`
   position: absolute;
   top: calc(100% + 20px); /* сразу под селектором */
   left: 50%;
   transform: translateX(-50%); /* центрируем по горизонтали */
   width: 100%;
-  height: auto;
+  max-height: 290px;
+
   border-radius: 15px;
   padding: 12px;
-
-  background-color: rgba(255, 255, 255, 1);
+  background-color: #fff;
 
   li {
     font-weight: 500;
