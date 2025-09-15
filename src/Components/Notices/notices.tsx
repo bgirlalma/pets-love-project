@@ -16,6 +16,8 @@ import GenderCustomSelector from "./LookForInputs/GenderSelector/genderSelector"
 import TypeOfPetsSElector from "./LookForInputs/TypePetSelector/typePetsSelector";
 import LocationInput from "./LookForInputs/LocationInput/locationInput";
 import RadioFilterButtons from "./LookForInputs/RadioButtons/radioButtons";
+import PaginationComponent from "../PaginationComponent/pagination";
+import { firestore } from "../../firebase/firebase";
 
 const NoticesComponent = () => {
   // стан для фильтрации за категориею
@@ -71,6 +73,12 @@ const NoticesComponent = () => {
         selectedCategory={selectedCategory}
         selectedGender={selectedGender}
         selectedTypeOfPets={selectedTypeOfPets}
+      />
+      <PaginationComponent
+        db={firestore}
+        collectionName="listofdifferentpets"
+        orderByField="createdAt"
+        renderItem={(pet) => <div key={pet.id}>{pet.name}</div>}
       />
     </NoticesContainer>
   );
