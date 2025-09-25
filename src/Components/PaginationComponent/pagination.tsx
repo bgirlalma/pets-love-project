@@ -1,110 +1,173 @@
-import { collection, CollectionReference, DocumentData, Firestore, getDoc, getDocs, limit, orderBy, query, QueryDocumentSnapshot, startAfter } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useState, useMemo, useEffect } from "react";
+import IconLeft from "../../Image/notices/symbol-defs.svg";
+import IconDoubleLeft from "../../Image/notices/symbol-defs.svg";
+import IconRight from "../../Image/notices/symbol-defs.svg";
+import IconDoubleRight from "../../Image/notices/symbol-defs.svg";
+import {
+  PaginationButtonContainer,
+  ButtonReturnOnePage,
+  ButtonPreviuosPage,
+  PagesContainer,
+  Pages,
+  ButtonNextPage,
+  ButtonLastPage,
+} from "./pagination.styled";
 
-interface PaginationProps {
-  db: Firestore; // твой db
-  collectionName: string; // название коллекции (например "pets")
-  orderByField: string; // поле для сортировки (например "createdAt")
-  pageSize?: number; // сколько элементов грузить за раз
-  renderItem: (item: DocumentData & {id: string}) => JSX.Element; // как отрисовать каждый элемент
+interface PaginationProps<T> {
+  data: T[];
+  itemsPerPage?: number;
+  renderItems: (items: T[]) => JSX.Element;
 }
 
+const PaginationComponent = <T,>({
+  data,
+  itemsPerPage = 6,
+  renderItems,
+}: PaginationProps<T>) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [maxVisiblePages, setMaxVisiblePages] = useState(() =>
+    window.innerWidth > 768 ? 3 : 2
+  );
 
-const PaginationComponent: React.FC<PaginationProps> = ({ db, collectionName, orderByField, pageSize = 6, renderItem }) => {
- const [items, setItems] = useState<(DocumentData & { id: string })[]>([]);
- const [currentPage, setCurrentPage] = useState(1);
- const [pageCursors, setPageCursors] = useState<
-   (QueryDocumentSnapshot<DocumentData> | null)[]
- >([null]);
- const [loading, setLoading] = useState(false);
- const [hasMore, setHasMore] = useState(true);
+  useEffect(() => {
+    const handleResize = () => {
+      setMaxVisiblePages(window.innerWidth > 768 ? 3 : 2);
+    };
 
- const loadPage = async (page: number) => {
-   if (page < 1) return;
-   setLoading(true);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-   // Явно типизируем коллекцию как DocumentData
-   const ref = collection(
-     db,
-     collectionName
-   ) as CollectionReference<DocumentData>; 
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
-   let q;
-   if (page === 1) {
-     q = query(ref, orderBy(orderByField, "desc"), limit(pageSize));
+  const currentItems = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return data.slice(start, start + itemsPerPage);
+  }, [data, currentPage, itemsPerPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [data]);
+
+  const goToPage = (page: number) => setCurrentPage(page);
+  const goToNext = () =>
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const goToPrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+
+ const visiblePages = useMemo<(number | string)[]>(() => {
+   const pages: (number | string)[] = [];
+   const total = totalPages;
+
+   if (total <= maxVisiblePages) {
+     // Все страницы показываем, если их мало
+     for (let i = 1; i <= total; i++) pages.push(i);
    } else {
-     const prevCursor = pageCursors[page - 1];
-     if (!prevCursor) {
-       setLoading(false);
-       return;
+     const sidePages = Math.floor((maxVisiblePages - 1) / 2); // сколько страниц слева и справа от текущей
+     let start = Math.max(2, currentPage - sidePages);
+     let end = Math.min(total - 1, currentPage + sidePages);
+
+     // Корректировка, если текущая страница близка к началу
+     if (currentPage <= sidePages + 1) {
+       start = 2;
+       end = maxVisiblePages;
      }
-     q = query(
-       ref,
-       orderBy(orderByField, "desc"),
-       startAfter(prevCursor),
-       limit(pageSize)
-     );
+
+     // Корректировка, если текущая страница близка к концу
+     if (currentPage >= total - sidePages) {
+       start = total - maxVisiblePages + 1;
+       end = total - 1;
+     }
+
+     pages.push(1); // первая страница
+
+     if (start > 2) pages.push("…"); // точки слева, если есть пропущенные
+
+     for (let i = start; i <= end; i++) pages.push(i);
+
+     if (end < total - 1) pages.push("…"); // точки справа, если есть пропущенные
+
+     pages.push(total); // последняя страница
    }
 
-   const snapshot = await getDocs(q);
+   return pages;
+ }, [totalPages, currentPage, maxVisiblePages]);
 
-   // lastVisible будет типа QueryDocumentSnapshot<DocumentData> | undefined
-   const lastVisible = snapshot.docs[snapshot.docs.length - 1] ?? null;
+  if (data.length === 0) return <div>Нічого не знайдено</div>;
+  return (
+    <div>
+      {/* Відображення елементів поточної сторінки */}
+      <div>{renderItems(currentItems)}</div>
 
-   // Приведение doc.data() к DocumentData - безопасно, т.к. коллекция типизирована
-  setItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-
-   // Сохраняем курсор для страницы
-   setPageCursors((prev) => {
-     const copy = [...prev];
-     copy[page] = lastVisible as QueryDocumentSnapshot<DocumentData> | null;
-     return copy;
-   });
-
-   setHasMore(snapshot.size === pageSize);
-   setCurrentPage(page);
-   setLoading(false);
- };
-
- useEffect(() => {
-   loadPage(1);
-   // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [collectionName, orderByField]);
-
-
-    return (
-      <div>
-        {items.map((item) => renderItem(item))}
-
-        <div className="pagination">
-          <button onClick={() => loadPage(1)} disabled={currentPage === 1}>
-            ««
-          </button>
-          <button
-            onClick={() => loadPage(currentPage - 1)}
+      {/* Пагінація - показуємо тільки якщо більше однієї сторінки */}
+      {totalPages > 1 && (
+        <PaginationButtonContainer>
+          {/* Кнопка до першої сторінки */}
+          <ButtonReturnOnePage
+            type="button"
+            onClick={() => goToPage(1)}
             disabled={currentPage === 1}
           >
-            «
-          </button>
+            <svg width="40" height="40">
+              <use href={`${IconDoubleLeft}#icon-sliderDoubleLeft`}></use>
+            </svg>
+          </ButtonReturnOnePage>
 
-          <span className={currentPage === 1 ? "active" : ""}>1</span>
-          {currentPage >= 2 && (
-            <span className={currentPage === 2 ? "active" : ""}>2</span>
-          )}
-          {currentPage >= 3 && (
-            <span className={currentPage === 3 ? "active" : ""}>3</span>
-          )}
-          {hasMore && <span>…</span>}
+          {/* Кнопка до попередньої сторінки */}
+          <ButtonPreviuosPage
+            type="button"
+            onClick={goToPrev}
+            disabled={currentPage === 1}
+          >
+            <svg width="40" height="40">
+              <use href={`${IconLeft}#icon-slider`}></use>
+            </svg>
+          </ButtonPreviuosPage>
 
-          <button onClick={() => loadPage(currentPage + 1)} disabled={!hasMore}>
-            »
-          </button>
-          <button onClick={() => loadPage(currentPage + 1)} disabled={!hasMore}>
-            »»
-          </button>
-        </div>
-      </div>
-    );
-}
+          {/* Номери сторінок */}
+          <PagesContainer>
+            {visiblePages.map((pageNum, index) =>
+              typeof pageNum === "number" ? (
+                <Pages
+                  key={pageNum}
+                  type="button"
+                  onClick={() => goToPage(pageNum)}
+                  $isActive={currentPage === pageNum}
+                >
+                  {pageNum}
+                </Pages>
+              ) : (
+                <Pages key={index} >
+                  …
+                </Pages>
+              )
+            )}
+          </PagesContainer>
 
-export default PaginationComponent
+          {/* Кнопка до наступної сторінки */}
+          <ButtonNextPage
+            type="button"
+            onClick={goToNext}
+            disabled={currentPage === totalPages}
+          >
+            <svg width="40" height="40">
+              <use href={`${IconRight}#icon-sliderRight`}></use>
+            </svg>
+          </ButtonNextPage>
+
+          {/* Кнопка до останньої сторінки */}
+          <ButtonLastPage
+            type="button"
+            onClick={() => goToPage(totalPages)}
+            disabled={currentPage === totalPages}
+          >
+            <svg width="40" height="40">
+              <use href={`${IconDoubleRight}#icon-sliderDoubleRight`}></use>
+            </svg>
+          </ButtonLastPage>
+        </PaginationButtonContainer>
+      )}
+    </div>
+  );
+};
+
+export default PaginationComponent;
