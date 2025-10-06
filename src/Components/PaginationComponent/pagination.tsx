@@ -14,8 +14,11 @@ import {
 } from "./pagination.styled";
 
 interface PaginationProps<T> {
+  //масив елементів
   data: T[];
+  // кол-во елем. на стр
   itemsPerPage?: number;
+  // функ для рендеру поточних елем на стр
   renderItems: (items: T[]) => JSX.Element;
 }
 
@@ -24,84 +27,132 @@ const PaginationComponent = <T,>({
   itemsPerPage = 6,
   renderItems,
 }: PaginationProps<T>) => {
+  // поточна стр
   const [currentPage, setCurrentPage] = useState(1);
+  // кіл-ть стр, які показуються у пагінації
   const [maxVisiblePages, setMaxVisiblePages] = useState(() =>
     window.innerWidth > 768 ? 3 : 2
   );
 
+  const [highestVisitedPage, setHighestVisitedPage] = useState(1);
+
+  // адаптовуємо пагінацію під ширину екрана
   useEffect(() => {
     const handleResize = () => {
       setMaxVisiblePages(window.innerWidth > 768 ? 3 : 2);
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // яка кіл-ть стр у нас буде, маючи певну кіл-ть елем. Math.ceil - фунц для округлення
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
+  // поточна стр.
   const currentItems = useMemo(() => {
+    // показуємо з якого елем почати показ стр
+    //  (1 - 1) * 6 = 0 → починаємо з першого елемента (індекс 0).
+    //  (2 - 1) * 6 = 6 → починаємо з елемента з індексом 6.
+    //  (3 - 1) * 6 = 12 → починаємо з елемента з індексом 12.
     const start = (currentPage - 1) * itemsPerPage;
+    // беремо шматок масиву, який треба показати на стр.
     return data.slice(start, start + itemsPerPage);
+    // РОбимо розрахунок тільки тоді коли змінюється data, currentPage, itemsPerPage
   }, [data, currentPage, itemsPerPage]);
 
+  // скидаємо стр, при змінні данних
   useEffect(() => {
     setCurrentPage(1);
+    setHighestVisitedPage(1);
   }, [data]);
 
-  const goToPage = (page: number) => setCurrentPage(page);
-  const goToNext = () =>
-    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  const goToPrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+    if (page > highestVisitedPage) {
+      setHighestVisitedPage(page);
+    }
+  };
 
- const visiblePages = useMemo<(number | string)[]>(() => {
-   const pages: (number | string)[] = [];
-   const total = totalPages;
+  const goToNext = () => {
+    // перехід на наступну стр. не можимо піти далі останьої стр
+    const nextPage = Math.min(currentPage + 1, totalPages);
+    // оновлюємо стран
+    setCurrentPage(nextPage);
 
-   if (total <= maxVisiblePages) {
-     // Все страницы показываем, если их мало
-     for (let i = 1; i <= total; i++) pages.push(i);
-   } else {
-     const sidePages = Math.floor((maxVisiblePages - 1) / 2); // сколько страниц слева и справа от текущей
-     let start = Math.max(2, currentPage - sidePages);
-     let end = Math.min(total - 1, currentPage + sidePages);
+    if (nextPage > highestVisitedPage) {
+      setHighestVisitedPage(nextPage);
+    }
+  };
 
-     // Корректировка, если текущая страница близка к началу
-     if (currentPage <= sidePages + 1) {
-       start = 2;
-       end = maxVisiblePages;
-     }
+  const goToPrev = () => {
+    // перехід на попередню стр. Слідкуємо щоб не піти далі 1 стр
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
 
-     // Корректировка, если текущая страница близка к концу
-     if (currentPage >= total - sidePages) {
-       start = total - maxVisiblePages + 1;
-       end = total - 1;
-     }
+  // створюємо масив сторінок, які будуть видимі в пагінації
+  const visiblePages = useMemo<(number | string)[]>(() => {
+    const pages: (number | string)[] = [];
+    const total = totalPages;
+    const isMobile = maxVisiblePages === 2;
 
-     pages.push(1); // первая страница
+    // якщо кіл-ть стр наприклад 2, то точки не додаємо
+    if (total <= maxVisiblePages) {
+      for (let i = 1; i <= total; i++) pages.push(i);
+      return pages;
+    }
 
-     if (start > 2) pages.push("…"); // точки слева, если есть пропущенные
+    if (isMobile) {
+      // на моб показ макс 2 стр.
+      const groupSize = 2;
 
-     for (let i = start; i <= end; i++) pages.push(i);
+      // відслідковуємо групу елем
+      const groupStart =
+        Math.floor((currentPage - 1) / groupSize) * groupSize + 1;
+      let groupEnd = groupStart + groupSize - 1;
 
-     if (end < total - 1) pages.push("…"); // точки справа, если есть пропущенные
+      // Додаємо автоматично наступну сторінку, якщо клікнули на останню сторінку групи
+      if (currentPage === groupEnd && groupEnd < total) {
+        groupEnd += 1;
+      }
 
-     pages.push(total); // последняя страница
-   }
+      // відслідю щоб не вийти за межі
+      groupEnd = Math.min(groupEnd, total);
 
-   return pages;
- }, [totalPages, currentPage, maxVisiblePages]);
+      // йдемо від 1 до останьої стр. Додаємо кожну стр у visiblePages
+      for (let i = groupStart; i <= groupEnd; i++) pages.push(i);
+
+      // перевіряємо чи є ще стр після поточної групи. Якщо так додаємо крапки
+      if (groupEnd < total) pages.push("…");
+
+      return pages;
+    }
+
+
+    // 💻 Десктоп / планшет — 3 сторінки + точки
+    const sidePages = Math.floor(maxVisiblePages / 2);
+    let start = Math.max(1, currentPage - sidePages);
+    let end = Math.min(start + maxVisiblePages - 1, total);
+
+    if (end === total) {
+      start = Math.max(total - maxVisiblePages + 1, 1);
+    }
+
+    for (let i = start; i <= end; i++) pages.push(i);
+
+    if (end < total) pages.push("…");
+
+    return pages;
+    // робимо обчислення тільки коли змінюються ці дані 
+  }, [totalPages, currentPage, maxVisiblePages, highestVisitedPage]);
 
   if (data.length === 0) return <div>Нічого не знайдено</div>;
+
   return (
     <div>
-      {/* Відображення елементів поточної сторінки */}
       <div>{renderItems(currentItems)}</div>
 
-      {/* Пагінація - показуємо тільки якщо більше однієї сторінки */}
       {totalPages > 1 && (
         <PaginationButtonContainer>
-          {/* Кнопка до першої сторінки */}
           <ButtonReturnOnePage
             type="button"
             onClick={() => goToPage(1)}
@@ -112,7 +163,6 @@ const PaginationComponent = <T,>({
             </svg>
           </ButtonReturnOnePage>
 
-          {/* Кнопка до попередньої сторінки */}
           <ButtonPreviuosPage
             type="button"
             onClick={goToPrev}
@@ -123,27 +173,29 @@ const PaginationComponent = <T,>({
             </svg>
           </ButtonPreviuosPage>
 
-          {/* Номери сторінок */}
           <PagesContainer>
             {visiblePages.map((pageNum, index) =>
               typeof pageNum === "number" ? (
                 <Pages
-                  key={pageNum}
+                  key={
+                    typeof pageNum === "number"
+                      ? `page-${pageNum}`
+                      : `dots-${index}`
+                  }
                   type="button"
-                  onClick={() => goToPage(pageNum)}
+                  onClick={() =>
+                    typeof pageNum === "number" && goToPage(pageNum)
+                  }
                   $isActive={currentPage === pageNum}
                 >
                   {pageNum}
                 </Pages>
               ) : (
-                <Pages key={index} >
-                  …
-                </Pages>
+                <Pages key={index}>…</Pages>
               )
             )}
           </PagesContainer>
 
-          {/* Кнопка до наступної сторінки */}
           <ButtonNextPage
             type="button"
             onClick={goToNext}
@@ -154,7 +206,6 @@ const PaginationComponent = <T,>({
             </svg>
           </ButtonNextPage>
 
-          {/* Кнопка до останньої сторінки */}
           <ButtonLastPage
             type="button"
             onClick={() => goToPage(totalPages)}

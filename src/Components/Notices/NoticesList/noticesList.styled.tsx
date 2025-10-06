@@ -42,9 +42,12 @@ export const NoticesCard = styled.li`
 
 export const Img = styled.div`
 margin-bottom: 24px;
+
 img{
 display: block;
 width: 100%;
+height: 180px;
+border-radius: 16px;
 }
 `;
 
