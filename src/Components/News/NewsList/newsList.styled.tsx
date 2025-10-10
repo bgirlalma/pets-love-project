@@ -34,6 +34,7 @@ position: relative;
 export const NewsImage = styled.img`
   width: 335px;
   margin-bottom: 20px;
+  border-radius: 16px;
 
   @media screen and (min-width: 768px) {
     width: 100%;

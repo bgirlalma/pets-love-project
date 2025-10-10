@@ -13,11 +13,12 @@ import {
   NewsDate,
   NewsLink,
 } from "./newsList.styled";
+import PaginationComponent from "../../PaginationComponent/pagination";
 
 const NewsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const news = useSelector((state: RootState) => state.NewsPets.news);
-  const filterValue = useSelector((state: RootState) => state.NewsFilterPets)
+  const filterValue = useSelector((state: RootState) => state.NewsFilterPets);
 
   useEffect(() => {
     dispatch(fetchInformation()).then((res) => {
@@ -29,27 +30,35 @@ const NewsList = () => {
     console.log("News updated:", news);
   }, [news]);
 
-  const filteredNews = news.filter((item) => item.title.toLowerCase().includes(filterValue.toLowerCase()))
+  const filteredNews = news.filter((item) =>
+    item.title.toLowerCase().includes(filterValue.toLowerCase())
+  );
   return (
-    <>
-      <NewsListContainer>
-        {filteredNews.length > 0 ? (
-          filteredNews.map((item) => (
+    <PaginationComponent
+      data={filteredNews} // передаємо відфільтровані новини
+      itemsPerPage={6} // кількість новин на сторінці
+      renderItems={(itemsOnPage) => (
+        <NewsListContainer>
+          {itemsOnPage.map((item) => (
             <NewsItems key={item.uid}>
               <NewsImage src={item.img} alt="News Photo" />
               <NewsTitle>{item.title}</NewsTitle>
               <NewsDesc>{item.description}</NewsDesc>
               <FlexContainer>
                 <NewsDate>{item.date}</NewsDate>
-                <NewsLink href={item.link}>Read more</NewsLink>
+                <NewsLink
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Read more
+                </NewsLink>
               </FlexContainer>
             </NewsItems>
-          ))
-        ) : (
-          <h2>Нічого не знайдено</h2>
-        )}
-      </NewsListContainer>
-    </>
+          ))}
+        </NewsListContainer>
+      )}
+    />
   );
 };
 

@@ -55,7 +55,7 @@ export const IconLocationContainer = styled.div`
   right: 0;
   transform: translateY(-45%);
   margin-right: 12px;
-  z-index: 1000;
+  z-index: 1;
 
   @media screen and (min-width: 768px) {
     right: 14px;

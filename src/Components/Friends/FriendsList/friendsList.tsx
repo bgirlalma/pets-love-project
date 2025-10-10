@@ -14,6 +14,8 @@ import {
   FriendsAddress,
   FriendsPnone,
 } from "./friendsList.styled";
+
+
 const OurFriendsList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const datafriends = useSelector(

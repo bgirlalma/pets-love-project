@@ -151,7 +151,7 @@ const PaginationComponent = <T,>({
     <div>
       <div>{renderItems(currentItems)}</div>
 
-      {totalPages > 1 && (
+      {totalPages && (
         <PaginationButtonContainer>
           <ButtonReturnOnePage
             type="button"

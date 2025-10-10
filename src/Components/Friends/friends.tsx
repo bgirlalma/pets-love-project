@@ -1,5 +1,6 @@
+
 import OurFriendsList from "./FriendsList/friendsList";
-import { FriendsContainer,PositionContainer, Title } from "./friends.styled";
+import { FriendsContainer, PositionContainer, Title } from "./friends.styled";
 
 const FriendsComponent = () => {
   return (
