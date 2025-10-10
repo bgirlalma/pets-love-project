@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { CatIconError } from "../../Image/error/cat";
+
 import { FourIconError } from "../../Image/error/four";
 import {
   MainContainer,
@@ -7,22 +7,27 @@ import {
   CatIconContainer,
   Title,
   ButtonReturn,
+  FourIconContainerOne,
+  FourIconContainerTwo,
 } from "./error.styled";
+import {
+  CatIconError
+} from "../../Image/error/kitty";
 
 const ErrorComponent = () => {
     return (
       <>
         <MainContainer>
           <IconContainer>
-            <div>
+            <FourIconContainerOne>
               <FourIconError />
-            </div>
+            </FourIconContainerOne>
             <CatIconContainer>
-              <CatIconError />
+              <CatIconError/>
             </CatIconContainer>
-            <div>
+            <FourIconContainerTwo>
               <FourIconError />
-            </div>
+            </FourIconContainerTwo>
           </IconContainer>
           <Title>Ooops! This page not found</Title>
           <ButtonReturn type="button">

@@ -45,8 +45,8 @@ function App() {
 
           <Route path="/news" element={<NewsPage />} />
           <Route path="/notices" element={<NoticesPage />} />
-          <Route path="/friends" element={<ErrorComponent />} />
-          {/* <Route path="*" element={<ErrorComponent />} /> */}
+          <Route path="/friends" element={<FriendsPage />} />
+          <Route path="*" element={<ErrorComponent />} />
         </Route>
       </Routes>
     </Suspense>
