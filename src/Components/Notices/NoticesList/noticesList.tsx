@@ -13,6 +13,7 @@ import {
   Price,
 } from "./noticesList.styled";
 import { StarIcon } from "../../../Image/notices/star";
+import LearnMoreButton from "../Buttons/LearnMore/learnmorebutton";
 
 interface PetType {
   uid?: string;
@@ -76,6 +77,10 @@ const NoticesList = ({ filteredPets }: { filteredPets: PetType[] }) => {
                 <FaDollarSign />
                 <Price>{item.price}</Price>
               </PriceContainer>
+
+              <div>
+                <LearnMoreButton pet={item} />
+              </div>
             </NoticesCard>
           ))
         ) : (

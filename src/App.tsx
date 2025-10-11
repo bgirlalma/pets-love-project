@@ -8,6 +8,7 @@ import HomePage from "./Pages/HomePage/homePage"
 import  PrivateRouter from "./PrivateRouter"
 import ProfileModalMenu from "./Components/Modal/UserModal/userModalMenu"
 import AddNewPetPage from "./Pages/AddNewPetPage/addNewPetPage"
+import ModalNotices from "./Components/Modal/ModalNotices/modalNotices"
 
 const NewsPage = lazy(() => import("./Pages/NewsPage/news"));
 const NoticesPage = lazy(() => import("./Pages/NoticesPage/noticesPage"));
@@ -41,10 +42,15 @@ function App() {
               <PrivateRouter redirectTo="/login" component={AddNewPetPage} />
             }
           />
+
           {/* Private Router end */}
 
           <Route path="/news" element={<NewsPage />} />
-          <Route path="/notices" element={<NoticesPage />} />
+          <Route path="/notices" element={<NoticesPage />}>
+            <Route
+              path="modal-notice"
+              element={<ModalNotices/>} />
+          </Route>
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="*" element={<ErrorComponent />} />
         </Route>

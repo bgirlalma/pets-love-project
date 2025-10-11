@@ -1,9 +1,11 @@
+import { Outlet } from "react-router-dom";
 import NoticesComponent from "../../Components/Notices/notices"
 
 const NoticesPage = () => {
     return (
         <>
-            <NoticesComponent/>
+            <NoticesComponent />
+            <Outlet/>
         </>
     )
 }

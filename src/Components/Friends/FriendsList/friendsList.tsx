@@ -14,6 +14,7 @@ import {
   FriendsAddress,
   FriendsPnone,
 } from "./friendsList.styled";
+import LearnMoreButton from "../../Notices/Buttons/LearnMore/learnmorebutton";
 
 
 const OurFriendsList = () => {
@@ -54,8 +55,10 @@ const OurFriendsList = () => {
                   </FriendsPnone>
                 </DescContainer>
               </PositionContainer>
+              
             </Card>
           ))}
+      
       </FriendsCard>
     </>
   );

@@ -139,6 +139,7 @@ export const Desc = styled.h2`
 export const PriceContainer = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 12px;
 
   svg{
   width: 14px;
