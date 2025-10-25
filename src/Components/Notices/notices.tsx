@@ -21,6 +21,9 @@ import {RootState} from '../../Redux/store'
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDifferentPets } from "../../Redux/notices/noticesOptions";
 import { AppDispatch } from "../../Redux/store";
+import { setDifferentPets } from "../../Redux/notices/noticesSlice";
+import { collection, onSnapshot } from "firebase/firestore";
+import { firestore } from "../../firebase/firebase";
 
 const NoticesComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,10 +34,22 @@ const NoticesComponent = () => {
   // стан для фильтрации за типом
   const [selectedTypeOfPets, setSelectedTypeOfPets] = useState("");
 
-  // отримуємо данні
-  useEffect(() => {
-    dispatch(fetchDifferentPets());
-  }, [dispatch]);
+ useEffect(() => {
+   const unsub = onSnapshot(
+     collection(firestore, "listofdifferentpets"),
+     (snapshot) => {
+       const petsData = snapshot.docs.map((doc) => ({
+         uid: doc.id,
+         ...doc.data(),
+       }));
+
+       // Обновляем Redux напрямую
+       dispatch(setDifferentPets(petsData));
+     }
+   );
+
+   return () => unsub();
+ }, [dispatch]);
 
   const data = useSelector((state: RootState) => state.noticesPets.pets);
   const filteredDiferedPets = useSelector(

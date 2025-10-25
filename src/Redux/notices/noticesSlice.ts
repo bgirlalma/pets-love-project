@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchDifferentPets } from "./noticesOptions";
 
 interface TypeOfPets {
@@ -31,7 +31,11 @@ const initialState: PropsState = {
 const NoticesPetsSlice = createSlice({
   name: "notices",
   initialState,
-  reducers: {},
+  reducers: {
+    setDifferentPets: (state, action: PayloadAction<any[]>) => {
+      state.pets = action.payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(fetchDifferentPets.pending, (state) => {
@@ -47,4 +51,5 @@ const NoticesPetsSlice = createSlice({
       }),
 });
 
+export const { setDifferentPets } = NoticesPetsSlice.actions;
 export default NoticesPetsSlice.reducer

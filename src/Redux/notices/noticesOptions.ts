@@ -27,13 +27,13 @@ export const fetchDifferentPets = createAsyncThunk<TypeOfPets[], void>(
           
           snapshot.forEach((doc) => {
               const petsCollection = doc.data() as Omit<TypeOfPets, "uid">
-              console.log(doc.id, doc.data());
+              // console.log(doc.id, doc.data());
               data.push({
                 uid: doc.id,
                 ...petsCollection,
               });
           })
-  console.log("Fetched notices:", data);
+  // console.log("Fetched notices:", data);
           return data
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);

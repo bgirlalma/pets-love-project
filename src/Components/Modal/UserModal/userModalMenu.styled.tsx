@@ -3,10 +3,9 @@ import styled from "styled-components";
 
 export const MenuContainer = styled.div`
   @media screen and (min-width: 1280px) {
-    // width: 1280px;
     display: flex;
     margin: 0 32px;
-    // justify-content: center;
+    justify-content: center;
   }
 `;
 
@@ -241,22 +240,33 @@ export const ButtonAddPets = styled.button`
 // block pets end
 
 // block pets list start
-export const PetsListContainer = styled.div`
 
+export const ViewedFavoriteContainer = styled.div`
+  position: relative;
+  padding: 0 20px;
+
+  @media screen and (min-width: 768px) {
+    padding: 0 32px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    margin: 72px 0 32px 32px;
+  }
+`;
+
+export const ButtonFlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 
 export const FavoritePetsContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: 180px;
- 
   width: 335px;
+  margin-left: auto;
+  margin-right: auto;
 
   @media screen and (min-width: 768px) {
-    width: 480px;
-   
+    width: 768px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -264,11 +274,13 @@ export const FavoritePetsContainer = styled.div`
     top: unset;
     left: unset;
     transform: unset;
-    width: 480px;
+    width: 660px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: unset;
+    margin-left: unset;
+    margin-right: unset;
   }
 `;
 
@@ -321,16 +333,4 @@ export const LogOutUserButton = styled.button`
   }
 `;
 
-export const ViewedFavoriteContainer = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin: 0 20px 20px 20px;
-  padding: 0 20px;
 
-  @media screen and (min-width: 1280px) {
-    position: unset;
-    align-items: unset;
-    margin: 72px 0 32px 32px;
-  }
-`;

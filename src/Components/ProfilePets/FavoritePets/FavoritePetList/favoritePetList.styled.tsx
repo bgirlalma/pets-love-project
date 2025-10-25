@@ -1,23 +1,20 @@
 import styled from "styled-components";
 
-export const NoticesCardContainer = styled.ul`
+export const FavoriteCardContainer = styled.ul`
   margin-bottom: 44px;
   @media screen and (min-width: 768px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    margin-bottom: 60px;
   }
 
   @media screen and (min-width: 1280px) {
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 32px;
-    row-gap: 40px;
+    column-gap: 24px;
   }
 `;
 
-export const NoticesCard = styled.li`
-position: relative;
+export const FavoriteCard = styled.li`
+  position: relative;
   width: 335px;
   min-height: 500px;
   border-radius: 16px;
@@ -32,7 +29,7 @@ position: relative;
   background-color: rgba(255, 255, 255, 1);
 
   @media screen and (min-width: 768px) {
-    width: 100%;
+    width: 320px;
     padding: 32px;
   }
 
@@ -40,6 +37,8 @@ position: relative;
     width: 100%;
   }
 `;
+
+
 
 export const Img = styled.div`
 margin-bottom: 24px;
@@ -52,7 +51,7 @@ border-radius: 16px;
 }
 `;
 
-export const TitleConteiner = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -119,7 +118,6 @@ export const InformationContainer = styled.div`
   }
 `;
 
-
 export const Desc = styled.h2`
   font-weight: 500;
   font-size: 14px;
@@ -142,9 +140,9 @@ export const PriceContainer = styled.div`
   align-items: center;
   margin-bottom: 12px;
 
-  svg{
-  width: 14px;
-  height: 14px;
+  svg {
+    width: 14px;
+    height: 14px;
   }
 `;
 
@@ -155,7 +153,7 @@ export const Price = styled.p`
   color: rgba(43, 43, 42, 1);
 `;
 
-export const LearnMoreAndFavoriteButtonContainer = styled.div`
+export const LearnMoreContainer = styled.div`
   position: absolute;
   bottom: 24px;
   left: 50%;

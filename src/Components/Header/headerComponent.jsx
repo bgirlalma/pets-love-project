@@ -29,6 +29,8 @@ const HeaderComponent = () => {
   const { userIsLogIn } = useHookAuth();
   const isHome = location.pathname === "/home";
 
+
+  // блокуємо скролл при відкритті модалки
   useEffect(() => {
     if (isOpenMenu) {
       // прибираємо зміщення сторінки при відкриті модального вікна
@@ -41,6 +43,11 @@ const HeaderComponent = () => {
       document.body.style.width = ''
     }
   }, [location.pathname, isOpenMenu]);
+
+  // закриваємо модальне вікно при переході на іншу сторінку
+  useEffect(() => {
+    setIsOpenMenu(false)
+  },[location.pathname])
 
   useEffect(() => {
     const updateSize = () => {

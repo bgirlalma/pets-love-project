@@ -11,6 +11,7 @@ import {
   Desc,
   PriceContainer,
   Price,
+  LearnMoreAndFavoriteButtonContainer,
 } from "./noticesList.styled";
 import { StarIcon } from "../../../Image/notices/star";
 import LearnMoreButton from "../Buttons/LearnMore/learnmorebutton";
@@ -78,9 +79,9 @@ const NoticesList = ({ filteredPets }: { filteredPets: PetType[] }) => {
                 <Price>{item.price}</Price>
               </PriceContainer>
 
-              <div>
+              <LearnMoreAndFavoriteButtonContainer>
                 <LearnMoreButton pet={item} />
-              </div>
+              </LearnMoreAndFavoriteButtonContainer>
             </NoticesCard>
           ))
         ) : (

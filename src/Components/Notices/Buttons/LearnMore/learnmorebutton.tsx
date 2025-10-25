@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const ButtonLearnMore = styled.button`
-  width: 100%;
+  width: 230px;
   height: 46px;
   border-radius: 30px;
 

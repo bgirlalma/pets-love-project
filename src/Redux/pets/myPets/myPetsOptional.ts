@@ -1,4 +1,4 @@
-import React from "react";
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ref } from "firebase/database";
 import { auth, database, firestore } from "../../../firebase/firebase";
@@ -60,7 +60,7 @@ export const fetchPets = createAsyncThunk<Pet[]>(
   async (_, thunkAPI) => {
     try {
       const user = await getCurrentUser()
-      console.log("👤 Current user:", auth.currentUser);
+      // console.log("👤 Current user:", auth.currentUser);
 
       if (!user) {
         return thunkAPI.rejectWithValue("User not authenticated");
@@ -80,7 +80,7 @@ export const fetchPets = createAsyncThunk<Pet[]>(
           ...data
         });
       });
-       console.log("Fetched pets:", pets);
+      //  console.log("Fetched pets:", pets);
       return pets;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message || "Failed to fetch pets");
@@ -93,7 +93,7 @@ export const AddPet = createAsyncThunk<Pet, AddPetPayload>(
   "pets/AddPet",
   async ({ values, sex }, thunkAPI) => {
     try {
-      console.log("AddPet payload:", { values, sex });
+      // console.log("AddPet payload:", { values, sex });
       const user = auth.currentUser;
 
       if (!user) {

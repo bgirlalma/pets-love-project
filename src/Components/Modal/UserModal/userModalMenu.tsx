@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { selectedUser } from "../../../Redux/userAuth/userSelector";
 import { Field, Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditInformation from "./EditInformation/editInformation";
 import editIcon from "../../../Image/userimg/edit-profile.svg";
 import defaultAvatar from '../../../Image/userimg/default-avatar.jpg'
@@ -23,9 +22,9 @@ import {
   PetsWrappContainer,
   PetsTitle,
   ButtonAddPets,
-  PetsListContainer,
   LogOutUserButton,
   ViewedFavoriteContainer,
+  ButtonFlexContainer,
   FavoritePetsContainer,
   TitleFavoritePets,
 } from "./userModalMenu.styled";
@@ -36,14 +35,20 @@ import ViewedComponent from "../../ProfilePets/Viewed/viewed";
 import { logoutUser } from "../../../Redux/userAuth/userOptions";
 import { setUserProfile } from "../../../Redux/userAuth/userSlice";
 import { selectedUser } from "../../../Redux/userAuth/userSelector";
-import { NavLink } from "react-router-dom";
+import { data, NavLink, useLocation, useNavigate } from "react-router-dom";
 import ShowListMyPetsComponent from "../../AddNewPet/ShowListMyPets/showListMyPets";
+import FavoritePetsList from "../../ProfilePets/FavoritePets/FavoritePetList/favoritePetList";
+import { Notify } from "notiflix";
+
 
 const ProfileModalMenu = () => {
   const displatch = useDispatch();
   const [isOpenEditProfile, setIsEditProfile] = useState(false);
   // const [showListFavoritePets, setShowListFavoritePets] = useState()
   const currentUser = useSelector(selectedUser);
+
+  const [showFavoriteList, setShowFavoriteList] = useState(true)
+  
 
   const OpenProfile = () => {
     setIsEditProfile(true);
@@ -55,9 +60,19 @@ const ProfileModalMenu = () => {
     displatch(logoutUser());
   };
 
-  const handleUpdateProfile = (values) => {
+  const handleUpdateProfile = (values: any) => {
     displatch(setUserProfile(values));
   };
+
+  const handleClickFavoriteButton = () => {
+      if (data.length === 0) {
+        Notify.info("You don't have favorite pets yet!")
+        return;
+      }
+      setShowFavoriteList(true);
+  }
+
+  const noFavorites = data.length < 1
 
   return (
     <MenuContainer>
@@ -130,30 +145,37 @@ const ProfileModalMenu = () => {
         </PetsContainer>
 
         {/* List Pets Block */}
-        <PetsListContainer>
+        <div>
           <div>
-            <ShowListMyPetsComponent/>
+            <ShowListMyPetsComponent />
           </div>
 
           {/* Button LogOut */}
           <LogOutUserButton type="button" onClick={handleLogout}>
             Log Out
           </LogOutUserButton>
-        </PetsListContainer>
+        </div>
       </MainUserContainer>
 
       <ViewedFavoriteContainer>
-        <FavoritePets />
-        <ViewedComponent />
+        <ButtonFlexContainer>
+          <FavoritePets handleClickFavoriteButton={handleClickFavoriteButton} />
+          <ViewedComponent />
+        </ButtonFlexContainer>
 
         <FavoritePetsContainer>
-          <TitleFavoritePets>
-            Oops, <span>looks like there are not any furries</span> on our
-            adorable page yet. Do not worry! View your pets on the find your
-            favorite pet page and add them to your favorites.
-          </TitleFavoritePets>
+          {showFavoriteList && <FavoritePetsList />}
+
+          {noFavorites && (
+            <TitleFavoritePets>
+              Oops, <span>looks like there are not any furries</span> on our
+              adorable page yet. Do not worry! View your pets on the find your
+              favorite pet page and add them to your favorites.
+            </TitleFavoritePets>
+          )}
         </FavoritePetsContainer>
       </ViewedFavoriteContainer>
+     
     </MenuContainer>
   );
 };

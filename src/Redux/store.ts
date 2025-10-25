@@ -8,18 +8,19 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import userSlice from './userAuth/userSlice';
-import myPetSlice from './pets/myPets/myPetsSlice'
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import userSlice from "./userAuth/userSlice";
+import myPetSlice from "./pets/myPets/myPetsSlice";
 import typePetSlice from "./pets/myPets/typePetsSlice";
-import newsSlice from './news/newsSlice.tsx'
-import newsFilter from './news/filterNewsSlice.tsx'
-import ourFriendsSlice from './ourFriends/ourFriendsSlice'
+import newsSlice from "./news/newsSlice.tsx";
+import newsFilter from "./news/filterNewsSlice.tsx";
+import ourFriendsSlice from "./ourFriends/ourFriendsSlice";
 import noticesPetsSlice from "./notices/noticesSlice";
-import noticesFilterPets from './notices/filterNoticesSlice'
-import noticesPetsLocation from './notices/filterNoticesLocation'
-import sortPetsSlice from "./notices/sortSlice"
+import noticesFilterPets from "./notices/filterNoticesSlice";
+import noticesPetsLocation from "./notices/filterNoticesLocation";
+import sortPetsSlice from "./notices/sortSlice";
+import favoriteSlice from "./pets/myPets/favoritePets/myFavoritePetsSlice";
 
 const persistConfig = {
   key: "root",
@@ -37,11 +38,14 @@ const rootReduce = combineReducers({
   noticesPets: noticesPetsSlice,
   noticesFilter: noticesFilterPets,
   noticesPetsFilterLocation: noticesPetsLocation,
-  sortPets: sortPetsSlice
+  sortPets: sortPetsSlice,
+  favorites: favoriteSlice,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReduce)
-
+const persistedReducer = persistReducer<ReturnType<typeof rootReduce>>(
+  persistConfig,
+  rootReduce
+);
 
 export const store = configureStore({
   reducer: persistedReducer,
@@ -53,7 +57,7 @@ export const store = configureStore({
     }),
 });
 
-export const persistor = persistStore(store)
+export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

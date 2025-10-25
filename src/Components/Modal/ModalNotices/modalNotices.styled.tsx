@@ -25,6 +25,11 @@ export const ModalContainer = styled.div`
 
   border-radius: 30px;
   background-color: rgba(255, 255, 255, 1);
+
+  @media screen and (min-width: 768px) {
+    width: 470px;
+    padding: 40px 70px;
+  }
 `;
 
 export const PositionIcon = styled.button`
@@ -48,6 +53,13 @@ export const ImageContainer = styled.div`
     height: 120px;
     border-radius: 50%;
   }
+
+  @media screen and (min-width: 768px) {
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
 `;
 
 export const CategoryPet = styled.h3`
@@ -62,6 +74,11 @@ export const CategoryPet = styled.h3`
   background-color: rgba(255, 244, 223, 1);
   border-radius: 30px;
   padding: 8px 14px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
 `;
 
 export const RatingContainer = styled.div`
@@ -75,20 +92,30 @@ export const RatingContainer = styled.div`
   }
 `;
 
-export const RatingTitle = styled.h2`
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-
-  color: rgba(43, 43, 42, 1);
-`;
-
 export const PetTitle = styled.h2`
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
   color: rgba(43, 43, 42, 1);
   margin-bottom: 10px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+`;
+
+export const RatingTitle = styled.h2`
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  color: rgba(43, 43, 42, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+  }
 `;
 
 export const PetInformationContainer = styled.div`
@@ -113,6 +140,7 @@ export const PetInformationContainer = styled.div`
     line-height: 14px;
     color: rgba(38, 38, 38, 1);
   }
+
 `;
 
 export const PetDesc = styled.p`
@@ -132,6 +160,13 @@ export const PriceContainer = styled.div`
     width: 14px;
     height: 14px;
   }
+
+  @media screen and (min-width: 768px) {
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
 `;
 
 export const PetPrice = styled.p`
@@ -139,6 +174,11 @@ export const PetPrice = styled.p`
   font-size: 16px;
   line-height: 20px;
   color: rgba(43, 43, 42, 1);
+
+  @media screen and (min-width: 768px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
 `;
 
 export const PetButtonsContainer = styled.div`
@@ -158,19 +198,29 @@ export const AddToButton = styled.button`
   line-height: 20px;
   color: rgba(255, 255, 255, 1);
   margin-right: 10px;
-  transition: background-color 0.5s ease, color 0.3s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.3s ease;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: 8px;
   }
 
   &:hover {
     background-color: rgba(255, 244, 223, 1);
     color: rgba(246, 184, 61, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 160px;
+    height: 48px;
   }
 `;
 
@@ -195,5 +245,43 @@ export const ContactButton = styled.button`
   &:hover {
     background-color: rgba(246, 184, 61, 1);
     color: rgba(255, 244, 223, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 160px;
+    height: 48px;
+  }
+`;
+
+export const RemoveButton = styled.button`
+  width: 135px;
+  height: 44px;
+  border-radius: 30px;
+  background-color: rgba(255, 244, 223, 1);
+
+  margin-right: 10px;
+  transition:
+    background-color 0.5s ease,
+    color 0.3s ease;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+  }
+
+  &:hover {
+    background-color: rgba(255, 244, 223, 1);
+    color: rgba(246, 184, 61, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 160px;
+    height: 48px;
   }
 `;

@@ -34,7 +34,9 @@ function App() {
             element={
               <PrivateRouter redirectTo="/login" component={ProfileModalMenu} />
             }
-          />
+          >
+            <Route path="modal-notice" element={<ModalNotices />} />
+          </Route>
 
           <Route
             path="/add-pet"
@@ -47,9 +49,7 @@ function App() {
 
           <Route path="/news" element={<NewsPage />} />
           <Route path="/notices" element={<NoticesPage />}>
-            <Route
-              path="modal-notice"
-              element={<ModalNotices/>} />
+            <Route path="modal-notice" element={<ModalNotices />} />
           </Route>
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="*" element={<ErrorComponent />} />
