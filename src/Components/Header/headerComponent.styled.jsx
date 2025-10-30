@@ -78,7 +78,9 @@ export const DesktopNews = styled.li`
   border: ${({ $isHome }) =>
     $isHome
       ? "1px solid rgba(255, 255, 255, 0.4) "
-      : "1px solid rgba(38, 38, 38, 0.15) "};
+    : "1px solid rgba(38, 38, 38, 0.15) "};
+      
+    transition: border ease 0.3s;
 
   &:hover {
     border: ${({ $isHome }) =>
@@ -104,6 +106,8 @@ export const DesktopFindPets = styled.li`
       ? "1px solid rgba(255, 255, 255, 0.4) "
       : "1px solid rgba(38, 38, 38, 0.15) "};
 
+  transition: border ease 0.3s;
+
   &:hover {
     border: ${({ $isHome }) =>
       $isHome
@@ -127,6 +131,8 @@ export const DesktopOurFriends = styled.li`
       ? "1px solid rgba(255, 255, 255, 0.4) "
       : "1px solid rgba(38, 38, 38, 0.15) "};
 
+  transition: border ease 0.3s;
+
   &:hover {
     border: ${({ $isHome }) =>
       $isHome
@@ -140,7 +146,8 @@ export const DesktopNav = styled(NavLink)`
   font-weight: 500;
   line-height: 20px;
   color: ${({ $isHome }) =>
-    $isHome ? "rgba(255, 255, 255, 1)" : "rgba(38, 38, 38, 1)"};
+  $isHome ? "rgba(255, 255, 255, 1)" : "rgba(38, 38, 38, 1)"};
+  transition: color ease 0.3s;
 `;
 
 export const ButtonsDesktopContainer = styled.div`

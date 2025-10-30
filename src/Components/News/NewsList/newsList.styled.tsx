@@ -96,6 +96,11 @@ export const NewsLink = styled.a`
   font-size: 14px;
   line-height: 18px;
   color: rgba(246, 184, 61, 1);
+  transition: color 0.5s ease;
+
+  &:hover {
+    color: rgba(179, 120, 4, 1);
+  }
 
   @media screen and (min-width: 768px) {
     font-size: 16px;

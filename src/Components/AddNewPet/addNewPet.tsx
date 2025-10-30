@@ -26,7 +26,7 @@ import {
   TypeField,
   ItemsContainer,
 } from "./addNewPet.styled";
-import { Field, Formik, useFormikContext } from "formik";
+import { Field, Formik } from "formik";
 import ButtonUploadComponent from "../Buttons/UploadButton/uploadButton";
 import { CalendarIcon } from "../../Image/add-pet/calendarIcon";
 import { ChevronDownIcon } from "../../Image/add-pet/chevron-down";

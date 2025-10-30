@@ -15,6 +15,12 @@ export const ViewedButton = styled.button`
   font-size: 14px;
   line-height: 18px;
   color: rgba(38, 38, 38, 1);
+  transition: background-color 0.7s ease, color 0.5s ease;
+
+  &:hover {
+    background-color: rgba(67, 64, 64, 1);
+    color: rgba(255, 255, 255, 1);
+  }
 
   @media screen and (min-width: 768px) {
     width: 142px;

@@ -9,8 +9,10 @@ export const DataField = styled.input.attrs({ type: "text" })`
   outline: none;
   cursor: pointer;
   padding: 0 12px;
-  
+
   border: 1px solid rgba(38, 38, 38, 0.15);
+  transition:
+    border 0.5s ease;
   border-radius: 30px;
   margin-right: 10px;
 
@@ -23,7 +25,7 @@ export const DataField = styled.input.attrs({ type: "text" })`
     width: 100%;
     height: 52px;
     padding: 0 16px;
-   
+
     font-size: 16px;
     line-height: 20px;
   }

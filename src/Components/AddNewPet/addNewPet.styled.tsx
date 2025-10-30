@@ -109,7 +109,9 @@ export const FemaleBlockContainer = styled.div`
 `;
 
 // shouldForwardProp -функ, которая не добавляет пропсы в DOM. Они используються только в стилях
-export const ButtonFemale = styled.button.withConfig({shouldForwardProp: (prop) => !["isActive", "genderType"].includes(prop)})<ButtonFemaleProps>`
+export const ButtonFemale = styled.button.withConfig({
+  shouldForwardProp: (prop) => !["isActive", "genderType"].includes(prop),
+})<ButtonFemaleProps>`
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -120,7 +122,9 @@ export const ButtonFemale = styled.button.withConfig({shouldForwardProp: (prop) 
 
   margin-right: 10px;
 
-  background-color: ${({ genderType, isActive}) => isActive? getBackground(genderType, true) : getBackground(genderType)};
+  background-color: ${({ genderType, isActive }) =>
+    isActive ? getBackground(genderType, true) : getBackground(genderType)};
+ 
 
   &:last-child {
     margin-right: 0;
@@ -231,6 +235,7 @@ export const FormInfo = styled(Form)`
     width: 100%;
     height: 42px;
     border: 1px solid rgba(38, 38, 38, 0.15);
+    transition: border 0.5s ease;
     border-radius: 30px;
     margin-bottom: 10px;
     outline: none;
@@ -248,6 +253,7 @@ export const FormInfo = styled(Form)`
     width: 100%;
     height: 42px;
     border: 1px solid rgba(38, 38, 38, 0.15);
+    transition: border 0.5s ease;
     border-radius: 30px;
     margin-bottom: 10px;
     outline: none;
@@ -343,7 +349,7 @@ export const SelectPositionContainer = styled.div`
 
 export const TypeField = styled.div`
   // appearance: none; /* Убираем дефолтную стрелку */
- position: relative;
+  position: relative;
   height: 42px;
   outline: none;
   cursor: pointer;
@@ -355,7 +361,13 @@ export const TypeField = styled.div`
   color: rgba(38, 38, 38, 1);
 
   border: 1px solid rgba(38, 38, 38, 0.15);
+  transition: border 0.5s ease;
   border-radius: 30px;
+
+  &:hover,
+  &:focus {
+    border: 1px solid rgba(246, 184, 61, 1);
+  }
 
   @media screen and (min-width: 768px) {
     height: 52px;

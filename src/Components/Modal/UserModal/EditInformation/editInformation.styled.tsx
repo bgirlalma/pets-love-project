@@ -115,6 +115,7 @@ export const FormContainer = styled(Form)`
     padding: 0 12px;
     margin-bottom: 10px;
     border: 1px solid rgba(38, 38, 38, 1);
+    transition: border 0.3s ease;
     border-radius: 30px;
     cursor: pointer;
     outline: none;
@@ -151,12 +152,20 @@ export const ProfileGoToButton = styled.button`
 
   border-radius: 30px;
   background-color: rgba(246, 184, 61, 1);
+  transition:
+    background-color 0.5s ease,
+    color 0.3s ease;
 
   font-weight: 700;
   font-size: 14px;
   line-height: 18px;
 
   color: rgba(255, 255, 255, 1);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(246, 184, 61, 1);
+  }
 
   @media screen and (min-width: 768px) {
     font-size: 16px;

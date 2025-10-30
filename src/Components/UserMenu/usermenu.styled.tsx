@@ -25,6 +25,7 @@ export const UserMenuContainer = styled.div<{ $isHome?: boolean }>`
 
 export const UserMenuMobileContainer = styled.div`
   background-color: rgba(255, 244, 223, 1);
+
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -49,9 +50,14 @@ export const UserMenuTablet = styled.div`
     align-items: center;
 
     background-color: rgba(255, 244, 223, 1);
+    transition: background-color ease 0.3s;
     border-radius: 50%;
     width: 50px;
     height: 50px;
+
+    &:hover {
+      background-color: rgba(255, 254, 251, 1);
+    }
   }
 `;
 
@@ -71,6 +77,7 @@ export const UserName = styled.h2<{ $isHome?: boolean }>`
       $isHome ? "rgba(255, 255, 255, 1)" : " rgba(38, 38, 38, 1)"};
     margin-left: 15px;
     margin-right: 10px;
+  
   }
 
   @media screen and (min-width: 1280px) {

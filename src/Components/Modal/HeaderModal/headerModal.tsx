@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import {
   BurderMobileTabletContainer,
   IconCloseContainer,
@@ -33,8 +32,7 @@ const HeaderModal = ({
 
   return (
     <>
-      {isOpenMenu && (
-        <BurderMobileTabletContainer>
+        <BurderMobileTabletContainer $isOpen={isOpenMenu}>
           <IconCloseContainer onClick={toggleButton}>
             <svg width={sizeIcon.width} height={sizeIcon.height}>
               <use href={`${close}#icon-close`}></use>
@@ -73,7 +71,6 @@ const HeaderModal = ({
             </ButtonMobileTabletContainer>
           )}
         </BurderMobileTabletContainer>
-      )}
     </>
   );
 };

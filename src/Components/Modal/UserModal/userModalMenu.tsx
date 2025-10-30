@@ -35,7 +35,7 @@ import ViewedComponent from "../../ProfilePets/Viewed/viewed";
 import { logoutUser } from "../../../Redux/userAuth/userOptions";
 import { setUserProfile } from "../../../Redux/userAuth/userSlice";
 import { selectedUser } from "../../../Redux/userAuth/userSelector";
-import { data, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { data, NavLink } from "react-router-dom";
 import ShowListMyPetsComponent from "../../AddNewPet/ShowListMyPets/showListMyPets";
 import FavoritePetsList from "../../ProfilePets/FavoritePets/FavoritePetList/favoritePetList";
 import { Notify } from "notiflix";

@@ -18,7 +18,7 @@ export const LogoNavContainer = styled(NavLink)<{$isNews?: boolean}>`
   }
 `;
 
-export const TitlePetlLogo = styled.h2<{ $isHome?: boolean}>`
+export const TitlePetlLogo = styled.h2<{ $isHome?: boolean }>`
   font-family: Manrope;
   font-size: 20px;
   font-weight: 700;
@@ -28,6 +28,7 @@ export const TitlePetlLogo = styled.h2<{ $isHome?: boolean}>`
   display: flex;
   justify-content: center;
   align-items: center;
+
 
   @media screen and (min-width: 768px) {
     font-size: 28px;

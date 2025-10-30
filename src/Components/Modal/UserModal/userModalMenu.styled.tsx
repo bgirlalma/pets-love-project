@@ -64,6 +64,11 @@ export const EditButton = styled.button`
   height: 28px;
   border-radius: 30px;
   background-color: rgba(255, 244, 223, 1);
+  transition: background-color ease 0.5s;
+
+  &:hover {
+    background-color: rgba(238, 213, 163, 1);
+  }
 
   @media screen and (min-width: 768px) {
     height: 38px;
@@ -134,6 +139,7 @@ export const FormInformation = styled(Form)`
   height: 40px;
   padding: 0 12px;
   border: 1px solid rgba(38, 38, 38, 0.15);
+  transition: border 0.3s ease;
   border-radius: 30px;
   margin-bottom: 12px;
 
@@ -215,6 +221,7 @@ export const ButtonAddPets = styled.button`
 
   border-radius: 30px;
   background-color: rgba(246, 184, 61, 1);
+  transition: background-color ease 0.5s;
 
   display: flex;
   justify-content: center;
@@ -225,10 +232,19 @@ export const ButtonAddPets = styled.button`
     font-size: 14px;
     line-height: 18px;
     color: rgba(255, 255, 255, 1);
+    transition: color ease 0.3s;
   }
 
   svg {
     margin-left: 5px;
+  }
+
+  &:hover {
+    background-color: rgba(255, 244, 223, 1);
+
+    a {
+      color: rgba(246, 184, 61, 1);
+    }
   }
 
   @media screen and (min-width: 768px) {
@@ -320,6 +336,12 @@ export const LogOutUserButton = styled.button`
   font-size: 14px;
   line-height: 18px;
   color: rgba(246, 184, 61, 1);
+  transition: background-color 0.5s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(246, 184, 61, 1);
+    color: rgba(255, 244, 233, 1);
+  }
 
   @media screen and (min-width: 768px) {
     width: 136px;
@@ -329,7 +351,6 @@ export const LogOutUserButton = styled.button`
   }
 
   @media screen and (min-width: 1280px) {
-   
   }
 `;
 

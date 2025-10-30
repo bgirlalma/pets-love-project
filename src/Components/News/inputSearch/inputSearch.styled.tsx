@@ -17,6 +17,7 @@ export const SearchInput = styled.input.attrs({ type: "text" })`
   padding: 0 12px 0 12px;
   border-radius: 30px;
   border: 1px solid rgba(38, 38, 38, 0.15);
+  transition: border 0.5s ease;
   background-color: inherit;
 
   font-size: 14px;

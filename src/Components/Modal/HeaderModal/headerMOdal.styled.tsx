@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 // Header mobile and tablet start
-export const BurderMobileTabletContainer = styled.div`
+export const BurderMobileTabletContainer = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   right: 0;
   width: 218px;
   height: 100vh;
   background-color: rgba(246, 184, 61, 1);
-  
+
   padding: 20px 20px 40px 20px;
   box-sizing: border-box;
 
@@ -18,6 +18,10 @@ export const BurderMobileTabletContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  transform: ${({ $isOpen }) =>
+    $isOpen ? "translateX(0)" : "translateX(100%)"};
+  transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1);
 
   @media screen and (min-width: 768px) {
     width: 375px;
