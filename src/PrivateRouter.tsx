@@ -1,8 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useHookAuth } from "./Redux/hooks/authhook";
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import persistStore from "redux-persist/es/persistStore";
+import React from "react";
 
 interface PrivateRouterProps {
     component: React.ComponentType

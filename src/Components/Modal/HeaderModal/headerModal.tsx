@@ -13,6 +13,7 @@ import {
 import close from "../../../Image/symbol-defs.svg";
 import { useHookAuth } from '../../../Redux/hooks/authhook';
 import Logout from '../../UserMenu/ButtonLogout/buttonLogout';
+import React from "react";
 
 
 interface Props {
@@ -21,7 +22,7 @@ interface Props {
   toggleButton: () => void;
   handleNavigate: (path: string) => void
 }
-const HeaderModal = ({
+const HeaderModal: React.FC<Props> = ({
   isOpenMenu,
   sizeIcon,
   toggleButton,

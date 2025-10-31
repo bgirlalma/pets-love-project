@@ -63,8 +63,10 @@ export const registerUser = createAsyncThunk<
       email: user.email || "",
       isLogIn: true,
     };
+   
   } catch (error: any) {
     return thunkApi.rejectWithValue(error.message);
+  
   }
 });
 

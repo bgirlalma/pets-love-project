@@ -81,6 +81,6 @@ export const UserName = styled.h2<{ $isHome?: boolean }>`
   }
 
   @media screen and (min-width: 1280px) {
-    margin-right: 8px;
+    margin-right: 0;
   }
 `;

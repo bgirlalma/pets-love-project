@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomeMobile from '../../Image/homepageimg/home-img-mob.jpg'
 import HomeTablet from '../../Image/homepageimg/home-img-tab.jpg'
 import HomeDesktop from '../../Image/homepageimg/home-img-desk.jpg'
@@ -11,11 +11,11 @@ import {
   ImgContainer,
 } from "./home.styled";
 
-const HomeComponent = () => {
-    const [sizeWindow, setSizeWindow] = useState("");
+const HomeComponent: React.FC = () => {
+    const [sizeWindow, setSizeWindow] = useState<string>("");
 
     useEffect(() => {
-        const updateImg = () => {
+        const updateImg = () : void => {
             if (window.innerWidth < 767) {
               setSizeWindow(HomeMobile);
             } else if (window.innerWidth < 1280) {
@@ -27,7 +27,7 @@ const HomeComponent = () => {
         updateImg()
         window.addEventListener('resize', updateImg)
 
-        return () => window.removeEventListener("resize", updateImg)
+        return () : void => window.removeEventListener("resize", updateImg)
     },[])
     return (
       <HomeContainer>

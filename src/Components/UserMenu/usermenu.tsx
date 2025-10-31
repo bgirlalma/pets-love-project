@@ -10,12 +10,12 @@ import {
 } from "./usermenu.styled";
 import { selectedUser } from "../../Redux/userAuth/userSelector";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 
-const UserMenu = () => {
+const UserMenu: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
   const [previousPath, setPreviousPath] = useState<string | null>(null); // Запоминаем откуда пришли
   const { userIsLogIn } = useHookAuth();
   const currentUser = useSelector(selectedUser);
@@ -23,7 +23,7 @@ const UserMenu = () => {
 
 
   // предотвращаем повторное создание новой функции при каждом ренедере
-  const ToggleEditProfile = useCallback(() => {
+  const ToggleEditProfile = useCallback((): void => {
     setIsOpenEdit((prev) => !prev); // ✅ Оновлюємо стан без побічних ефектів
 
     if (!isOpenEdit) {

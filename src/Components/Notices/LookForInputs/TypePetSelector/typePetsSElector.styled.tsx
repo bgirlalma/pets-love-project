@@ -55,6 +55,11 @@ export const TypeOfPetsButton = styled.button<{ $showMenuType: boolean }>`
     transform: rotate(${(props) => (props.$showMenuType ? "180deg" : "0deg")});
     transition: transform 0.5s ease;
   }
+
+  @media screen and (min-width: 768px) {
+    top: 16px;
+    right: 14px;
+  }
 `;
 
 export const ShowListTypeOfPetsContainer = styled.div`
@@ -94,6 +99,7 @@ export const ShowListTypeOfPets = styled.ul`
     font-size: 14px;
     line-height: 18px;
     color: rgba(38, 38, 38, 0.6);
+    transition: color 0.5s ease;
     cursor: pointer;
     margin-bottom: 8px;
 

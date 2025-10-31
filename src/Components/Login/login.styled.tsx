@@ -2,6 +2,11 @@ import { Form } from "formik";
 import backgrounddog from '../../Image/userimg/background.jpg'
 import styled from "styled-components";
 
+interface StyledInputProps {
+  $error?: boolean;
+  $touched?: boolean;
+}
+
 export const LoginContainer = styled.div`
   width: 320px;
   display: flex;
@@ -199,14 +204,20 @@ export const DescLogin = styled.p`
   }
 `;
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input<StyledInputProps>`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
 
   background-color: inherit;
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: 1px solid
+    ${({ $error, $touched }) =>
+      !$touched
+        ? "rgba(38, 38, 38, 0.15)"
+        : $error
+          ? "rgba(239, 36, 71, 1)"
+          : "rgba(8, 170, 131, 1)"};
   color: rgba(38, 38, 38, 0.5);
   margin-bottom: 10px;
   padding: 12px 0 12px 12px;
@@ -230,7 +241,7 @@ export const PositionContainer = styled.div`
   }
 `;
 
-export const StyledInputPassword = styled.input`
+export const StyledInputPassword = styled.input<StyledInputProps>`
   width: 100%;
   font-size: 14px;
   font-weight: 500;
@@ -238,7 +249,13 @@ export const StyledInputPassword = styled.input`
 
   background-color: inherit;
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: 1px solid
+    ${({ $error, $touched }) =>
+      !$touched
+        ? "rgba(38, 38, 38, 0.15)"
+        : $error
+          ? "rgba(239, 36, 71, 1)"
+          : "rgba(8, 170, 131, 1)"};
   color: rgba(38, 38, 38, 0.5);
   padding: 12px;
 
@@ -247,7 +264,6 @@ export const StyledInputPassword = styled.input`
   &::-webkit-textfield-decoration-container {
     display: none;
   }
-    
 `;
 
 export const IconEyeButton = styled.button`
@@ -274,6 +290,7 @@ export const ButtonForm = styled.button`
   background-color: rgba(246, 184, 61, 1);
   border-radius: 30px;
   margin-top: 40px;
+  transition: background-color 0.7s ease, color 0.5s ease;
 
   font-size: 14px;
   font-weight: 700;
@@ -320,6 +337,13 @@ export const RedirectDesc = styled.p`
 
   a {
     color: rgba(246, 184, 61, 1);
+    transition: color 0.5s ease;
+  }
+
+  &:hover {
+    a {
+      color: rgba(194, 74, 15, 1);
+    }
   }
   @media screen and (min-width: 768px) {
     font-size: 14px;

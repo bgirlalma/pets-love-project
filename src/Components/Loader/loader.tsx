@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoaderContainer, ProgressBar, Percentage } from "./loader.styled";
 import { TailSpin } from "react-loader-spinner";
 
-const Loader = () => {
-  const [progress, setProgress] = useState(0);
-  const [size, setSize] = useState({ width: 100, height: 100 });
+interface IconSize {
+  width: number;
+  height: number;
+}
+
+const Loader: React.FC = () => {
+  const [progress, setProgress] = useState<number>(0);
+  const [size, setSize] = useState<IconSize>({ width: 100, height: 100 });
 
 
   useEffect(() => {

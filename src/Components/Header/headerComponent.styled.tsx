@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+interface Prop {
+  $isHome: boolean
+}
+
 export const HeaderContainer = styled.div`
   position: relative;
   // width: 320px;
@@ -36,7 +40,7 @@ export const PositionContainer = styled.div`
   }
 
   @media screen and (min-width: 1280px) {
-    width: 1200px;
+    width: 1280px;
 
     display: flex;
     align-items: center;
@@ -64,7 +68,7 @@ export const DesktopList = styled.ul`
   align-items: center;
 `;
 
-export const DesktopNews = styled.li`
+export const DesktopNews = styled.li<Prop>`
   width: 80px;
   height: 50px;
   margin-right: 10px;
@@ -78,9 +82,9 @@ export const DesktopNews = styled.li`
   border: ${({ $isHome }) =>
     $isHome
       ? "1px solid rgba(255, 255, 255, 0.4) "
-    : "1px solid rgba(38, 38, 38, 0.15) "};
-      
-    transition: border ease 0.3s;
+      : "1px solid rgba(38, 38, 38, 0.15) "};
+
+  transition: border ease 0.3s;
 
   &:hover {
     border: ${({ $isHome }) =>
@@ -90,7 +94,7 @@ export const DesktopNews = styled.li`
   }
 `;
 
-export const DesktopFindPets = styled.li`
+export const DesktopFindPets = styled.li<Prop>`
   width: 100px;
   height: 50px;
   margin-right: 10px;
@@ -116,7 +120,7 @@ export const DesktopFindPets = styled.li`
   }
 `;
 
-export const DesktopOurFriends = styled.li`
+export const DesktopOurFriends = styled.li<Prop>`
   width: 120px;
   height: 50px;
   border-radius: 30px;
@@ -141,12 +145,12 @@ export const DesktopOurFriends = styled.li`
   }
 `;
 
-export const DesktopNav = styled(NavLink)`
+export const DesktopNav = styled(NavLink)<Prop>`
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
   color: ${({ $isHome }) =>
-  $isHome ? "rgba(255, 255, 255, 1)" : "rgba(38, 38, 38, 1)"};
+    $isHome ? "rgba(255, 255, 255, 1)" : "rgba(38, 38, 38, 1)"};
   transition: color ease 0.3s;
 `;
 
@@ -167,6 +171,7 @@ export const ButtonsDesktopContainer = styled.div`
     top: unset;
     right: unset;
     transform: unset;
+    margin-right: 0;
   }
 `;
 
@@ -176,12 +181,16 @@ export const ButtonLogInDesktop = styled.button`
   border: none;
   border-radius: 30px;
   cursor: pointer;
+  margin-right: 10px;
 
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
   background-color: rgba(246, 184, 61, 1);
   color: rgba(255, 255, 255, 1);
+  transition:
+    background-color 0.7s,
+    color 0.5s ease;
 
   &:hover {
     background-color: rgba(251, 231, 193, 1);
@@ -201,8 +210,12 @@ export const ButtonRegisterDesktop = styled.button`
   line-height: 20px;
   background-color: rgba(255, 244, 223, 1);
   color: rgba(246, 184, 61, 1);
+  transition:
+    background-color 0.7s,
+    color 0.5s ease;
 
   &:hover {
     background-color: rgba(251, 231, 193, 1);
+    color: rgba(255, 255, 255, 1);
   }
 `;

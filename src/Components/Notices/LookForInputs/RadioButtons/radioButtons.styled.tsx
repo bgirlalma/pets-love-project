@@ -33,7 +33,7 @@ export const ButtonPopular = styled.button<{ $active: boolean }>`
   background-color: ${({ $active }) => ($active ? "#F6B83D" : "#fff")};
   color: ${({ $active }) => ($active ? "#FFF" : "#262626")};
   cursor: pointer;
-  transition: 0.2s;
+  transition: background-color 0.5s ease, color 0.3s ease;
 
   &:hover {
     background-color: ${({ $active }) => ($active ? "#F6B83D" : "#f0f0f0")};
@@ -89,7 +89,7 @@ export const ButtonUnpopular = styled.button<{ $active: boolean }>`
   background-color: ${({ $active }) => ($active ? "#F6B83D" : "#fff")};
   color: ${({ $active }) => ($active ? "#FFF" : "#262626")};
   cursor: pointer;
-  transition: 0.2s;
+  transition: background-color 0.5s ease, color 0.3s ease;
 
   &:hover {
     background-color: ${({ $active }) => ($active ? "#F6B83D" : "#f0f0f0")};
@@ -146,7 +146,9 @@ export const ButtonCheap = styled.button<{ $active: boolean }>`
   background-color: ${({ $active }) => ($active ? "#F6B83D" : "#fff")};
   color: ${({ $active }) => ($active ? "#FFF" : "#262626")};
   cursor: pointer;
-  transition: 0.2s;
+  transition:
+    background-color 0.5s ease,
+    color 0.3s ease;
 
   &:hover {
     background-color: ${({ $active }) => ($active ? "#F6B83D" : "#f0f0f0")};
@@ -203,7 +205,9 @@ export const ButtonExpensive = styled.button<{ $active: boolean }>`
   background-color: ${({ $active }) => ($active ? "#F6B83D" : "#fff")};
   color: ${({ $active }) => ($active ? "#FFF" : "#262626")};
   cursor: pointer;
-  transition: 0.2s;
+  transition:
+    background-color 0.5s ease,
+    color 0.3s ease;
 
   &:hover {
     background-color: ${({ $active }) => ($active ? "#F6B83D" : "#f0f0f0")};

@@ -27,6 +27,7 @@ import {
   EyeButton,
   ButtonForm,
 } from "./registration.styled";
+import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import catmain from "../../Image/userimg/main-cat.svg";
 import catmaindesktop from "../../Image/userimg/main-cat-desktop.svg";
@@ -38,19 +39,45 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../Redux/userAuth/userOptions";
 import { Notify } from "notiflix";
+import { AppDispatch } from "../../Redux/store";
+
+interface RegistrationValues {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const validationShema: Yup.ObjectSchema<RegistrationValues> = Yup.object({
+  name: Yup.string()
+    .min(3, "ваше ім'я занадто коротке!")
+    .required("Це поле обов'язкове!"),
+  email: Yup.string()
+    .matches(
+      /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+      "Некоректний формат email"
+    )
+    .required("Це поле обов'язкове!"),
+  password: Yup.string()
+    .min(7, "Пароль повинен бути більше 7 символів!")
+    .required("Це поле обов'язкове!"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Паролі не співпадають!") // 🔥 перевірка
+    .required("Підтвердіть пароль!"),
+});
 
 const RegistrationComponent = () => {
-  const [openPassword, setOpenPassword] = useState(false);
-  const [isOpenPassword, setIsOpenPassword] = useState(false);
-  const [currentCatImage, setCurrentCatImage] = useState(" ");
+  const [openPassword, setOpenPassword] = useState<boolean>(false);
+  const [isOpenPassword, setIsOpenPassword] = useState<boolean>(false);
+  const [currentCatImage, setCurrentCatImage] = useState<string>(" ");
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (): void => {
     setOpenPassword((prev) => !prev);
   };
 
-  const ToggleConfirmPasswordVisibility = () => {
+  const ToggleConfirmPasswordVisibility = (): void => {
     setIsOpenPassword((prev) => !prev);
   };
 
@@ -97,23 +124,22 @@ const RegistrationComponent = () => {
           </Jack>
         </JackContainer>
 
-        <Formik
+        <Formik<RegistrationValues>
           initialValues={{
             name: "",
             email: "",
             password: "",
             confirmPassword: "",
           }}
-         
+          validationSchema={validationShema}
           onSubmit={async (values, { resetForm }) => {
-           
             try {
               await dispatch(registerUser(values));
               resetForm();
               Notify.success("Успішно!");
             } catch {
               Notify.failure("Некоректно введені дані!");
-            } 
+            }
           }}
         >
           {({
@@ -139,8 +165,10 @@ const RegistrationComponent = () => {
                 onBlur={handleBlur}
                 value={values.name}
                 placeholder="Name"
+                $error={!!errors.name}
+                $touched={!!touched.name}
               />
-              {errors.name && touched.name && errors.name} 
+              {errors.name && touched.name && errors.name}
               {/* Email */}
               <StyledInput
                 type="email"
@@ -149,6 +177,8 @@ const RegistrationComponent = () => {
                 onBlur={handleBlur}
                 value={values.email}
                 placeholder="Email"
+                $error={!!errors.email}
+                $touched={!!touched.email}
               />
               {errors.email && touched.email && errors.email}
               {/*Password  */}
@@ -160,6 +190,8 @@ const RegistrationComponent = () => {
                   onBlur={handleBlur}
                   value={values.password}
                   placeholder="Password"
+                  $error={!!errors.password}
+                  $touched={!!touched.password}
                 />
                 <IconEyeButton onClick={togglePasswordVisibility}>
                   {openPassword ? (
@@ -184,8 +216,12 @@ const RegistrationComponent = () => {
                   onBlur={handleBlur}
                   value={values.confirmPassword}
                   placeholder="Confirm password"
+                  $error={!!errors.confirmPassword}
+                  $touched={!!touched.confirmPassword}
                 />
-                {errors.confirmPassword && touched.confirmPassword && errors.confirmPassword}
+                {errors.confirmPassword &&
+                  touched.confirmPassword &&
+                  errors.confirmPassword}
 
                 <EyeButton onClick={ToggleConfirmPasswordVisibility}>
                   {isOpenPassword ? (

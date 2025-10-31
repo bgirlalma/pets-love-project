@@ -1,4 +1,4 @@
-import { IconMenu } from "../../Image/userimg/menu";
+import { IconMenu } from "../../Image/userimg/menu.tsx";
 import Logo from "../Logo/logo.tsx";
 import {
   HeaderContainer,
@@ -12,18 +12,23 @@ import {
   ButtonsDesktopContainer,
   ButtonLogInDesktop,
   ButtonRegisterDesktop,
-} from "./headerComponent.styled";
-import { useCallback, useEffect, useState } from "react";
+} from "./headerComponent.styled.tsx";
+import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
-import { useHookAuth } from "../../Redux/hooks/authhook";
+import { useHookAuth } from "../../Redux/hooks/authhook.ts";
 import UserMenu from "../UserMenu/usermenu.tsx";
-import HeaderModal from "../Modal/HeaderModal/headerModal";
-import { MenuWhite } from "../../Image/userimg/menu-white";
+import HeaderModal from "../Modal/HeaderModal/headerModal.tsx";
+import { MenuWhite } from "../../Image/userimg/menu-white.tsx";
 
-const HeaderComponent = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const [sizeIcon, setSizeIcon] = useState({ width: 22, height: 22 });
+interface IconSize {
+  width: number;
+  height: number;
+}
+
+const HeaderComponent: React.FC = () => {
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [sizeIcon, setSizeIcon] = useState<IconSize>({ width: 22, height: 22 });
   const navigate = useNavigate();
   const location = useLocation();
   const { userIsLogIn } = useHookAuth();
@@ -61,11 +66,11 @@ const HeaderComponent = () => {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  const toggleButton = useCallback(() => {
+  const toggleButton = useCallback((): void => {
     setIsOpenMenu((prev) => !prev);
   }, []);
 
-  const handleNavigate = (path) => {
+  const handleNavigate = (path: string) => {
     if (location.pathname === path) {
      return Notify.info("Ви вже на цій сторінці!");
     }

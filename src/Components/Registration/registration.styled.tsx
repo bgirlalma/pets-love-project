@@ -3,6 +3,12 @@ import styled from "styled-components";
 import backgroundcat from "../../Image/userimg/background.jpg";
 
 
+interface StyledInputProps {
+  $error?: boolean;
+  $touched?: boolean;
+}
+
+
 export const RegisterContainer = styled.div`
   width: 335px;
   display: flex;
@@ -202,14 +208,20 @@ export const DescRegister = styled.p`
   }
 `;
 
-export const StyledInputName = styled.input`
+export const StyledInputName = styled.input<StyledInputProps>`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
 
   background-color: inherit;
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: 1px solid
+    ${({ $error, $touched }) =>
+      !$touched
+        ? "rgba(38, 38, 38, 0.15)"
+        : $error
+          ? "rgba(239, 36, 71, 1)"
+          : "rgba(8, 170, 131, 1)"};
   color: rgba(38, 38, 38, 0.5);
   margin-bottom: 10px;
   padding: 12px 0 12px 12px;
@@ -223,14 +235,20 @@ export const StyledInputName = styled.input`
   }
 `;
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input<StyledInputProps>`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
 
   background-color: inherit;
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: 1px solid
+    ${({ $error, $touched }) =>
+      !$touched
+        ? "rgba(38, 38, 38, 0.15)"
+        : $error
+          ? "rgba(239, 36, 71, 1)"
+          : "rgba(8, 170, 131, 1)"};
   color: rgba(38, 38, 38, 0.5);
   margin-bottom: 10px;
   padding: 12px 0 12px 12px;
@@ -254,7 +272,7 @@ export const PositionContainer = styled.div`
   }
 `;
 
-export const StyledInputPassword = styled.input`
+export const StyledInputPassword = styled.input<StyledInputProps>`
   width: 100%;
   font-size: 14px;
   font-weight: 500;
@@ -262,7 +280,13 @@ export const StyledInputPassword = styled.input`
 
   background-color: inherit;
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: 1px solid
+    ${({ $error, $touched }) =>
+      !$touched
+        ? "rgba(38, 38, 38, 0.15)"
+        : $error
+          ? "rgba(239, 36, 71, 1)"
+          : "rgba(8, 170, 131, 1)"};
   color: rgba(38, 38, 38, 0.5);
   margin-bottom: 10px;
   padding: 12px;
@@ -302,7 +326,7 @@ export const ConfirmPasswordContainer = styled.div`
   }
 `;
 
-export const ConfirmPassword = styled.input`
+export const ConfirmPassword = styled.input<StyledInputProps>`
   width: 100%;
   font-size: 14px;
   font-weight: 500;
@@ -310,7 +334,13 @@ export const ConfirmPassword = styled.input`
 
   background-color: inherit;
   border-radius: 30px;
-  border: 1px solid rgba(38, 38, 38, 0.15);
+  border: 1px solid
+    ${({ $error, $touched }) =>
+      !$touched
+        ? "rgba(38, 38, 38, 0.15)"
+        : $error
+          ? "rgba(239, 36, 71, 1)"
+          : "rgba(8, 170, 131, 1)"};
   color: rgba(38, 38, 38, 0.5);
   padding: 12px;
 
@@ -351,6 +381,9 @@ export const ButtonForm = styled.button`
   font-weight: 700;
   line-height: 18px;
   color: rgba(255, 255, 255, 1);
+  transition:
+    background-color 0.5s,
+    color 0.3s ease;
 
   &:hover {
     background-color: rgba(255, 244, 223, 1);
@@ -387,8 +420,18 @@ export const RedirectDesc = styled.p`
   font-size: 12px;
   font-weight: 500;
   line-height: 14px;
-  color: rgba(246, 184, 61, 1);
   margin-left: 2px;
+
+  a {
+    color: rgba(246, 184, 61, 1);
+    transition: color 0.5s ease;
+  }
+
+  &:hover {
+    a {
+      color: rgba(194, 74, 15, 1);
+    }
+  }
 
   @media screen and (min-width: 768px) {
     font-size: 14px;

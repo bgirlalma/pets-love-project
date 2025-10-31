@@ -52,7 +52,7 @@ export const IconSelectorContainer = styled.button<{ $showMenu: boolean }>`
   }
 
   @media screen and (min-width: 768px) {
-    top: 14px;
+    top: 16px;
     right: 14px;
   }
 `;
@@ -80,6 +80,7 @@ export const ShowListCategory = styled.ul`
     font-size: 14px;
     line-height: 18px;
     color: rgba(38, 38, 38, 0.6);
+    transition: color 0.5s ease;
     cursor: pointer;
     margin-bottom: 8px;
 

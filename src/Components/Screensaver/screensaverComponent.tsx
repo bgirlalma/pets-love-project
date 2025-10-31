@@ -7,12 +7,17 @@ import {
 } from "./screensaverComponent.styled";
 import logoImg from "../../Image/symbol-defs.svg";
 import Loader from "../Loader/loader";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const ScreensaverComponent = () => {
-  const [isLoader, setIsLoader] = useState(true);
-  const [sizeIcon, setSizeIcon] = useState({ width: 44, height: 44 });
+interface IconSize {
+  width: number;
+  height: number;
+}
+
+const ScreensaverComponent: React.FC = () => {
+  const [isLoader, setIsLoader] = useState<boolean>(true);
+  const [sizeIcon, setSizeIcon] = useState<IconSize>({ width: 44, height: 44 });
 
   const navigate = useNavigate();
 
