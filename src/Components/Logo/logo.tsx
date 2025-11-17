@@ -4,12 +4,14 @@ import { LogoNavContainer, TitlePetlLogo,LogoSvg, TitleLoveLogo } from "./logo.s
 import { HeartHeaderWhite } from "../../Image/userimg/heart-circle";
 const Logo = () => {
   const [sizeWindow, setSizeWindow] = useState({ width: 13, height: 13 });
-  const isHome = location.pathname === "/pets/home";
-    const isNews = location.pathname === "/pets/news" || "/pets/friends" || "";
+  const isHome = location.pathname === "/pets-love-project/home";
+    const isNews =
+      location.pathname === "/pets-love-project/news" ||
+      location.pathname === "/pets-love-project/friends";
 
   useEffect(() => {
     const updateSize = () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth >= 768) {
         setSizeWindow({ width: 23, height: 23 });
       }
     };

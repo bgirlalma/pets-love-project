@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-
-
 export const LogoNavContainer = styled(NavLink)<{$isNews?: boolean}>`
   display: flex;
   align-items: center;

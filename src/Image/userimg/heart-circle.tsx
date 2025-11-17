@@ -1,4 +1,6 @@
-export const HeartHeaderWhite = () => {
+import React from "react";
+
+export const HeartHeaderWhite : React.FC = () => {
     return (
       <svg
         width="17"
