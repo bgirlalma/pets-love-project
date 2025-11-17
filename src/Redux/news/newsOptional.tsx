@@ -32,7 +32,6 @@ export const fetchInformation = createAsyncThunk<News[], void>(
           ...data
         });
       });
-      console.log("Fetched news:", newsPets);
       return newsPets;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);

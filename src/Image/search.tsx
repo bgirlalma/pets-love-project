@@ -1,4 +1,6 @@
-export const IconSearch = () => {
+import React from "react";
+
+export const IconSearch : React.FC = () => {
     return (
       <svg
         width="18"

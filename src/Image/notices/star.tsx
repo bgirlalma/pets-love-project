@@ -1,4 +1,6 @@
-export const StarIcon = () => {
+import React from "react";
+
+export const StarIcon : React.FC = () => {
 
     return (
       <svg

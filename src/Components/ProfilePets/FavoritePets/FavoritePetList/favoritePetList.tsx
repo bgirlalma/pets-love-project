@@ -20,6 +20,7 @@ import {
 import { FaDollarSign } from "react-icons/fa6"
 import { Outlet } from "react-router-dom"
 
+
 const FavoritePetsList = () => {
     const dispatch = useDispatch<AppDispatch>()
     const data = useSelector((state: RootState) => state.favorites.favorites)

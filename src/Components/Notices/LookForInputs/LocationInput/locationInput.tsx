@@ -18,7 +18,7 @@ const LocationInput = () => {
     setInputLocalValue(FilterValur);
   }, [FilterValur]);
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     setInputLocalValue("");
     dispatch(setNoticesLocationPets(""));
   };

@@ -49,16 +49,16 @@ const ModalNotices = () => {
   const { favorites } = useSelector((state: RootState) => state.favorites);
 
   // зміна іконки при ховері
-  const [hoverFavorite, setHoverFavorite] = useState(false);
+  const [hoverFavorite, setHoverFavorite] = useState<boolean>(false);
 
   const location = useLocation() as Location & { state?: LocalStateProp };
-  const [closeMenu, setCloseMenu] = useState(false);
+  const [closeMenu, setCloseMenu] = useState<boolean>(false);
   const navigate = useNavigate();
   const pet = location.state?.pet;
   const isFavorite = location.pathname.startsWith("/profile");
   const showAddToFavorite = location.pathname.startsWith("/notices");
 
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState<number>(0);
 
   const user = auth.currentUser;
 

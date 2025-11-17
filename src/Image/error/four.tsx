@@ -1,4 +1,6 @@
-export const FourIconError = () => {
+import React from "react";
+
+export const FourIconError : React.FC = () => {
     return (
       <>
         <svg

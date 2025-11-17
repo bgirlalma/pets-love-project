@@ -15,7 +15,7 @@ const CustomCategorySelector = ({
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
 }) => {
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
 
   const categories = ["Show All", "Sell", "Free", "Lost", "Found"];
 

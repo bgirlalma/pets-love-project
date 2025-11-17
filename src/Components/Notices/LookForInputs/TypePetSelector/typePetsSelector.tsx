@@ -19,7 +19,7 @@ const TypeOfPetsSElector = ({
   setSelectedTypeOfPets: (typeOfPets: string) => void;
 }) => {
   // state for button chevron
-  const [showMenuType, setShowMenuType] = useState(false);
+  const [showMenuType, setShowMenuType] = useState<boolean>(false);
 
   // list of type pets
   const listoftypes = [
@@ -34,12 +34,12 @@ const TypeOfPetsSElector = ({
   ];
 
   // state for button chevron
-  const toggleButton = () => {
+  const toggleButton = (): void => {
     setShowMenuType((prev) => !prev);
   };
 
   // filter pets
-  const selectType = (type: string) => {
+  const selectType = (type: string): void => {
     setSelectedTypeOfPets(type);
     setShowMenuType(false);
   };

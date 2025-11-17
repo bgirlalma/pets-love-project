@@ -18,7 +18,7 @@ const ListPetsType = ({ onSelect }: { onSelect: (value: string) => void }) => {
     return (
       <ListStyled>
         {data &&
-          Object.entries(data).map(([key, value]: any) => (
+          Object.entries(data).map(([key, value]) => (
               <ItemsStyled key={key} onClick={() => onSelect(value)}>
                 {value}
               </ItemsStyled>

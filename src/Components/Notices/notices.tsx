@@ -28,11 +28,11 @@ import { firestore } from "../../firebase/firebase";
 const NoticesComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
   // стан для фильтрации за категориею
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   // стан для фильтрации за гендером
-  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedGender, setSelectedGender] = useState<string>("");
   // стан для фильтрации за типом
-  const [selectedTypeOfPets, setSelectedTypeOfPets] = useState("");
+  const [selectedTypeOfPets, setSelectedTypeOfPets] = useState<string>("");
 
  useEffect(() => {
    const unsub = onSnapshot(

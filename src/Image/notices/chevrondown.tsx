@@ -1,4 +1,6 @@
-export const ChevronDownIcon = () => {
+import React from "react";
+
+export const ChevronDownIcon : React.FC = () => {
     return (
       <svg
         width="18"

@@ -117,7 +117,6 @@ export const AddPet = createAsyncThunk<Pet, AddPetPayload>(
       await addDoc(userPetsRef, newPet);
       return newPet;
     } catch (error: any) {
-      console.error("AddPet thunk error:", error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

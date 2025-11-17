@@ -28,13 +28,13 @@ const PaginationComponent = <T,>({
   renderItems,
 }: PaginationProps<T>) => {
   // поточна стр
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   // кіл-ть стр, які показуються у пагінації
-  const [maxVisiblePages, setMaxVisiblePages] = useState(() =>
+  const [maxVisiblePages, setMaxVisiblePages] = useState<number>(() =>
     window.innerWidth > 768 ? 3 : 2
   );
 
-  const [highestVisitedPage, setHighestVisitedPage] = useState(1);
+  const [highestVisitedPage, setHighestVisitedPage] = useState<number>(1);
 
   // адаптовуємо пагінацію під ширину екрана
   useEffect(() => {
@@ -66,14 +66,14 @@ const PaginationComponent = <T,>({
     setHighestVisitedPage(1);
   }, [data]);
 
-  const goToPage = (page: number) => {
+  const goToPage = (page: number): void => {
     setCurrentPage(page);
     if (page > highestVisitedPage) {
       setHighestVisitedPage(page);
     }
   };
 
-  const goToNext = () => {
+  const goToNext = (): void => {
     // перехід на наступну стр. не можимо піти далі останьої стр
     const nextPage = Math.min(currentPage + 1, totalPages);
     // оновлюємо стран
@@ -84,7 +84,7 @@ const PaginationComponent = <T,>({
     }
   };
 
-  const goToPrev = () => {
+  const goToPrev = (): void => {
     // перехід на попередню стр. Слідкуємо щоб не піти далі 1 стр
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };

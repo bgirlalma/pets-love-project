@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CalendarIcon = () => {
+export const CalendarIcon : React.FC = () => {
   return (
  
       <svg

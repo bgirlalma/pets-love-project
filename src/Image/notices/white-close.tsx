@@ -1,4 +1,4 @@
-export const WhiteCloseIcon = () => {
+export const WhiteCloseIcon : React.FC = () => {
     return (
       <svg
         width="18"

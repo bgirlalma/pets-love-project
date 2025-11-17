@@ -1,4 +1,6 @@
-export const TrashSvg = () => {
+import React from "react";
+
+export const TrashSvg : React.FC = () => {
     return (
       <svg
         width="16"

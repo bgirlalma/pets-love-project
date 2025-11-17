@@ -1,4 +1,6 @@
-export const HeartYellowIcon = () => {
+import React from "react";
+
+export const HeartYellowIcon : React.FC = () => {
     return (
       <>
         <svg

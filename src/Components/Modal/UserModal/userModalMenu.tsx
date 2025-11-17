@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Field, Formik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EditInformation from "./EditInformation/editInformation";
 import editIcon from "../../../Image/userimg/edit-profile.svg";
 import defaultAvatar from '../../../Image/userimg/default-avatar.jpg'
@@ -39,15 +39,16 @@ import { data, NavLink } from "react-router-dom";
 import ShowListMyPetsComponent from "../../AddNewPet/ShowListMyPets/showListMyPets";
 import FavoritePetsList from "../../ProfilePets/FavoritePets/FavoritePetList/favoritePetList";
 import { Notify } from "notiflix";
+import { AppDispatch } from "../../../Redux/store";
 
 
 const ProfileModalMenu = () => {
-  const displatch = useDispatch();
-  const [isOpenEditProfile, setIsEditProfile] = useState(false);
+  const displatch = useDispatch<AppDispatch>();
+  const [isOpenEditProfile, setIsEditProfile] = useState<boolean>(false);
   // const [showListFavoritePets, setShowListFavoritePets] = useState()
   const currentUser = useSelector(selectedUser);
 
-  const [showFavoriteList, setShowFavoriteList] = useState(true)
+  const [showFavoriteList, setShowFavoriteList] = useState<boolean>(true)
   
 
   const OpenProfile = () => {
@@ -90,7 +91,6 @@ const ProfileModalMenu = () => {
           <EditButton
             type="button"
             onClick={OpenProfile}
-            $OpenProfile={OpenProfile}
           >
             <img src={editIcon} />
           </EditButton>

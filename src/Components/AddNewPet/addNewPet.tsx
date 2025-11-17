@@ -41,33 +41,32 @@ import ListPetsType from "./ListTypePets/listTypePets";
 
 const AddNewPetComponent = () => {
   // Resize Img
-  const [imgSize, setImgSize] = useState("");
+  const [imgSize, setImgSize] = useState<string>("");
   // Pet upload Avatar
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   // Avatar
-  const [uploadAvatar, setUploadAvatar] = useState(null);
+  const [uploadAvatar, setUploadAvatar] = useState<string | null>(null);
   // Calendar
-  const [startDate, setStartDate] = useState(new Date());
-  const datePickerRef = useRef(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const datePickerRef = useRef<any>(null);
 
   // Add Pet
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const [sex, setSex] = useState<"male" | "female" | "unknown">("unknown");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Open Menu
-  const [istoggleMenu, setIsToggleMenu] = useState(false)
+  const [istoggleMenu, setIsToggleMenu] = useState(false);
 
   // Pet Link
   // const petLink = `https://bgirlalma.github.io/pets-love-project/${id}`;
 
-
   // Resize Image
   useEffect(() => {
     const updateImg = () => {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth >= 768) {
         setImgSize(DogTablet);
-      } else if (window.innerWidth > 1280) {
+      } else if (window.innerWidth >= 1280) {
         setImgSize(DogDesktop);
       } else {
         setImgSize(DogMobile);
@@ -81,11 +80,11 @@ const AddNewPetComponent = () => {
   }, []);
 
   // Pet Upload Avatar
-  const handleButtonClick = () => {
+  const handleButtonClick = (): void => {
     fileInputRef.current?.click();
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
 
     // if (file) {
@@ -95,18 +94,21 @@ const AddNewPetComponent = () => {
   };
 
   // Функция для открытия календаря
-  const handleOpenCalendar = () => {
+  const handleOpenCalendar = (): void => {
     if (datePickerRef.current) {
       datePickerRef.current.setOpen(true); // Открываем календарь
     }
   };
 
   // Toogle List Pets
-  const ToggleMenu = () => {
-  setIsToggleMenu(prev => !prev)
-  }
+  const ToggleMenu = (): void => {
+    setIsToggleMenu((prev) => !prev);
+  };
 
+  // перевіряемо startDate на null
+  if (!startDate) return;
 
+  console.log(startDate.toISOString());
 
   return (
     <AddPetContainer>
@@ -243,13 +245,15 @@ const AddNewPetComponent = () => {
                       }
                       dateFormat="yyyy-MM-dd"
                       popperPlacement="bottom-start"
-                      portal
+                      portalId="root"
                     />
                     <CalendarIcon />
                   </DataContainer>
                   <SelectPositionContainer>
                     <TypeField>
-                      <ItemsContainer onClick={() => setIsToggleMenu((prev) => !prev)}>
+                      <ItemsContainer
+                        onClick={() => setIsToggleMenu((prev) => !prev)}
+                      >
                         <span>
                           {values.petType ? values.petType : "Type of pet"}
                         </span>

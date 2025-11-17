@@ -21,16 +21,15 @@ export const fetchOurFriends = createAsyncThunk<OurFriends[], void>(
 
       const data: OurFriends[] = [];
 
-      console.log(snapshot.size);
       snapshot.forEach((doc) => {
         const collection = doc.data() as Omit<OurFriends, "uid">;
-console.log(doc.id, doc.data());
+
         data.push({
           uid: doc.id,
           ...collection,
         });
       });
-      console.log("Fetched friends:", data);
+    
       return data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);

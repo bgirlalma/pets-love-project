@@ -13,16 +13,16 @@ const FindNewPetsInput = () => {
   // локальний стан вводу
   const [inputValue, setInputValue] = useState(filterValur);
 
-  const handleClick = () => {
+  const handleClick = () : void => {
     setInputValue("");
     dispatch(setFilterNotices(""));
   };
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: any): void => {
     setInputValue(e.target.value);
   };
 
-  const handleKeyDown = (e: any) => {
+  const handleKeyDown = (e: any): void => {
     if (e.key === "Escape" || e.key === "Enter") {
       dispatch(setFilterNotices(inputValue.trim()));
     }

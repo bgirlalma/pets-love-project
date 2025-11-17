@@ -78,7 +78,7 @@ export const AddToFavorite = createAsyncThunk<
 // ✅ Отримуємо колекцію Улюбленого
 export const FetchFavoritePets = createAsyncThunk<
   TypeOfPets[],
-  void,
+void,
   { rejectValue: string }
 >("favoritePets/FetchFavoritePets", async (uid, thunkAPI) => {
   const user = auth.currentUser;
@@ -152,7 +152,6 @@ export const UpdatePetRating = createAsyncThunk<
      await updateDoc(petRef, { rating: newRating });
    }
   } catch (error: any) {
-    console.error("Failed to update pet rating:", error);
     return thunkAPI.rejectWithValue(error.message || "Failed to update rating");
   }
 });

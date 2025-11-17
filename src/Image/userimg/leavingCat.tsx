@@ -1,4 +1,6 @@
-export const LeavingCatIcon = () => {
+import React from "react";
+
+export const LeavingCatIcon : React.FC = () => {
     return (
       <svg
         width="44"

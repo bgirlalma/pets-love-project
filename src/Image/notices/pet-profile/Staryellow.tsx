@@ -1,4 +1,6 @@
-export const YellowStartIcon = () => {
+import React from "react";
+
+export const YellowStartIcon : React.FC = () => {
     return (
       <>
         <svg

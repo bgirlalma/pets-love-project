@@ -20,8 +20,8 @@ interface RegisterUserPayload {
 }
 
 interface LoginUserPayload {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 interface UserAuthData {
@@ -29,6 +29,11 @@ interface UserAuthData {
   name: string;
   email: string;
   isLogIn: boolean;
+}
+
+interface PropsForAuthData extends UserAuthData {
+  phone?: string;
+  avatar?: string;
 }
 
 interface UpdateUserPayload {
@@ -63,18 +68,16 @@ export const registerUser = createAsyncThunk<
       email: user.email || "",
       isLogIn: true,
     };
-   
   } catch (error: any) {
     return thunkApi.rejectWithValue(error.message);
-  
   }
 });
 
 // Логиним пользователя
 export const loginUser = createAsyncThunk<
-  UserAuthData, // Тип данных, которые мы возвращаем
-  LoginUserPayload, // Тип данных, которые передаем в действие
-  { rejectValue: string } // Тип для ошибки
+  PropsForAuthData,
+  LoginUserPayload,
+  { rejectValue: string }
 >("pets-userAuth/loginUser", async (user, thunkApi) => {
   try {
     const userCredential: UserCredential = await signInWithEmailAndPassword(
@@ -86,11 +89,13 @@ export const loginUser = createAsyncThunk<
     const { uid, displayName, email } = userCredential.user;
 
     // Сохраняем в localStorage
-    const userData: UserAuthData = {
+    const userData: PropsForAuthData = {
       uid,
       name: displayName || "",
-      email,
+      email: email || "",
       isLogIn: true,
+      phone: undefined,
+      avatar: undefined,
     };
     localStorage.setItem("userAuth", JSON.stringify(userData));
 
@@ -106,6 +111,7 @@ export const loginUser = createAsyncThunk<
         email: firestoreData.email,
         phone: firestoreData.phone,
         avatar: firestoreData.avatar,
+        isLogIn: true,
       };
     }
 
@@ -121,7 +127,7 @@ export const logoutUser = createAsyncThunk(
     try {
       await signOut(auth);
       return null;
-    } catch (error) {
+    } catch (error: any) {
       return thunkApi.rejectWithValue(error.message);
     }
   }
@@ -184,7 +190,7 @@ export const updateUserDataInFirestore = createAsyncThunk<
       localStorage.setItem("userAuth", JSON.stringify(updatedUserData));
 
       return { uid, name, email, phone, avatar };
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message); // Возвращаем ошибку, если что-то пошло не так
     }
   }

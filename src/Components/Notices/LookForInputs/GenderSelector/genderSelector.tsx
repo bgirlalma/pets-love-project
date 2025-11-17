@@ -17,17 +17,17 @@ const GenderCustomSelector = ({
   setSelectedGender: (gender: string) => void;
   }) => {
     // state for button chevron
-    const [showMenuGender, setShowMenuGender] = useState(false);
+    const [showMenuGender, setShowMenuGender] = useState<boolean>(false);
 
     // state for button chevron
-    const toggleGender = () => {
+    const toggleGender = () : void => {
       setShowMenuGender((prev) => !prev);
     };
 // list of gender
     const genders = ["Show All", "Unknown", "Female", "Male", "Multiple"];
 
   // filter list gender
-    const selectGender = (gender: string) => {
+    const selectGender = (gender: string) : void => {
       setSelectedGender(gender);
       setShowMenuGender(false);
     };

@@ -8,7 +8,7 @@ import { AppDispatch } from '../../../Redux/store';
  const Logout: React.FC = () => {
      const dispatch = useDispatch<AppDispatch>();
 
-   const handleLogout = () => {
+   const handleLogout = (): void => {
       dispatch(logoutUser());
        
    };
