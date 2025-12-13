@@ -22,12 +22,12 @@ const NewsList = () => {
 
   useEffect(() => {
     dispatch(fetchInformation()).then((res) => {
-      console.log("Thunk result:", res);
+  
     });
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("News updated:", news);
+  
   }, [news]);
 
   const filteredNews = news.filter((item) =>

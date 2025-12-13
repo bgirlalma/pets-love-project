@@ -25,12 +25,10 @@ const OurFriendsList = () => {
 
   useEffect(() => {
     dispatch(fetchOurFriends()).then((res) => {
-      console.log("Thunk result:", res);
     });
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("Fetch Friends", datafriends);
   }, [datafriends]);
 
   return (
