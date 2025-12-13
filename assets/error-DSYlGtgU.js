@@ -1,4 +1,4 @@
-import{j as A,d as a,N as W}from"./index-mn7KwMYr.js";const t=()=>A.jsx(A.Fragment,{children:A.jsx("svg",{width:"62",height:"87",viewBox:"0 0 62 87",fill:"none",xmlns:"http://www.w3.org/2000/svg",children:A.jsx("path",{d:"M37.56 87V73.56H8.9407e-08V58.32L27.24 0.599997H45.96L18.72 58.32H37.56V36.72H54.12V58.32H61.8V73.56H54.12V87H37.56Z",fill:"white"})})}),g=a.div`
+import{j as A,d as a,N as W}from"./index-ib5gvc9-.js";const t=()=>A.jsx(A.Fragment,{children:A.jsx("svg",{width:"62",height:"87",viewBox:"0 0 62 87",fill:"none",xmlns:"http://www.w3.org/2000/svg",children:A.jsx("path",{d:"M37.56 87V73.56H8.9407e-08V58.32L27.24 0.599997H45.96L18.72 58.32H37.56V36.72H54.12V58.32H61.8V73.56H54.12V87H37.56Z",fill:"white"})})}),g=a.div`
   width: 375px;
   height: 720px;
   padding: 40px 20px 80px 20px;

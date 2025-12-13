@@ -1,4 +1,4 @@
-import{d as n,u as s,a as p,r as o,n as d,j as i}from"./index-mn7KwMYr.js";const x=n.ul`
+import{d as n,u as s,a as p,r as o,n as d,j as i}from"./index-ib5gvc9-.js";const x=n.ul`
   @media screen and (min-width: 768px) {
     width: 100%;
     display: grid;
@@ -65,7 +65,7 @@ left: 20px;
 transform: translateY(-60%);
   display: flex;
   align-items: center;
-`,g=n.div``,l=n.img`
+`,g=n.div``,m=n.img`
   width: 80px;
   height: 80px;
   border-radius: 50%;
@@ -80,7 +80,7 @@ transform: translateY(-60%);
   @media screen and (min-width: 1280px) {
     margin-right: 20px;
   }
-`,m=n.h2`
+`,l=n.h2`
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
@@ -127,7 +127,7 @@ transform: translateY(-60%);
     line-height: 18px;
     color: rgba(38, 38, 38, 1);
   }
-`,u=()=>{const r=s(),t=p(e=>e.ourFriendsCollection.ourfriends);return o.useEffect(()=>{r(d()).then(e=>{console.log("Thunk result:",e)})},[r]),o.useEffect(()=>{console.log("Fetch Friends",t)},[t]),i.jsx(i.Fragment,{children:i.jsx(x,{children:t&&t.map(e=>i.jsxs(a,{children:[i.jsx(h,{children:e.workTime}),i.jsxs(c,{children:[i.jsx(l,{src:e.img,alt:""}),i.jsxs(g,{children:[i.jsx(m,{children:e.name}),i.jsxs(b,{children:["Email: ",i.jsx("span",{children:e.email})]}),i.jsxs(f,{children:["Address: ",i.jsx("span",{children:e.address})]}),i.jsxs(w,{children:["Phone:",i.jsx("span",{children:e.phone})]})]})]})]},e.uid))})})},j=n.div`
+`,u=()=>{const r=s(),t=p(e=>e.ourFriendsCollection.ourfriends);return o.useEffect(()=>{r(d()).then(e=>{})},[r]),o.useEffect(()=>{},[t]),i.jsx(i.Fragment,{children:i.jsx(x,{children:t&&t.map(e=>i.jsxs(a,{children:[i.jsx(h,{children:e.workTime}),i.jsxs(c,{children:[i.jsx(m,{src:e.img,alt:""}),i.jsxs(g,{children:[i.jsx(l,{children:e.name}),i.jsxs(b,{children:["Email: ",i.jsx("span",{children:e.email})]}),i.jsxs(f,{children:["Address: ",i.jsx("span",{children:e.address})]}),i.jsxs(w,{children:["Phone:",i.jsx("span",{children:e.phone})]})]})]})]},e.uid))})})},j=n.div`
   background-color: rgba(249, 249, 249, 1);
 `,F=n.div`
   width: 375px;
@@ -161,4 +161,4 @@ transform: translateY(-60%);
   @media screen and (min-width: 1280px) {
     margin-bottom: 60px;
   }
-`,C=()=>i.jsx(j,{children:i.jsxs(F,{children:[i.jsx(z,{children:"Our Friends"}),i.jsx(u,{})]})}),E=()=>i.jsx(i.Fragment,{children:i.jsx(C,{})});export{E as default};
+`,C=()=>i.jsx(j,{children:i.jsxs(F,{children:[i.jsx(z,{children:"Our Friends"}),i.jsx(u,{})]})}),k=()=>i.jsx(i.Fragment,{children:i.jsx(C,{})});export{k as default};
