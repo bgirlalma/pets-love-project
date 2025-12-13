@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPets } from "../../../Redux/pets/myPets/myPetsOptional";
+import { deletedPet, fetchPets } from "../../../Redux/pets/myPets/myPetsOptional";
 import { AppDispatch, RootState } from "../../../Redux/store";
 import { PetDefaultAvatar } from "../../../Image/add-pet/pet-default-avatar";
 import {
@@ -24,28 +24,46 @@ import {
   DescSpecialPet,
 } from "./showListMyPets.styled";
 import { TrashSvg } from "../../../Image/trash";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../firebase/firebase";
 
 
 const ShowListMyPetsComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
   const pets = useSelector((state: RootState) => state.PetSlice.pets);
-
- 
   const isLoading = useSelector((state: RootState) => state.PetSlice.loading);
+  const currentUser = useSelector((state: RootState) => state.userAuth);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("Пользователь авторизован:", user.uid);
+    } else {
+      console.log("Пользователь не авторизован");
+    }
+  });
 
   useEffect(() => {
         dispatch(fetchPets());
    
   }, [dispatch]);
 
-  useEffect(() => {}, [pets]);
+  useEffect(() => { }, [pets]);
+  
+  const handleDelete = (petsId: string): void => {
+    if (!currentUser?.user?.uid) return;
+    dispatch(deletedPet({ petId: petsId, uid: currentUser.user.uid })).unwrap().then(() => {
+      // після успішного видалення 
+      dispatch(fetchPets())
+    }).catch((error: any) => {
+       console.error("Failed to delete pet:", error);
+    })
+  }
   return (
     <PetContainer>
       <PetCardContainer>
-        {
-          pets &&
+        {pets &&
           pets.map((pet) => (
-            <PetCard key={pet.uid}>
+            <PetCard key={pet.petId}>
               {/* Container for Title and Button delete */}
               <MainTitleandButtonContainer>
                 {/* Main Title */}
@@ -55,7 +73,10 @@ const ShowListMyPetsComponent = () => {
 
                 {/* Button Delete */}
                 <ButtonDeletePetContainer>
-                  <ButtonDeletePet type="button">
+                  <ButtonDeletePet
+                    type="button"
+                    onClick={() => handleDelete(pet.petId)}
+                  >
                     <TrashSvg />
                   </ButtonDeletePet>
                 </ButtonDeletePetContainer>
@@ -92,8 +113,7 @@ const ShowListMyPetsComponent = () => {
                 </PetInformationBlock>
               </PositionContainer>
             </PetCard>
-          ))
-        }
+          ))}
       </PetCardContainer>
     </PetContainer>
   );

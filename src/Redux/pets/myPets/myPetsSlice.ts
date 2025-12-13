@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AddPet, deletedPet, fetchPets, updateProfileMyPets } from "./myPetsOptional";
 
 interface Pet {
-  uid: string;
+  petId: string;
   name: string;
   title: string;
   birthday: string;
@@ -60,7 +60,9 @@ const petSlice = createSlice({
       })
       .addCase(updateProfileMyPets.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.pets.findIndex((p) => p.uid === action.payload.uid);
+        const index = state.pets.findIndex(
+          (p) => p.petId === action.payload.uid
+        );
         if (index !== -1) {
           state.pets[index] = action.payload;
         }
@@ -75,7 +77,7 @@ const petSlice = createSlice({
         state.error = null
       }).addCase(deletedPet.fulfilled, (state, action) => {
         state.loading = false;
-        state.pets = state.pets.filter(p => p.uid !== action.payload)
+        state.pets = state.pets.filter((p) => p.petId !== action.payload);
       }).addCase(deletedPet.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string || "Failed delete Pet"

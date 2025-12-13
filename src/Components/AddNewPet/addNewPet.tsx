@@ -38,6 +38,7 @@ import { AppDispatch } from "../../Redux/store";
 import { useNavigate } from "react-router-dom";
 import { Notify } from "notiflix";
 import ListPetsType from "./ListTypePets/listTypePets";
+import { RootState } from "../../Redux/store";
 
 const AddNewPetComponent = () => {
   // Resize Img
@@ -58,6 +59,7 @@ const AddNewPetComponent = () => {
   // Open Menu
   const [istoggleMenu, setIsToggleMenu] = useState(false);
 
+const currentUser = useSelector((state: RootState) => state.userAuth);
   // Pet Link
   // const petLink = `https://bgirlalma.github.io/pets-love-project/${id}`;
 
@@ -108,7 +110,6 @@ const AddNewPetComponent = () => {
   // перевіряемо startDate на null
   if (!startDate) return;
 
-  console.log(startDate.toISOString());
 
   return (
     <AddPetContainer>
@@ -207,14 +208,21 @@ const AddNewPetComponent = () => {
             }}
             onSubmit={async (values, { resetForm, setSubmitting }) => {
               try {
+                   if (!currentUser?.user?.uid) {
+                     Notify.failure("User not authenticated");
+                     return;
+                }
+                
                 const payload = {
                   values: {
                     ...values,
                     birthday: startDate.toISOString().split("T")[0],
                   },
                   sex,
+                  uid: currentUser.user.uid,
                   file: null,
                 };
+                
                 await dispatch(AddPet(payload)).unwrap();
                 resetForm();
                 setSex("unknown");

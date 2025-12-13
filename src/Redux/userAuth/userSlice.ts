@@ -11,8 +11,8 @@ interface User {
   uid: string;
   name: string;
   email: string;
-  phone: string;
-  avatar: string;
+  phone?: string;
+  avatar?: string;
   isLogIn?: boolean;
 }
 
@@ -88,7 +88,7 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoader = false;
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       // 📌 Выход пользователя
       .addCase(logoutUser.pending, (state) => {
@@ -109,7 +109,7 @@ const userSlice = createSlice({
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoader = false;
-        state.error = action.payload;
+        state.error = action.payload as string;
       })
       // 📌 Обновление данных пользователя в Firestore
       .addCase(updateUserDataInFirestore.pending, (state) => {

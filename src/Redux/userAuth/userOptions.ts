@@ -170,9 +170,9 @@ export const updateUserDataInFirestore = createAsyncThunk<
               url: "https://pets-love-c6929.firebaseapp.com",
             });
             Notify.info(
-              "Мы отправили письмо для подтверждения email. Подтверди его прежде чем менять."
+              "Ми відправили лист для підтвердження email. Підтвердіть його перед тим як змінювати."
             );
-            return thunkAPI.rejectWithValue("Email не подтверждён");
+            return thunkAPI.rejectWithValue("Email не підтверджений");
           } else {
             await updateEmail(user, email);
           }

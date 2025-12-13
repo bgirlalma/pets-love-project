@@ -2,12 +2,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ref } from "firebase/database";
 import { auth, database, firestore } from "../../../firebase/firebase";
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { PetDefaultAvatar } from "../../../Image/add-pet/pet-default-avatar";
 import { get } from "firebase/database";
 import { onAuthStateChanged, User as FirebaseUser } from "firebase/auth";
 
 interface Pet {
+  petId: string;
   uid: string;
   name: string;
   title: string;
@@ -28,7 +29,7 @@ interface AddPetPayload {
 }
 
 interface UpdatePetPayload {
-  uid: string;
+  petId: string;
   values: {
     name: string;
     title: string;
@@ -59,8 +60,7 @@ export const fetchPets = createAsyncThunk<Pet[]>(
   "pets/fetchPets",
   async (_, thunkAPI) => {
     try {
-      const user = await getCurrentUser()
-      // console.log("👤 Current user:", auth.currentUser);
+      const user = await getCurrentUser();
 
       if (!user) {
         return thunkAPI.rejectWithValue("User not authenticated");
@@ -68,19 +68,13 @@ export const fetchPets = createAsyncThunk<Pet[]>(
 
       const ref = collection(firestore, `users/${user.uid}/mypets`);
       const snapshot = await getDocs(ref);
-  
 
-        const pets: Pet[] = [];
-       
-      snapshot.forEach((doc) => {
-       
-        const data = doc.data() as Omit<Pet, 'uid'>
-        pets.push({
-          uid: doc.id,
-          ...data
-        });
-      });
-      //  console.log("Fetched pets:", pets);
+      const pets: Pet[] = snapshot.docs.map((doc) => ({
+        petId: doc.id, 
+        uid: user.uid, 
+        ...(doc.data() as Omit<Pet, "petId" | "uid">),
+      }));
+
       return pets;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message || "Failed to fetch pets");
@@ -89,21 +83,20 @@ export const fetchPets = createAsyncThunk<Pet[]>(
 );
 
 // add new my pet
-export const AddPet = createAsyncThunk<Pet, AddPetPayload>(
+export const AddPet = createAsyncThunk<Pet, AddPetPayload & { uid: string }>(
   "pets/AddPet",
-  async ({ values, sex }, thunkAPI) => {
+  async ({ values, sex, uid }, thunkAPI) => {
     try {
-      // console.log("AddPet payload:", { values, sex });
-      const user = auth.currentUser;
-
-      if (!user) {
+      if (!uid) {
         return thunkAPI.rejectWithValue("User not authenticated");
       }
 
       const imgURL = PetDefaultAvatar;
-     
+      const petId = crypto.randomUUID();
+
       const newPet: Pet = {
-        uid: crypto.randomUUID(),
+        petId,
+        uid,
         name: values.name,
         title: values.title,
         birthday: values.birthday,
@@ -113,8 +106,8 @@ export const AddPet = createAsyncThunk<Pet, AddPetPayload>(
       };
 
       // добавляем в подколлекцию пользователя
-      const userPetsRef = collection(firestore, `users/${user.uid}/mypets`);
-      await addDoc(userPetsRef, newPet);
+      const userPetsRef = doc(firestore, `users/${uid}/mypets/${petId}`);
+      await setDoc(userPetsRef, newPet);
       return newPet;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
@@ -125,62 +118,59 @@ export const AddPet = createAsyncThunk<Pet, AddPetPayload>(
 
 // update profile my pet
 
-export const updateProfileMyPets = createAsyncThunk<Pet, UpdatePetPayload>(
-  "pets/updateProfileMyPets",
-  async ({ uid, values }, thunkAPI) => {
-    try {
-      // check user auth
-      const user = auth.currentUser;
-
-      if (!user) {
-        return thunkAPI.rejectWithValue("User not authenticated");
-      }
-
-      // update IMG
-      let imgURL = PetDefaultAvatar;
-
-      const petRef = doc(firestore, `users/${user.uid}/mypets${uid}`);
-
-      const updatedData: Partial<Pet> = {
-        name: values.name,
-        title: values.title,
-        birthday: values.birthday,
-        petType: values.petType,
-        sex: values.sex,
-      };
-
-      await updateDoc(petRef, updatedData)
-
-      return {
-        uid,
-        ...updatedData,
-        createdAt: new Date().toISOString()
-      } as Pet;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+export const updateProfileMyPets = createAsyncThunk<
+  Pet,
+  UpdatePetPayload & { petId: string, uid: string }
+>("pets/updateProfileMyPets", async ({ uid, petId, values }, thunkAPI) => {
+  try {
+    // check user auth
+    if (!uid) {
+      return thunkAPI.rejectWithValue("User not authenticated");
     }
+
+    // update IMG
+    let imgURL = PetDefaultAvatar;
+
+    const petRef = doc(firestore, `users/${uid}/mypets/${petId}`);
+
+    const updatedData: Partial<Pet> = {
+      name: values.name,
+      title: values.title,
+      birthday: values.birthday,
+      petType: values.petType,
+      sex: values.sex,
+    };
+
+    await updateDoc(petRef, updatedData);
+
+    return {
+      petId,
+      uid,
+      ...updatedData,
+    } as Pet;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
 // delete pet profile
-export const deletedPet = createAsyncThunk<string, string>(
-  "pets/deletedPet",
-  async (petId, thunkAPI) => {
-    try {
-      const user = auth.currentUser;
-
-      if (!user) {
-        return thunkAPI.rejectWithValue("User not authenticated");
-      }
-
-      const petRef = doc(firestore, `users/${user.uid}/mypets${petId}`)
-      await deleteDoc(petRef)
-      return petId
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+export const deletedPet = createAsyncThunk<
+  string,
+  { petId: string; uid: string }
+>("pets/deletedPet", async ({ petId, uid }, thunkAPI) => {
+  try {
+    if (!uid) {
+      return thunkAPI.rejectWithValue("User not authenticated");
     }
+
+    const petRef = doc(firestore, `users/${uid}/mypets/${petId}`);
+    await deleteDoc(petRef);
+
+    return petId;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
 
 
 export const ListTypePets = createAsyncThunk(
