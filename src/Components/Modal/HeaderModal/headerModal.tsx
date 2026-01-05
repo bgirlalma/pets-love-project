@@ -8,7 +8,7 @@ import {
   ButtonMobileTabletContainer,
   ButtonLogIn,
   ButtonRegister,
-} from "./headerModal.styled";
+} from "./headerModal.styled.tsx";
 
 import close from "../../../Image/symbol-defs.svg";
 import { useHookAuth } from '../../../Redux/hooks/authhook';
