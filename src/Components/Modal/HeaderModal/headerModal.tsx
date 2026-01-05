@@ -75,5 +75,4 @@ const HeaderModal: React.FC<Props> = ({
     </>
   );
 };
-
 export default HeaderModal;
